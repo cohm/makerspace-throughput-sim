@@ -359,9 +359,17 @@ def export_web(cohorts, fac):
     html = html.replace("/*__DEFAULTS__*/null", json.dumps(out, ensure_ascii=False))
     page = ascii_only(html)
     (web / "index.html").write_text(page, encoding="ascii")
-    # GitHub Pages copy (served from /docs on the main branch)
+    # GitHub Pages copy (served from /docs on the main branch). The artifact host adds the
+    # document skeleton itself; a standalone page needs its own (standards mode, viewport).
     (ROOT / "docs").mkdir(exist_ok=True)
-    (ROOT / "docs" / "index.html").write_text(page, encoding="ascii")
+    cut = page.index('<div class="wrap">')          # title, font links and page CSS go in <head>
+    head = page[:cut].replace('<meta charset="utf-8">\n', "")
+    standalone = ('<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
+                  '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
+                  '<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}'
+                  'body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>\n'
+                  + head + '</head>\n<body>\n' + page[cut:] + '\n</body>\n</html>\n')
+    (ROOT / "docs" / "index.html").write_text(standalone, encoding="ascii")
 
 
 def ascii_only(html: str) -> str:

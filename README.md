@@ -63,3 +63,11 @@ sits under `assumptions:`. The assumptions most worth replacing with real data:
   the schedule reviews. Master programmes and P1–P2 still use assumed values.
 - **Which periods candidate courses run in.** This would replace the random or balanced
   period assignment.
+
+## License
+
+Code and documentation (including `report.md` and the generated page) are released under
+the MIT License; see `LICENSE`. Third-party content is excluded and keeps its own terms:
+the Figtree fonts (SIL OFL, `fonts/OFL.txt`), and data retrieved from kth.se, KTH TimeEdit
+(via the published schedule reviews) and UHR, which is included for reproducibility. The
+course simulation's activities are invented; course coordinators have not been involved.
