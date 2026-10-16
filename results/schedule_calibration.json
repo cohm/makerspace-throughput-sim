@@ -1,0 +1,17 @@
+{
+ "cohort_periods": 28,
+ "busy_frac_4h_mean": 0.699,
+ "regular_free_halfdays_mean": 0.68,
+ "regular_free_halfdays_max": 4,
+ "busy_equiv_4h": 0.932,
+ "busy_frac_2h_mean": 0.475,
+ "regular_free_2h_mean": 6.32,
+ "busy_equiv_2h": 0.684,
+ "sched_h_per_week_mean": 18.8,
+ "pairwise_corr_mandatory": [
+  0.27,
+  0.36,
+  -0.01,
+  0.38
+ ]
+}

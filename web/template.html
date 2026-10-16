@@ -1,0 +1,564 @@
+<meta charset="utf-8">
+<title>SCI Makerspace Capacity</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a planning bench in the KTH profile. Controls rail on the left (stacks on phones), results sheet on the right:
+   headline sentence -> four figures -> served curve -> per programme-year bars -> machines. */
+:root {
+  /* KTH graphical profile, as in cohm/kth-doc-templates (md-to-pdf.css):
+     Figtree headings and UI, Georgia body, KTH blue accent, sand neutrals. */
+  --bg: #F3EFEC;          /* KTH sand #EBE5E0 mixed with broken white */
+  --sheet: #FFFFFF;
+  --ink: #212121;         /* KTH broken black */
+  --ink-2: #323232;       /* KTH gray dark */
+  --muted: #6E6E6E;
+  --rule: #E6E6E6;        /* KTH gray light */
+  --base: #A5A5A5;        /* KTH gray */
+  --accent: #004791;      /* KTH blue */
+  --accent-soft: #DEF0FF; /* KTH light blue */
+  --on-accent: #FFFFFF;
+  --series-1: #004791;
+  --good: #4DA060; --warning: #FFBE00; --serious: #A65900; --critical: #E86A58;
+  --display: "Figtree", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ui: "Figtree", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --body: Georgia, "Times New Roman", serif;
+  --mono: "SF Mono", Menlo, Monaco, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1A1A1A; --sheet: #212121; --ink: #FCFCFC; --ink-2: #E6E6E6; --muted: #A5A5A5;
+    --rule: #3A3A3A; --base: #5A5A5A; --accent: #6298D2; --accent-soft: #00305F; --series-1: #6298D2; --on-accent: #101010;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1A1A1A; --sheet: #212121; --ink: #FCFCFC; --ink-2: #E6E6E6; --muted: #A5A5A5;
+  --rule: #3A3A3A; --base: #5A5A5A; --accent: #6298D2; --accent-soft: #00305F; --series-1: #6298D2; --on-accent: #101010;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--body); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 28px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header { display: grid; gap: 6px; margin-bottom: 22px; max-width: 100ch; }
+.eyebrow { font: 600 12px/1 var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1 { font: 600 clamp(26px, 4vw, 36px)/1.15 var(--display); margin: 0; color: var(--accent); }
+h2 { font: 600 18px/1.25 var(--display); margin: 0; color: var(--accent); }
+.lede { color: var(--ink-2); margin: 4px 0 0; }
+.grid { display: grid; grid-template-columns: 330px minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Controls rail */
+.rail { display: grid; gap: 14px; position: sticky; top: max(12px, env(safe-area-inset-top, 0px)); max-height: calc(100vh - 24px); overflow: auto; padding-right: 4px; }
+@media (max-width: 900px) { .rail { position: static; max-height: none; } }
+.presets { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.presets button { font: 500 13px/1.2 var(--ui); padding: 9px 10px; border-radius: 6px; border: 1px solid var(--rule);
+  background: var(--sheet); color: var(--ink); cursor: pointer; text-align: left; }
+.presets button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); }
+.presets button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+details { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; }
+summary { font: 600 14px/1 var(--display); padding: 12px 14px; cursor: pointer; letter-spacing: .01em; }
+.ctl { display: grid; gap: 10px; padding: 2px 14px 14px; }
+.row { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: center; }
+.row label { font: 13px/1.35 var(--ui); color: var(--ink-2); }
+.row output { font: 500 13px var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); }
+.row input[type=range] { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); }
+.row select { grid-column: 1 / -1; font: 13px var(--ui); padding: 5px 6px; border-radius: 5px; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); }
+.row.check { grid-template-columns: auto 1fr; }
+.row.check input { accent-color: var(--accent); }
+.src { font: 11.5px/1.35 var(--ui); color: var(--muted); grid-column: 1 / -1; line-height: 1.35; }
+
+/* Results sheet */
+.sheet { display: grid; gap: 18px; min-width: 0; }
+.panel { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 18px; min-width: 0; }
+.headline { font: 400 clamp(17px, 2.1vw, 21px)/1.45 var(--body); margin: 0; }
+.headline b { font-weight: 600; color: var(--accent); }
+.status { font: 12px var(--ui); color: var(--muted); margin-top: 10px; }
+.figs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--rule); margin-top: 16px; }
+@media (max-width: 700px) { .figs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.fig { padding: 14px 14px 4px 0; display: grid; gap: 4px; align-content: start; }
+.fig + .fig { padding-left: 14px; border-left: 1px solid var(--rule); }
+@media (max-width: 700px) { .fig:nth-child(3) { border-left: 0; padding-left: 0; } }
+.fig .k { font: 600 11px/1.3 var(--ui); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.fig .v { font: 600 34px/1 var(--display); }
+.fig .v small { font: 500 14px var(--ui); color: var(--ink-2); margin-left: 3px; }
+.fig .n { font: 12.5px/1.4 var(--ui); color: var(--ink-2); }
+.pill { display: inline-flex; align-items: center; gap: 5px; font: 500 11.5px/1 var(--ui); padding: 3px 7px; border-radius: 99px; background: var(--bg); border: 1px solid var(--rule); color: var(--ink-2); }
+.pill i { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+.panel-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; margin-bottom: 10px; }
+.panel-head p { margin: 0; font-size: 13px; color: var(--ink-2); max-width: 60ch; }
+.chart { position: relative; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart svg text { font-family: var(--ui); }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--sheet); font: 12px/1.35 var(--ui); padding: 6px 8px; border-radius: 5px; white-space: nowrap; transform: translate(-50%, calc(-100% - 10px)); }
+.bars { display: grid; gap: 3px; }
+.bar { display: grid; grid-template-columns: 74px minmax(0, 1fr) 46px; gap: 10px; align-items: center; font: 12.5px var(--ui); }
+.bar .lab { font: 500 12px var(--mono); color: var(--ink-2); }
+.bar .track { position: relative; height: 14px; }
+.bar .fill { position: absolute; left: 0; top: 2px; bottom: 2px; background: var(--series-1); border-radius: 0 4px 4px 0; }
+.bar .ref { position: absolute; top: -2px; bottom: -2px; width: 0; border-left: 1.5px dashed var(--ink-2); }
+.bar .val { font: 12px var(--mono); font-variant-numeric: tabular-nums; text-align: right; color: var(--ink); }
+.bar.gap { margin-top: 8px; }
+.levelhead { font: 600 11px var(--ui); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 6px 0 2px; }
+table { border-collapse: collapse; width: 100%; font: 13px var(--ui); }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--rule); }
+th { font: 600 11px var(--ui); letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right; }
+th.num { text-align: right; }
+.tablewrap { overflow-x: auto; }
+.notes { font-size: 13px; color: var(--ink-2); display: grid; gap: 6px; max-width: 80ch; }
+.notes p { margin: 0; }
+code { font: 12.5px var(--mono); }
+@media (prefers-reduced-motion: no-preference) { .bar .fill { transition: width .25s ease; } }
+/* Tabs */
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--rule); margin-bottom: 18px; }
+.tabs button { font: 600 14.5px var(--ui); padding: 10px 14px 9px; border: 0; background: none; color: var(--ink-2); border-bottom: 3px solid transparent; cursor: pointer; }
+.tabs button[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.tabs button:focus-visible, .seg button:focus-visible, .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Course simulation */
+.sim-intro { display: grid; gap: 6px; max-width: 100ch; margin-bottom: 14px; }
+.sim-intro p { margin: 0; color: var(--ink-2); }
+.sim-disclaimer { padding: 10px 12px; border: 1.5px dashed var(--serious); border-radius: 6px; background: var(--sheet); color: var(--ink) !important; }
+.sim-bar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-bottom: 14px; font: 13px var(--ui); color: var(--ink-2); }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; background: var(--sheet); }
+.seg button { font: 500 13px var(--ui); padding: 7px 11px; border: 0; background: none; color: var(--ink); cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--rule); }
+.seg button span { font-weight: 400; opacity: .8; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.btn { font: 600 13px var(--ui); padding: 7px 14px; border-radius: 6px; border: 1px solid var(--accent); background: var(--accent); color: var(--on-accent); cursor: pointer; }
+.btn.ghost { background: var(--sheet); color: var(--accent); }
+.btn:disabled { opacity: .45; cursor: default; }
+.sim-bar input { font: 13px var(--ui); width: 6.5em; padding: 5px 6px; border: 1px solid var(--rule); border-radius: 5px; background: var(--sheet); color: var(--ink); margin-left: 4px; }
+#sim-progress { font-variant-numeric: tabular-nums; }
+.sim-grid { display: grid; grid-template-columns: minmax(270px, 360px) minmax(0, 1fr); gap: 18px; align-items: start; margin-bottom: 18px; }
+@media (max-width: 980px) { .sim-grid { grid-template-columns: minmax(0, 1fr); } }
+#sim-cards { display: grid; gap: 12px; max-height: 1000px; overflow: auto; padding: 2px; }
+@media (max-width: 980px) { #sim-cards { max-height: none; } }
+.sc { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 12px; display: grid; gap: 7px; min-width: 0; }
+.sc.current { box-shadow: 0 0 0 2px var(--cc); }
+.sc h3 { font: 600 15px/1.25 var(--display); margin: 0; color: var(--ink); }
+.sc p { margin: 0; font: 13px/1.45 var(--body); color: var(--ink-2); }
+.sc-head { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font: 600 11px var(--ui); letter-spacing: .04em; color: var(--muted); }
+.sc-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--cc); }
+.sc-mock { font: 700 10.5px var(--ui); text-transform: uppercase; letter-spacing: .08em; padding: 2px 7px; border-radius: 4px; border: 1.5px dashed var(--serious); color: var(--ink); }
+.sc-course { font: 600 12.5px/1.3 var(--ui); color: var(--ink-2); }
+.sc-ex { font: 700 10px var(--ui); text-transform: uppercase; letter-spacing: .06em; padding: 1px 6px; border-radius: 4px; border: 1.5px dashed var(--serious); color: var(--ink); }
+.illus { width: 100%; max-width: 250px; height: auto; display: block; overflow: visible; justify-self: center; }
+.illus .ghost { opacity: .22; }
+.sc-meta, .sc-res { font: 12px/1.4 var(--ui); color: var(--muted); }
+.sc-res { color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.sc-in { display: grid; grid-template-columns: repeat(auto-fit, minmax(76px, 1fr)); gap: 6px; }
+.sc-in label { display: grid; gap: 2px; font: 11px/1.2 var(--ui); color: var(--muted); }
+.sc-in input, .sc-in select { font: 13px var(--ui); padding: 4px 5px; border: 1px solid var(--rule); border-radius: 4px; background: var(--bg); color: var(--ink); width: 100%; min-width: 0; }
+.board-wrap { overflow-x: auto; }
+#sim-board { display: grid; grid-template-columns: 76px repeat(var(--weeks, 7), minmax(62px, 1fr)); gap: 3px; font: 11px var(--ui); min-width: 560px; }
+.bd-wk { text-align: center; display: grid; color: var(--ink-2); padding-bottom: 2px; }
+.bd-wk span { color: var(--muted); font-size: 10.5px; }
+.bd-row { color: var(--ink-2); display: flex; align-items: center; white-space: nowrap; font-size: 11px; font-variant-numeric: tabular-nums; }
+.bd-sep { font: 600 11px var(--ui); color: var(--muted); text-transform: uppercase; letter-spacing: .05em; padding: 12px 0 4px; }
+.bd-cell { background: var(--bg); border-radius: 4px; padding: 3px; display: grid; grid-template-columns: repeat(10, 1fr); grid-auto-rows: 5px; gap: 1px; grid-auto-flow: row dense; align-content: start; min-height: calc(var(--rows, 7) * 6px + 5px); }
+.bd-cell.blocked { background: repeating-linear-gradient(135deg, var(--rule) 0 3px, transparent 3px 7px); min-height: 47px; }
+.bd-cell.closed { background: repeating-linear-gradient(135deg, var(--rule) 0 1px, transparent 1px 6px); min-height: 31px; opacity: .7; }
+.pc { display: block; border-radius: 1.5px; transition: opacity .2s; min-width: 0; }
+.pc.teacher { background: var(--ink-2); grid-column: span 1; }
+.pc.hidden-pc, .pc.incoming { visibility: hidden; }
+.pc.dim { opacity: .15; }
+.sim-fly { position: fixed; width: 10px; height: 10px; border-radius: 2px; pointer-events: none; z-index: 50; transition: transform .75s cubic-bezier(.3, .7, .2, 1); }
+#sim-util, .sim-pu { font: 12.5px var(--ui); color: var(--muted); margin: 10px 0 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .illus .pz { transition: transform .7s cubic-bezier(.2, .8, .2, 1), opacity .7s ease-in; }
+}
+.sc.broken .illus .pz { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(.8); opacity: 0; }
+
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">KTH School of Engineering Sciences · Teknikringen 8 · first-order model</div>
+    <h1>How much makerspace time can each programme-year get?</h1>
+    <p class="lede">The model packs one makerspace project course per SCI programme-year into room 3203 (50 people, plus the 3202 and 3D-studio side rooms). It covers CTFYS, CTMAT and CFATE years 1–3, COPEN, and 11 masters × 2 years. The page reports supervised daytime hours per project group, and the evening and weekend open access that staffing allows on top. Move the sliders to test the assumptions.</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Views">
+    <button type="button" role="tab" id="tabbtn-model" aria-controls="tab-model" aria-selected="true">Capacity model</button>
+    <button type="button" role="tab" id="tabbtn-sim" aria-controls="tab-sim" aria-selected="false">Course simulation 2027/28</button>
+  </nav>
+
+  <section id="tab-model" role="tabpanel" aria-labelledby="tabbtn-model">
+  <div class="grid">
+    <aside class="rail" aria-label="Assumptions">
+      <div class="presets" role="group" aria-label="Scenario presets" id="presets"></div>
+
+      <details open>
+        <summary>Demand</summary>
+        <div class="ctl">
+          <div class="row"><label for="courses">Makerspace courses per programme-year</label><output id="courses_o"></output><input type="range" id="courses" min="1" max="3" step="1"></div>
+          <div class="row"><label for="scale">Cohort sizes × </label><output id="scale_o"></output><input type="range" id="scale" min="0.5" max="1.5" step="0.05"><span class="src">1.0 = UHR admissions HT25/HT26 plus assumed retention and internal flow into masters</span></div>
+          <div class="row"><label for="group">Students per project group</label><output id="group_o"></output><input type="range" id="group" min="2" max="6" step="1"></div>
+          <div class="row"><label for="planned">Hours each course plans per group</label><output id="planned_o"></output><input type="range" id="planned" min="4" max="40" step="4"></div>
+        </div>
+      </details>
+
+      <details open>
+        <summary>Sessions and room</summary>
+        <div class="ctl">
+          <div class="row"><label for="S">Students per supervised section</label><output id="S_o"></output><input type="range" id="S" min="8" max="50" step="1"></div>
+          <div class="row"><label for="teach">Teachers/TAs per section</label><output id="teach_o"></output><input type="range" id="teach" min="0" max="3" step="1"></div>
+          <div class="row check"><input type="checkbox" id="side"><label for="side">Sessions may spill into 3202 and the 3D studio (+12 people)</label></div>
+          <div class="row"><label for="eff">Booking efficiency</label><output id="eff_o"></output><input type="range" id="eff" min="0.5" max="1" step="0.05"></div>
+          <div class="row"><label for="other">Daytime 3203 used for other things</label><output id="other_o"></output><input type="range" id="other" min="0" max="0.5" step="0.05"><span class="src">Outreach, inductions, theses, student teams</span></div>
+          <div class="row"><label for="weeks">Teaching weeks per period</label><output id="weeks_o"></output><input type="range" id="weeks" min="5" max="9" step="1"></div>
+          <div class="row"><label for="L">Session length</label><select id="L"><option value="4">4 h (08–12, 13–17)</option><option value="2">2 h</option></select></div>
+          <div class="row"><label for="maxpw">Max sessions per section per week</label><output id="maxpw_o"></output><input type="range" id="maxpw" min="1" max="4" step="1"></div>
+        </div>
+      </details>
+
+      <details open>
+        <summary>Timetable</summary>
+        <div class="ctl">
+          <div class="row"><label for="alloc">Period allocation</label><select id="alloc"><option value="balanced">School balances courses over P1–P4</option><option value="random">Each programme picks its own period</option></select></div>
+          <div class="row"><label for="autumn">Share of courses in P1–P2</label><output id="autumn_o"></output><input type="range" id="autumn" min="0.25" max="1" step="0.05"><span class="src">Only applies when programmes pick their own period</span></div>
+          <div class="row"><label for="bbusy">Bachelor: half-days busy for a weekly slot</label><output id="bbusy_o"></output><input type="range" id="bbusy" min="0" max="1" step="0.01"><span class="src">Measured from VT26/VT27 TimeEdit: 0.93 for a slot that recurs every week, 0.70 if booking can move week to week</span></div>
+          <div class="row"><label for="bown">Bachelor: half-days the makerspace course owns per week</label><output id="bown_o"></output><input type="range" id="bown" min="0" max="6" step="1"><span class="src">A typical spring course owns about 2 (median 6 h/week)</span></div>
+          <div class="row"><label for="busy">Master: daytime busy with other teaching</label><output id="busy_o"></output><input type="range" id="busy" min="0" max="0.95" step="0.05"><span class="src">Assumed, no timetable data yet</span></div>
+          <div class="row"><label for="corr">How much busy times coincide across programmes</label><output id="corr_o"></output><input type="range" id="corr" min="0" max="1" step="0.05"></div>
+          <div class="row"><label for="pw">Project weeks at the end of each period</label><output id="pw_o"></output><input type="range" id="pw" min="1" max="9" step="1"></div>
+          <div class="row"><label for="minfree">Master: half-days the makerspace course owns per week</label><output id="minfree_o"></output><input type="range" id="minfree" min="0" max="6" step="1"></div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Open access and staffing</summary>
+        <div class="ctl">
+          <div class="row"><label for="hv">Opening hours wanted</label><select id="hv"><option value="documented">Weekdays 17–21, Sat 10–16 (App. E, 26 h/wk)</option><option value="extended">Weekdays 17–23, weekends 10–23 (Education deck, 56 h/wk)</option></select></div>
+          <div class="row"><label for="staff">Makerspace staff FTE</label><output id="staff_o"></output><input type="range" id="staff" min="0.5" max="5" step="0.1"><span class="src">Budget (App. A): 0.3 operations + 1.0 technical manager</span></div>
+          <div class="row"><label for="sa">Student-assistant FTE</label><output id="sa_o"></output><input type="range" id="sa" min="0" max="4" step="0.25"></div>
+          <div class="row"><label for="supshare">Staff time available for supervision</label><output id="supshare_o"></output><input type="range" id="supshare" min="0.1" max="1" step="0.05"></div>
+          <div class="row"><label for="occ">Average occupancy of open hours</label><output id="occ_o"></output><input type="range" id="occ" min="0.2" max="1" step="0.05"></div>
+          <div class="row"><label for="noncourse">Open access used outside courses</label><output id="noncourse_o"></output><input type="range" id="noncourse" min="0" max="0.7" step="0.05"></div>
+          <div class="row"><label for="ppg">Group members per visit</label><output id="ppg_o"></output><input type="range" id="ppg" min="1" max="4" step="1"></div>
+          <div class="row"><label for="ups">Users per supervisor</label><output id="ups_o"></output><input type="range" id="ups" min="5" max="40" step="1"></div>
+        </div>
+      </details>
+    </aside>
+
+    <main class="sheet">
+      <section class="panel" aria-live="polite">
+        <p class="headline" id="headline"></p>
+        <div class="figs">
+          <div class="fig"><span class="k">Upper bound</span><span class="v" id="f_bound"></span><span class="n" id="f_bound_n"></span></div>
+          <div class="fig"><span class="k">Guaranteed</span><span class="v" id="f_guar"></span><span class="n" id="f_guar_n"></span></div>
+          <div class="fig"><span class="k" id="f_mean_k"></span><span class="v" id="f_mean"></span><span class="n" id="f_mean_n"></span></div>
+          <div class="fig"><span class="k">Open access</span><span class="v" id="f_open"></span><span class="n" id="f_open_n"></span></div>
+        </div>
+        <div class="status" id="status"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Programme-years that get every session</h2>
+          <p>Share of the 32 programme-years whose courses get all the hours they planned, over many random timetables. "Guaranteed" is the last point at or above 95%.</p>
+        </div>
+        <div class="chart" id="curve"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2 id="bars_h"></h2>
+          <p>Mean scheduled hours per group, with the planned hours as a dashed line. Large bachelor cohorts lose out first: their timetables are packed (measured), so 5–6 sections must share the few half-days the makerspace course owns.</p>
+        </div>
+        <div class="bars" id="bars"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Machines, per year</h2>
+          <p>Machine-hours available over 34 open weeks, compared with what the project groups need.</p>
+        </div>
+        <div class="tablewrap"><table id="mach"></table></div>
+      </section>
+
+      <section class="panel notes">
+        <h2>How to read this</h2>
+        <p><b>Upper bound</b> assumes perfect packing: bookable 3203 hours × parallel sections, shared equally by all sections. <b>Guaranteed</b> and <b>mean</b> come from a timetable simulation. Each programme-year gets a period and a weekly pattern of busy half-days. Its sections are then packed greedily into free 3203 slots. A skilled human scheduler might beat the greedy packing slightly, but never the upper bound.</p>
+        <p><b>Bachelor timetables</b> are measured from the VT26 and VT27-draft TimeEdit schedules for CTFYS, CTMAT and CFATE years 1–3 and COPEN, via the published schedule reviews. Years 1–2 have mandatory teaching in about 70% of half-days, and it shifts from week to week, so only 0.7 of 10 half-days are free week after week. A makerspace course must therefore use its own timetable slots. Master timetables and autumn periods are not measured yet.</p>
+        <p><b>Open access</b> counts staffed evening and Saturday hours (1 staff + 1 student assistant per open hour, App. E §8.2), times users at once, occupancy and the share used by courses, divided by group members per visit.</p>
+        <p><b>Sources.</b> Rooms, limits, equipment and hours come from the SCI MakerSpace Implementation Plan (May 2026), Appendices A, D and E, and the autumn-2026 presentations. Year-1 and external master intake are UHR admission statistics for HT25/HT26. Everything else is an assumption: retention, master show-up rate, internal flow into masters, timetable busyness, occupancy. The browser runs the same model as the Python version (<code>run.py</code>), with fewer random draws, so values can differ by a few tenths of an hour.</p>
+      </section>
+    </main>
+  </div>
+  </section>
+
+  <section id="tab-sim" role="tabpanel" aria-labelledby="tabbtn-sim" hidden>
+    <div class="sim-intro">
+      <h2>One makerspace course per programme-year, academic year 2027/28</h2>
+      <p class="sim-disclaimer"><b>The activities on this tab were made up for throughput simulation.</b> The course coordinators have not been involved in this step, and nothing here is a proposal for their courses. Attaching plausible activities to real courses that already have lab or project modules still gives a useful first-order estimate of how much use the makerspace could support.</p>
+      <p> Each course's picture is split into its project groups. Step through a period, course by course or week by week. Each group then lands as a puzzle piece in the makerspace's slots. Supervised sessions take whole sections of 24 into the course's own daytime half-days. Unsupervised work goes into the staffed evenings, two group members per visit. Change students, group size, hours or period on any card. A new seed gives a slightly different year.</p>
+    </div>
+    <div class="sim-bar">
+      <div class="seg" id="sim-periods" role="group" aria-label="Period"></div>
+      <div class="seg" id="sim-mode" role="group" aria-label="Step by"><button type="button" data-m="course" aria-pressed="true">By course</button><button type="button" data-m="week" aria-pressed="false">By week</button></div>
+      <button type="button" class="btn ghost" id="sim-reset">Start over</button>
+      <button type="button" class="btn" id="sim-step">Step</button>
+      <button type="button" class="btn ghost" id="sim-all">Place all</button>
+      <span id="sim-progress"></span>
+      <label for="sim-seed">Seed<input id="sim-seed" type="number" min="0" step="1"></label>
+      <button type="button" class="btn ghost" id="sim-shuffle">New seed</button>
+      <label for="sim-open">Staffed evenings/week<input id="sim-open" type="number" min="0" max="6" step="1"></label>
+    </div>
+    <div class="sim-grid">
+      <div id="sim-cards" aria-label="Courses in this period"></div>
+      <div class="panel">
+        <div class="board-wrap"><div id="sim-board" aria-label="Makerspace slots per week: daytime half-days and staffed open-access evenings"></div></div>
+        <p id="sim-util"></p>
+      </div>
+    </div>
+    <section class="panel">
+      <h2>All courses in 2027/28</h2>
+      <div id="sim-summary"></div>
+    </section>
+    <section class="panel notes" style="margin-top:18px">
+      <h2>How the simulation works</h2>
+      <p><b>Courses:</b> one real course per programme-year from the 2026 programme syllabi on kth.se, mandatory or conditionally elective where possible and with LAB or PRO-type examination modules. The makerspace activities are invented. Participants are summed over the programme-years that take a course; for now each course has one taker with the whole cohort. Many courses are shared between programmes, and Ladok numbers can replace this later.</p>
+      <p><b>Daytime:</b> each half-day holds 62 people (3203 plus the 3202 and 3D-studio side rooms). A section of about 24 students in whole groups, plus a teacher, meets only in the half-days its course owns in the timetable. These are taken from TimeEdit for SK1105 and SE1055, and drawn at random per seed for the others (2 for bachelor, 3 for master courses). Hatched cells are booked for other use (23% of half-days, as in the capacity model). Sessions are spread over the course's project weeks, at most 2 per section per week.</p>
+      <p><b>Evenings:</b> only staffed evenings are open, 4 by default (about 20 staffed hours a week with the budgeted staff). Each takes 40 people (two supervisors), and a group sends up to two members per visit. Courses marked "example" are invented but plausible projects. Period dates are approximate.</p>
+    </section>
+  </section>
+</div>
+
+<script>
+/*__MODEL__*/
+</script>
+<script>
+/*__SIM__*/
+</script>
+<script>
+const D = /*__DEFAULTS__*/null;
+const $ = id => document.getElementById(id);
+const DRAWS = 60, SEED = 3;
+
+// slider id -> [path in params, formatter]
+const pct = v => Math.round(v * 100) + "%";
+const CTL = {
+  courses: ["course.courses_per_cohort", v => v],
+  scale: ["_scale", v => (+v).toFixed(2)],
+  group: ["course.group_size", v => v],
+  planned: ["_planned", v => v + " h"],
+  S: ["course.section_size", v => v],
+  teach: ["course.teachers_per_section", v => v],
+  eff: ["room.booking_efficiency", pct],
+  other: ["room.other_daytime_use", pct],
+  weeks: ["calendar.teaching_weeks_per_period", v => v],
+  maxpw: ["course.max_sessions_per_week", v => v],
+  autumn: ["_autumn", pct],
+  bbusy: ["_bbusy", pct],
+  bown: ["_bown", v => v],
+  busy: ["timetable.busy_fraction", pct],
+  corr: ["timetable.busy_correlation", v => (+v).toFixed(2)],
+  pw: ["timetable.project_weeks", v => v],
+  minfree: ["timetable.min_free_blocks", v => v],
+  staff: ["_staff", v => (+v).toFixed(1)],
+  sa: ["_sa", v => (+v).toFixed(2)],
+  supshare: ["_supshare", pct],
+  occ: ["open_access.occupancy", pct],
+  noncourse: ["open_access.noncourse_share", pct],
+  ppg: ["open_access.persons_present_per_group", v => v],
+  ups: ["_ups", v => v],
+};
+const get = (o, path) => path.split(".").reduce((a, k) => a[k], o);
+const set = (o, path, v) => { const ks = path.split("."); const last = ks.pop(); ks.reduce((a, k) => a[k], o)[last] = v; };
+
+function scenarioParams(name) {
+  const sc = { ...D.scenarios[name] }; delete sc.label; delete sc.description;
+  return MakerModel.deepMerge(D.base, sc);
+}
+
+function loadPreset(name) {
+  const p = scenarioParams(name);
+  for (const [id, [path]] of Object.entries(CTL)) {
+    let v;
+    if (path === "_scale") v = 1;
+    else if (path === "_planned") v = 16;
+    else if (path === "_autumn") v = p.timetable.period_mix[0] + p.timetable.period_mix[1];
+    else if (path === "_staff") v = D.facility.staffing.staff_fte;
+    else if (path === "_sa") v = D.facility.staffing.student_assistant_fte;
+    else if (path === "_supshare") v = D.facility.staffing.staff_supervision_share;
+    else if (path === "_ups") v = D.facility.staffing.max_users_per_supervisor;
+    else if (path === "_bbusy") v = p.timetable.by_level?.bachelor?.busy_fraction ?? p.timetable.busy_fraction;
+    else if (path === "_bown") v = p.timetable.by_level?.bachelor?.min_free_blocks ?? p.timetable.min_free_blocks;
+    else v = get(p, path);
+    $(id).value = v;
+  }
+  $("side").checked = p.room.side_rooms_in_sessions;
+  $("L").value = String(p.course.session_hours);
+  $("alloc").value = p.timetable.period_assignment;
+  $("hv").value = p.open_access.hours_variant;
+  for (const b of $("presets").children) b.setAttribute("aria-pressed", String(b.dataset.s === name));
+  update();
+}
+
+function readState() {
+  const p = scenarioParams("optimal");
+  const fac = JSON.parse(JSON.stringify(D.facility));
+  let scale = 1, planned = 16;
+  const bach = {};
+  p.timetable.by_level = { bachelor: bach };
+  for (const [id, [path, fmt]] of Object.entries(CTL)) {
+    const v = +$(id).value;
+    $(id + "_o").textContent = fmt(v);
+    if (path === "_scale") scale = v;
+    else if (path === "_planned") planned = v;
+    else if (path === "_autumn") p.timetable.period_mix = [v / 2, v / 2, (1 - v) / 2, (1 - v) / 2];
+    else if (path === "_staff") fac.staffing.staff_fte = v;
+    else if (path === "_sa") fac.staffing.student_assistant_fte = v;
+    else if (path === "_supshare") fac.staffing.staff_supervision_share = v;
+    else if (path === "_ups") fac.staffing.max_users_per_supervisor = v;
+    else if (path === "_bbusy") bach.busy_fraction = v;
+    else if (path === "_bown") bach.min_free_blocks = v;
+    else set(p, path, v);
+  }
+  p.room.side_rooms_in_sessions = $("side").checked;
+  p.course.session_hours = +$("L").value;
+  p.timetable.period_assignment = $("alloc").value;
+  p.open_access.hours_variant = $("hv").value;
+  p.timetable.project_weeks = Math.min(p.timetable.project_weeks, p.calendar.teaching_weeks_per_period);
+  $("pw").max = p.calendar.teaching_weeks_per_period;
+  $("autumn").disabled = p.timetable.period_assignment === "balanced";
+  const cohorts = D.cohorts.map(c => ({ ...c, students: Math.max(1, Math.round(c.students * scale)) }));
+  return { p, fac, cohorts, planned };
+}
+
+const fmt1 = v => (Math.round(v * 10) / 10).toLocaleString("en-GB", { maximumFractionDigits: 1 });
+
+function update() {
+  const t0 = performance.now();
+  const { p, fac, cohorts, planned } = readState();
+  const M = MakerModel;
+  const a = M.analytic(cohorts, fac, p);
+  const fh = M.feasibleHours(cohorts, fac, p, DRAWS, SEED);
+  const m = Math.ceil(planned / p.course.session_hours);
+  const sim = M.simulate(cohorts, fac, p, m, DRAWS, SEED);
+  const oa = M.openAccess(cohorts, fac, p);
+  const mach = M.machines(cohorts, fac, p);
+  const X = p.course.courses_per_cohort;
+  const plannedReal = m * p.course.session_hours;
+
+  // Headline
+  const courseTxt = X === 1 ? "1 course" : X + " courses";
+  $("headline").innerHTML =
+    `Each of the ${cohorts.length} programme-years can plan <b>${courseTxt} with ${fh.Y} h</b> of supervised makerspace time per group and course, with at least 95% of programme-years getting all of it. ` +
+    `If every course plans ${plannedReal} h, groups get <b>${fmt1(sim.meanHours)} h</b> on average. ` +
+    `On top of that, about <b>${fmt1(oa.Z)} h</b> of open access per group, limited by ${oa.binding}.`;
+
+  $("f_bound").innerHTML = `${fmt1(a.Y_max)}<small>h</small>`;
+  $("f_bound_n").textContent = `${a.parallel_sections} section${a.parallel_sections === 1 ? "" : "s"} at once · ${a.total_sections * X} sections · ${Math.round(a.room_hours_per_year)} room-h/yr`;
+  $("f_guar").innerHTML = `${fh.Y}<small>h</small>`;
+  const lastOk = fh.curve.find(([y]) => y === fh.Y);
+  $("f_guar_n").textContent = fh.Y === 0 ? "even one session fails for >5%" : `${Math.round(lastOk[1] * 1000) / 10}% of programme-years served`;
+  $("f_mean_k").textContent = `If all plan ${plannedReal} h`;
+  $("f_mean").innerHTML = `${fmt1(sim.meanHours)}<small>h</small>`;
+  $("f_mean_n").textContent = `worst 5%: ${fmt1(sim.p5Hours)} h`;
+  $("f_open").innerHTML = `${fmt1(oa.Z)}<small>h</small>`;
+  const dot = oa.binding === "opening hours" ? "var(--good)" : "var(--warning)";
+  $("f_open_n").innerHTML = `${fmt1(oa.hours)} of ${oa.wanted} h/wk staffed <span class="pill"><i style="background:${dot}"></i>${oa.binding} limit</span>`;
+  $("status").textContent = `${DRAWS} random timetables per point · computed in ${Math.round(performance.now() - t0)} ms`;
+
+  drawCurve(fh.curve, p.sim.success_threshold, fh.Y);
+  drawBars(cohorts, sim.perCohortHours, plannedReal);
+  drawMachines(mach);
+}
+
+function drawCurve(curve, thr, Yg) {
+  const Wd = 720, H = 260, ml = 44, mr = 16, mt = 14, mb = 38;
+  const xmax = Math.max(8, curve[curve.length - 1][0] + 2);
+  const x = v => ml + (v / xmax) * (Wd - ml - mr);
+  const y = v => mt + (1 - v) * (H - mt - mb);
+  const step = xmax > 40 ? 8 : 4;
+  let g = "";
+  for (let v = 0; v <= 1.0001; v += 0.25)
+    g += `<line x1="${ml}" x2="${Wd - mr}" y1="${y(v)}" y2="${y(v)}" stroke="var(--rule)"/><text x="${ml - 8}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="var(--muted)">${v * 100}%</text>`;
+  for (let v = 0; v <= xmax; v += step)
+    g += `<text x="${x(v)}" y="${H - mb + 18}" text-anchor="middle" font-size="11" fill="var(--muted)">${v}</text>`;
+  g += `<text x="${(ml + Wd - mr) / 2}" y="${H - 4}" text-anchor="middle" font-size="12" fill="var(--ink-2)">Hours planned per group and course</text>`;
+  g += `<line x1="${ml}" x2="${Wd - mr}" y1="${y(1) + (H - mt - mb)}" y2="${y(0)}" stroke="var(--base)"/>`;
+  g += `<line x1="${ml}" x2="${Wd - mr}" y1="${y(thr)}" y2="${y(thr)}" stroke="var(--ink-2)" stroke-dasharray="4 4"/><text x="${Wd - mr}" y="${y(thr) - 6}" text-anchor="end" font-size="11" fill="var(--ink-2)">95% target</text>`;
+  const pts = curve.map(([h, s]) => `${x(h)},${y(s)}`).join(" ");
+  g += `<polyline points="${pts}" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round"/>`;
+  curve.forEach(([h, s]) => {
+    const em = h === Yg;
+    g += `<circle cx="${x(h)}" cy="${y(s)}" r="${em ? 6 : 4.5}" fill="var(--series-1)" stroke="var(--sheet)" stroke-width="2"/>`;
+    g += `<circle class="hit" data-h="${h}" data-s="${s}" cx="${x(h)}" cy="${y(s)}" r="14" fill="transparent"/>`;
+  });
+  if (Yg > 0) {
+    const s = curve.find(([h]) => h === Yg)[1];
+    g += `<text x="${x(Yg)}" y="${y(s) - 12}" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">${Yg} h</text>`;
+  }
+  const el = $("curve");
+  el.innerHTML = `<svg viewBox="0 0 ${Wd} ${H}" role="img" aria-label="Share of programme-years served versus planned hours">${g}</svg><div class="tip" hidden></div>`;
+  const tip = el.querySelector(".tip");
+  el.querySelectorAll(".hit").forEach(c => {
+    const show = () => {
+      const r = el.getBoundingClientRect(), b = c.getBoundingClientRect();
+      tip.hidden = false;
+      tip.textContent = `${c.dataset.h} h planned: ${(c.dataset.s * 100).toFixed(1)}% served`;
+      tip.style.left = (b.left + b.width / 2 - r.left) + "px";
+      tip.style.top = (b.top + b.height / 2 - r.top) + "px";
+    };
+    c.addEventListener("pointerenter", show);
+    c.addEventListener("pointerleave", () => { tip.hidden = true; });
+  });
+}
+
+function drawBars(cohorts, hours, planned) {
+  $("bars_h").textContent = `Per programme-year, if every course plans ${planned} h`;
+  const max = Math.max(planned, ...hours) * 1.05;
+  let html = "", lastLevel = null;
+  cohorts.forEach((c, i) => {
+    if (c.level !== lastLevel) {
+      html += `<div class="levelhead">${c.level === "bachelor" ? "Civilingenjör years 1–3 and COPEN" : "Master programmes, years 1–2"}</div>`;
+      lastLevel = c.level;
+    }
+    const w = (hours[i] / max) * 100, r = (planned / max) * 100;
+    html += `<div class="bar" title="${c.name}, year ${c.year}: ${c.students} students"><span class="lab">${c.cohort}</span>` +
+      `<span class="track"><span class="fill" style="width:${w}%"></span><span class="ref" style="left:${r}%"></span></span>` +
+      `<span class="val">${fmt1(hours[i])} h</span></div>`;
+  });
+  $("bars").innerHTML = html;
+}
+
+function drawMachines(mach) {
+  const st = u => u > 0.9 ? ["var(--critical)", "over capacity"] : u > 0.6 ? ["var(--warning)", "tight"] : ["var(--good)", "ok"];
+  $("mach").innerHTML = `<thead><tr><th>Resource</th><th class="num">Supply h</th><th class="num">Demand h</th><th class="num">Use</th><th>State</th><th class="num">h per using group</th></tr></thead><tbody>` +
+    mach.map(r => { const [c, l] = st(r.utilisation); return `<tr><td>${r.resource}</td><td class="num">${Math.round(r.supply).toLocaleString("en-GB")}</td><td class="num">${Math.round(r.demand).toLocaleString("en-GB")}</td><td class="num">${Math.round(r.utilisation * 100)}%</td><td><span class="pill"><i style="background:${c}"></i>${l}</span></td><td class="num">${fmt1(r.maxPerGroup)}</td></tr>`; }).join("") +
+    `</tbody>`;
+}
+
+// Presets
+const order = Object.keys(D.scenarios);
+$("presets").innerHTML = order.map(k => `<button type="button" data-s="${k}" aria-pressed="false">${D.scenarios[k].label}</button>`).join("");
+$("presets").addEventListener("click", e => { const b = e.target.closest("button"); if (b) loadPreset(b.dataset.s); });
+
+let timer;
+document.querySelectorAll(".rail input, .rail select").forEach(el => el.addEventListener("input", () => {
+  for (const b of $("presets").children) b.setAttribute("aria-pressed", "false");
+  for (const [id, [, f]] of Object.entries(CTL)) $(id + "_o").textContent = f(+$(id).value);
+  clearTimeout(timer); timer = setTimeout(update, 120);
+}));
+loadPreset("coordinated");
+
+// Tabs (bare #simulation in the link opens the simulation tab)
+function showTab(which) {
+  const sim = which === "sim";
+  $("tab-model").hidden = sim; $("tab-sim").hidden = !sim;
+  $("tabbtn-model").setAttribute("aria-selected", String(!sim));
+  $("tabbtn-sim").setAttribute("aria-selected", String(sim));
+}
+$("tabbtn-model").addEventListener("click", () => showTab("model"));
+$("tabbtn-sim").addEventListener("click", () => showTab("sim"));
+SimUI.init($("tab-sim"), D.sim);
+if (location.hash === "#simulation") showTab("sim");
+</script>

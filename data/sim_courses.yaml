@@ -1,0 +1,516 @@
+# Course-level simulation for the "Course simulation" tab (web/sim.js).
+#
+# ALL ACTIVITIES ARE MOCK EXAMPLES. Each programme-year has one real course from its
+# 2026 curriculum (data/kth_courses/curricula.csv, fetched by tools/fetch_kth_courses.py),
+# chosen because it is mandatory or conditionally elective and its syllabus already has a
+# LAB or PRO-type examination module (data/kth_courses/course_modules.csv). The makerspace
+# activity attached to it is invented and only shows what such a course *might* do.
+# Exceptions are noted per course (`pick_note`).
+#
+# Per course:
+#   id          unique key (course code; add a suffix if one course appears twice)
+#   code        KTH course code (name and exam modules are looked up at export time)
+#   takers      programme-years taking the course, each with `share` of that cohort (0-1) or
+#               `students` (head count). Participants = sum over takers, unless `students`
+#               is given on the course itself. For now every course has one taker at 100%.
+#   period      P1-P4 of 2027/28;  weeks: [first, last] teaching week of the makerspace phase
+#   group_size  students per project group (1-10)
+#   sup_h       supervised makerspace hours per group (4 h daytime sessions, whole section)
+#   unsup_h     unsupervised hours per group (4 h evening/Saturday visits, <= 2 members each)
+#   own         half-days the course holds in the timetable (TimeEdit, where known);
+#               omitted -> `own_n` random half-days per seed (bachelor 2, master 3)
+#   motif       illustration key in web/sim.js
+
+calendar:
+  year: "2027/28"
+  teaching_weeks: 7
+  note: >-
+    Period starts for 2027/28: HT27 teaching starts 2027-08-30 (kth.se curriculum data); the
+    other starts are approximate. The board shows 7 teaching weeks per period and ignores
+    single holidays (e.g. Easter 2028 falls in P4).
+  periods:
+    P1: {term: HT27, start: "2027-08-30"}
+    P2: {term: HT27, start: "2027-11-01"}
+    P3: {term: VT28, start: "2028-01-17"}
+    P4: {term: VT28, start: "2028-03-20"}
+
+rules:
+  section_students: 24       # students per supervised section (whole groups)
+  teachers_per_section: 1
+  session_h: 4
+  max_sessions_per_week: 2   # per section
+  day_cap_persons: 62        # 3203 (50) + 3202 (8) + 3D studio (4)
+  day_available: 0.765       # booking efficiency 0.85 x (1 - 0.10 other use), as in the model
+  open_slots_per_week: 4     # staffed evenings: ~19.5 staffed h/week -> 4 x 4 h (Mon-Thu)
+  open_cap_persons: 40       # 2 supervisors x 20 users
+  visit_members: 2           # group members present per open-access visit (at most the group size)
+  visit_h: 4
+  own_n: {bachelor: 2, master: 3}
+
+courses:
+  # ---------------- P1 ----------------
+  - id: SH1015
+    code: SH1015
+    takers: [{cohort: CTFYS-3, share: 1.0}]
+    activity: "Build a radiation detector"
+    period: P1
+    weeks: [1, 7]
+    group_size: 4
+    sup_h: 12
+    unsup_h: 8
+    own_n: 3
+    motif: detector
+    text: >-
+      One of the four labs becomes a larger project: build a detector, calibrate it with a
+      check source, then go out and measure background radiation somewhere on campus.
+    pick_note: "Suggested by the CTFYS programme director; SH1015 has PRO1 and LAB1."
+
+  - id: SA1006
+    code: SA1006
+    takers: [{cohort: CTMAT-3, share: 1.0}]
+    activity: "Design of experiments with a catapult"
+    period: P1
+    weeks: [2, 6]
+    group_size: 4
+    sup_h: 8
+    unsup_h: 4
+    motif: catapult
+    text: >-
+      One of the course's project modules uses a laser-cut catapult with adjustable arm, angle
+      and tension as the test object for a factorial design, then hits a target in one shot.
+
+  - id: SD2900
+    code: SD2900
+    takers: [{cohort: TAEEM-1, share: 1.0}]
+    activity: "CubeSat structure mock-up"
+    period: P1
+    weeks: [2, 7]
+    group_size: 5
+    sup_h: 12
+    unsup_h: 8
+    motif: cubesat
+    text: >-
+      Teams design a 1U CubeSat frame, print and machine it, and check it against launch loads
+      with a shaker test and a finite-element model.
+
+  - id: SD2810
+    code: SD2810
+    takers: [{cohort: TAEEM-2, share: 1.0}]
+    activity: "Flutter model for the wind tunnel"
+    period: P1
+    weeks: [2, 6]
+    group_size: 4
+    sup_h: 8
+    unsup_h: 8
+    motif: airfoil
+    text: >-
+      A printed wing section on a flexible mount is tuned to flutter inside the wind-tunnel
+      speed range; groups compare the onset speed with their aeroelastic model.
+
+  - id: SD2229
+    code: SD2229
+    takers: [{cohort: TFORM-2, share: 1.0}]
+    activity: "Instrumented scale vehicle"
+    period: P1
+    weeks: [2, 7]
+    group_size: 4
+    sup_h: 8
+    unsup_h: 8
+    motif: car
+    text: >-
+      Groups add an IMU and wheel-speed sensors to a 1:10 vehicle and identify its handling
+      from manoeuvres, compared with a bicycle model.
+
+  - id: SD2111
+    code: SD2111
+    takers: [{cohort: TJVTM-2, share: 1.0}]
+    activity: "Track vibration sensor"
+    period: P1
+    weeks: [3, 6]
+    group_size: 3
+    sup_h: 4
+    unsup_h: 4
+    motif: sensor
+    text: >-
+      Build a low-cost accelerometer node, deploy it next to a commuter line and estimate track
+      condition from the vibration spectra.
+    pick_note: "Conditionally elective with a LAB measurement module; railway is a TFORM track from HT26."
+
+  - id: SD2165
+    code: SD2165
+    takers: [{cohort: TTEMM-1, share: 1.0}]
+    activity: "Loudspeaker shaker and plate modes"
+    period: P1
+    weeks: [2, 6]
+    group_size: 4
+    sup_h: 8
+    unsup_h: 4
+    motif: beam
+    text: >-
+      Build a shaker from a loudspeaker and find mode shapes of cut plates with Chladni
+      patterns and an accelerometer, compared with FE eigenmodes.
+
+  - id: SF2529
+    code: SF2529
+    takers: [{cohort: TTMAM-2, share: 1.0}]
+    activity: "Weather stations and an inverse problem"
+    period: P1
+    weeks: [3, 7]
+    group_size: 3
+    sup_h: 4
+    unsup_h: 4
+    motif: weather
+    text: >-
+      Build a few cheap sensor nodes, deploy them around campus and reconstruct a temperature
+      field from sparse, noisy data.
+
+  - id: SH2603
+    code: SH2603
+    takers: [{cohort: TNEEM-1, share: 1.0}]
+    activity: "Printed shielding geometries"
+    period: P1
+    weeks: [3, 6]
+    group_size: 3
+    sup_h: 4
+    unsup_h: 4
+    motif: detector
+    text: >-
+      Print shield geometries filled with different materials and measure attenuation with a
+      detector, compared with Monte Carlo transport results.
+
+  # ---------------- P2 ----------------
+  - id: SK1115
+    code: SK1115
+    takers: [{cohort: COPEN-1, share: 1.0}]
+    activity: "Build and measure a wind-turbine generator"
+    period: P2
+    weeks: [2, 7]
+    group_size: 4
+    sup_h: 8
+    unsup_h: 4
+    motif: turbine
+    text: >-
+      Teams wind a coil, mount magnets on a printed rotor with their own blades and measure
+      induced voltage and power against wind speed.
+
+  - id: SD1002
+    code: SD1002
+    takers: [{cohort: CFATE-1, share: 1.0}]
+    activity: "Design and fly a glider"
+    period: P2
+    weeks: [1, 7]
+    group_size: 4
+    sup_h: 12
+    unsup_h: 8
+    motif: glider
+    text: >-
+      First-year teams design, build and fly a small glider, iterating wing area and centre of
+      gravity. The makerspace plan already uses SD1002 as its model for material budgets.
+
+  - id: SE1010
+    code: SE1010
+    takers: [{cohort: CFATE-2, share: 1.0}]
+    activity: "Lightweight bracket, designed and tested"
+    period: P2
+    weeks: [3, 7]
+    group_size: 4
+    sup_h: 8
+    unsup_h: 4
+    motif: gear
+    text: >-
+      Groups design a bracket for minimum mass at a given load, print or mill it, and test it
+      to failure against their hand calculations.
+
+  - id: SD2125
+    code: SD2125
+    takers: [{cohort: CFATE-3, share: 1.0}]
+    activity: "Instrumented vibration measurement"
+    period: P2
+    weeks: [2, 6]
+    group_size: 4
+    sup_h: 8
+    unsup_h: 4
+    motif: spring
+    text: >-
+      Build a small mass-spring-damper rig with an accelerometer and identify its transfer
+      function from step and sweep responses.
+    pick_note: "SD2125 is also mandatory for TTEMM year 1 (shared course; one taker modelled for now)."
+
+  - id: SH2103
+    code: SH2103
+    takers: [{cohort: TTFYM-1, share: 1.0}]
+    activity: "Cosmic-ray muon counter"
+    period: P2
+    weeks: [2, 7]
+    group_size: 3
+    sup_h: 8
+    unsup_h: 4
+    motif: interferometer
+    text: >-
+      Groups build a scintillator and SiPM counter in a printed light-tight housing and measure
+      the muon rate against zenith angle.
+
+  - id: EJ2410
+    code: EJ2410
+    takers: [{cohort: TFORM-1, share: 1.0}]
+    activity: "Hybrid drivetrain test bench"
+    period: P2
+    weeks: [3, 7]
+    group_size: 4
+    sup_h: 8
+    unsup_h: 4
+    motif: car
+    text: >-
+      A bench with a small motor, flywheel and printed gearbox shows energy flows between drive
+      modes; groups measure losses and compare with their model.
+
+  - id: SD2307
+    code: SD2307
+    takers: [{cohort: TJVTM-1, share: 1.0}]
+    activity: "Scale bogie on a track rig"
+    period: P2
+    weeks: [3, 7]
+    group_size: 4
+    sup_h: 8
+    unsup_h: 4
+    motif: train
+    text: >-
+      A 1:10 bogie runs on a short curved track section; students measure wheel-rail forces
+      with strain gauges and relate them to curving theory.
+
+  - id: SD2705
+    code: SD2705
+    takers: [{cohort: TMRSM-2, share: 1.0}]
+    activity: "Model hull in the towing tank"
+    period: P2
+    weeks: [2, 7]
+    group_size: 4
+    sup_h: 8
+    unsup_h: 8
+    motif: boat
+    text: >-
+      Groups print a 1 m planing hull from their design, measure resistance in a towing tank
+      and scale the result to full size.
+
+  - id: SM2501
+    code: SM2501
+    takers: [{cohort: TTEMM-2, share: 1.0}]
+    activity: "Instrumented insole"
+    period: P2
+    weeks: [2, 7]
+    group_size: 3
+    sup_h: 8
+    unsup_h: 4
+    motif: wearable
+    text: >-
+      Build a pressure-sensing insole and an IMU logger, record gait and compare joint loads
+      with a musculoskeletal model.
+    pick_note: "Elective, with a PRO module; listed in the makerspace plan as ready from 2027."
+
+  - id: SH2007
+    code: SH2007
+    takers: [{cohort: TNEEM-2, share: 1.0}]
+    activity: "Natural-circulation loop experiment"
+    period: P2
+    weeks: [2, 7]
+    group_size: 3
+    sup_h: 4
+    unsup_h: 4
+    motif: loop
+    text: >-
+      Plan, build and run a small experiment: a printed loop with a heater that shows natural
+      circulation, measured and compared with a 1D model.
+    pick_note: "No TNEEM year-2 course has a LAB/PRO module; SH2007 is listed in the makerspace plan as ready from 2027."
+
+  - id: SF2957
+    code: SF2957
+    takers: [{cohort: TBDVM-2, share: 1.0}]
+    activity: "Experimental design with home-made sensors"
+    period: P2
+    weeks: [3, 6]
+    group_size: 3
+    sup_h: 4
+    unsup_h: 2
+    motif: sensor
+    text: >-
+      Plan and run a randomised experiment with cheap sensors and use it as data for a
+      statistical learning project, including power and bias.
+    pick_note: "SF2957 is also conditionally elective for TTMAM year 2 (shared course)."
+
+  # ---------------- P3 ----------------
+  - id: SE1055
+    code: SE1055
+    takers: [{cohort: CTFYS-2, share: 1.0}]
+    activity: "Lightweight truss bridge"
+    period: P3
+    weeks: [3, 7]
+    group_size: 4
+    sup_h: 8
+    unsup_h: 4
+    own: [Mon pm, Tue am, Wed am, Fri pm]
+    motif: bridge
+    text: >-
+      Groups design a laser-cut truss bridge, predict its failure load with energy methods and
+      test it to failure, in place of some exercise sessions.
+    pick_note: "Suggested by the CTFYS programme director (SG1113 in P1 is an alternative)."
+
+  - id: SK2005
+    code: SK2005
+    takers: [{cohort: TTFYM-2, share: 1.0}]
+    activity: "3D-printed interferometer"
+    period: P3
+    weeks: [1, 7]
+    group_size: 3
+    sup_h: 12
+    unsup_h: 8
+    motif: interferometer
+    text: >-
+      Students print kinematic mounts, build a Michelson interferometer and use it to measure
+      the thermal expansion of printed parts.
+
+  - id: SD2414
+    code: SD2414
+    takers: [{cohort: TMRSM-1, share: 1.0}]
+    activity: "Composite sandwich panels"
+    period: P3
+    weeks: [2, 7]
+    group_size: 4
+    sup_h: 8
+    unsup_h: 8
+    motif: panel
+    text: >-
+      Lay up sandwich panels in the basement composites room, cure them and test them in
+      four-point bending against laminate theory.
+
+  - id: SF2812
+    code: SF2812
+    takers: [{cohort: MATH-1, share: 1.0}]
+    activity: "Optimal nesting for the laser cutter"
+    period: P3
+    weeks: [3, 6]
+    group_size: 3
+    sup_h: 4
+    unsup_h: 2
+    motif: lattice
+    text: >-
+      Formulate a cutting-stock problem for real parts, solve it and cut the optimised layout,
+      comparing material waste with the default layout.
+    pick_note: "The Mathematics master has no LAB course; SF2812 is elective with PRO modules."
+
+  - id: SF2565
+    code: SF2565
+    takers: [{cohort: CSSE-2, share: 1.0}]
+    activity: "Digital twin of a balancing robot"
+    period: P3
+    weeks: [2, 7]
+    group_size: 3
+    sup_h: 8
+    unsup_h: 4
+    motif: robot
+    text: >-
+      Write the simulation and the embedded controller of a two-wheeled balancing robot in C++,
+      then build the robot and tune it.
+    pick_note: "Period assumed (not published on kth.se)."
+
+  - id: SF2705
+    code: SF2705
+    takers: [{cohort: MATH-2, share: 1.0}]
+    activity: "Fourier analysis of a home-made instrument"
+    period: P3
+    weeks: [3, 6]
+    group_size: 3
+    sup_h: 4
+    unsup_h: 2
+    motif: speaker
+    text: >-
+      Build a simple string or wind instrument, record it and analyse its spectrum; tune the
+      design so that the overtones match a target.
+    pick_note: "No LAB/PRO course in Mathematics year 2; elective; period assumed."
+
+  # ---------------- P4 ----------------
+  - id: SK1105
+    code: SK1105
+    takers: [{cohort: CTFYS-1, share: 1.0}]
+    activity: "A home-built spectrometer"
+    period: P4
+    weeks: [2, 7]
+    group_size: 3
+    sup_h: 8
+    unsup_h: 4
+    own: [Tue am, Tue pm, Wed am, Wed pm]
+    motif: spectrometer
+    text: >-
+      Two of the four labs become a project: a grating spectrometer in a 3D-printed housing
+      with a phone camera, calibrated against known lamps. The labs already run in ~24-student
+      sessions on Tue/Wed (TimeEdit).
+    pick_note: "Suggested by the CTFYS programme director; examined through RED modules, not LAB/PRO."
+
+  - id: SG1115
+    code: SG1115
+    takers: [{cohort: CTMAT-1, share: 1.0}]
+    activity: "Modelling a double pendulum"
+    period: P4
+    weeks: [3, 7]
+    group_size: 4
+    sup_h: 8
+    unsup_h: 4
+    motif: pendulum
+    text: >-
+      The course project becomes a build: a double pendulum with angle sensors, compared with
+      numerical solutions, including where they diverge.
+
+  - id: SH1017
+    code: SH1017
+    takers: [{cohort: CTMAT-2, share: 1.0}]
+    activity: "Optics and waves bench"
+    period: P4
+    weeks: [2, 6]
+    group_size: 3
+    sup_h: 8
+    unsup_h: 4
+    motif: spectrometer
+    text: >-
+      Lab sessions on a printed optical bench students assemble themselves: diffraction,
+      interference and a simple spectrometer.
+
+  - id: SF2822
+    code: SF2822
+    takers: [{cohort: TTMAM-1, share: 1.0}]
+    activity: "Optimised and printed structure"
+    period: P4
+    weeks: [3, 7]
+    group_size: 3
+    sup_h: 8
+    unsup_h: 4
+    motif: lattice
+    text: >-
+      Students write a small topology optimiser, print the resulting beam and test whether its
+      stiffness matches the computation.
+
+  - id: DD2365
+    code: DD2365
+    takers: [{cohort: CSSE-1, share: 1.0}]
+    activity: "Validate a flow simulation by experiment"
+    period: P4
+    weeks: [3, 7]
+    group_size: 3
+    sup_h: 4
+    unsup_h: 4
+    motif: drop
+    text: >-
+      Print a bluff body, film its wake in a small water channel and compare the shedding
+      frequency with the group's own simulation.
+
+  - id: DD2424
+    code: DD2424
+    takers: [{cohort: TBDVM-1, share: 1.0}]
+    activity: "Wearable sensor dataset"
+    period: P4
+    weeks: [2, 5]
+    group_size: 3
+    sup_h: 4
+    unsup_h: 4
+    motif: wearable
+    text: >-
+      Assemble a wearable motion logger, collect a labelled activity dataset from the class and
+      train a model on it.

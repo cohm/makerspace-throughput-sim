@@ -1,0 +1,7 @@
+variant,guaranteed_Y,share_served_at_8h,mean_if_plan_16h,p5,bachelor_mean,big_bachelor_mean,master_mean
+"Before calibration: bachelor 70% busy, varying week to week",8,0.958,11.1,6.7,9.9,9.5,12.3
+"Measured, recurring weekly slot, course owns 2 half-days (default)",4,0.914,10.6,6.0,9.1,8.4,12.3
+"Measured, course owns 1 half-day",4,0.757,9.5,3.3,6.0,5.4,13.3
+"Measured, course owns 3 half-days",8,0.979,11.3,7.2,10.3,10.0,12.3
+"Measured, course owns 4 half-days",8,0.993,11.6,8.0,10.8,10.6,12.4
+"Measured, 2 h sessions in timetable gaps (course owns 3 x 2 h)",8,0.99,11.2,8.7,10.5,10.3,12.0

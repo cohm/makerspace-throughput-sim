@@ -1,0 +1,4 @@
+resource,supply_h,demand_h,utilisation,max_h_per_using_group
+3D printers,12240.0,4040.0,0.33,24.24
+CNC,680.0,454.5,0.67,4.49
+Metal machines,2720.0,606.0,0.22,17.95

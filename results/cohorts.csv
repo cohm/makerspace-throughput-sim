@@ -1,0 +1,33 @@
+cohort,programme,name,year,level,students,basis,sections,groups
+COPEN-1,COPEN,Öppen ingång (1 yr),1,bachelor,99,UHR mean HT25/HT26,5,25
+CTFYS-1,CTFYS,Teknisk fysik,1,bachelor,142,UHR mean HT25/HT26,6,36
+CTFYS-2,CTFYS,Teknisk fysik,2,bachelor,131,y1 x retention + COPEN inflow (assumed),6,33
+CTFYS-3,CTFYS,Teknisk fysik,3,bachelor,124,y2 x retention (assumed),6,31
+CTMAT-1,CTMAT,Teknisk matematik,1,bachelor,75,UHR mean HT25/HT26,4,19
+CTMAT-2,CTMAT,Teknisk matematik,2,bachelor,68,y1 x retention + COPEN inflow (assumed),3,17
+CTMAT-3,CTMAT,Teknisk matematik,3,bachelor,65,y2 x retention (assumed),3,17
+CFATE-1,CFATE,Farkostteknik,1,bachelor,114,UHR mean HT25/HT26,5,29
+CFATE-2,CFATE,Farkostteknik,2,bachelor,103,y1 x retention + COPEN inflow (assumed),5,26
+CFATE-3,CFATE,Farkostteknik,3,bachelor,98,y2 x retention (assumed),5,25
+TTFYM-1,TTFYM,Engineering Physics,1,master,75,UHR x show-up + internal flow (assumed),4,19
+TTFYM-2,TTFYM,Engineering Physics,2,master,71,m1 x retention (assumed),3,18
+TAEEM-1,TAEEM,Aerospace Engineering,1,master,87,UHR x show-up + internal flow (assumed),4,22
+TAEEM-2,TAEEM,Aerospace Engineering,2,master,83,m1 x retention (assumed),4,21
+TFORM-1,TFORM,Vehicle Engineering,1,master,51,UHR x show-up + internal flow (assumed),3,13
+TFORM-2,TFORM,Vehicle Engineering,2,master,48,m1 x retention (assumed),2,12
+TJVTM-1,TJVTM,Railway Engineering (TFORM track HT26),1,master,22,UHR x show-up + internal flow (assumed),1,6
+TJVTM-2,TJVTM,Railway Engineering (TFORM track HT26),2,master,21,m1 x retention (assumed),1,6
+TMRSM-1,TMRSM,Naval Architecture,1,master,22,UHR x show-up + internal flow (assumed),1,6
+TMRSM-2,TMRSM,Naval Architecture,2,master,21,m1 x retention (assumed),1,6
+TTEMM-1,TTEMM,Engineering Mechanics,1,master,47,UHR x show-up + internal flow (assumed),2,12
+TTEMM-2,TTEMM,Engineering Mechanics,2,master,45,m1 x retention (assumed),2,12
+TTMAM-1,TTMAM,Applied & Computational Mathematics,1,master,41,UHR x show-up + internal flow (assumed),2,11
+TTMAM-2,TTMAM,Applied & Computational Mathematics,2,master,39,m1 x retention (assumed),2,10
+CSSE-1,CSSE,Computer Simulations (TTMAM track),1,master,37,UHR x show-up + internal flow (assumed),2,10
+CSSE-2,CSSE,Computer Simulations (TTMAM track),2,master,35,m1 x retention (assumed),2,9
+TNEEM-1,TNEEM,Nuclear Energy Engineering,1,master,37,UHR x show-up + internal flow (assumed),2,10
+TNEEM-2,TNEEM,Nuclear Energy Engineering,2,master,35,m1 x retention (assumed),2,9
+TBDVM-1,TBDVM,Biostatistics & Data Science (joint KI),1,master,42,UHR x show-up + internal flow (assumed),2,11
+TBDVM-2,TBDVM,Biostatistics & Data Science (joint KI),2,master,39,m1 x retention (assumed),2,10
+MATH-1,MATH,Mathematics (joint SU) — PLACEHOLDER,1,master,27,PLACEHOLDER + internal flow (assumed),2,7
+MATH-2,MATH,Mathematics (joint SU) — PLACEHOLDER,2,master,26,m1 x retention (assumed),2,7

@@ -1,0 +1,17 @@
+section_size,scenario,label,parallel_sections,sections,Y_fluid_bound,Y_sim
+16,optimal,Optimal spread,3,141,18.23,16
+16,coordinated,"Realistic, coordinated",3,141,18.23,4
+16,uncoordinated,"Realistic, uncoordinated",3,141,18.23,4
+16,concentrated,Concentrated P1-P2,3,141,18.23,4
+24,optimal,Optimal spread,2,96,17.85,16
+24,coordinated,"Realistic, coordinated",2,96,17.85,4
+24,uncoordinated,"Realistic, uncoordinated",2,96,17.85,4
+24,concentrated,Concentrated P1-P2,2,96,17.85,4
+32,optimal,Optimal spread,1,81,10.58,8
+32,coordinated,"Realistic, coordinated",1,81,10.58,4
+32,uncoordinated,"Realistic, uncoordinated",1,81,10.58,4
+32,concentrated,Concentrated P1-P2,1,81,10.58,0
+48,optimal,Optimal spread,1,54,15.87,12
+48,coordinated,"Realistic, coordinated",1,54,15.87,4
+48,uncoordinated,"Realistic, uncoordinated",1,54,15.87,4
+48,concentrated,Concentrated P1-P2,1,54,15.87,4

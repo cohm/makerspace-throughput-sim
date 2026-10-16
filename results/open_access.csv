@@ -1,0 +1,5 @@
+hours_variant,staffing,staff_fte,sa_fte,open_h_per_week_wanted,open_h_per_week_staffed,binding,simultaneous_users,Z
+documented,budgeted,1.3,1.0,26,19.5,staff,40,11.0
+documented,matched,1.73,1.0,26,26.0,opening hours,40,14.7
+extended,budgeted,1.3,1.0,56,19.5,staff,40,11.0
+extended,matched,3.73,1.87,56,56.0,opening hours,40,31.7

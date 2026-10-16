@@ -1,0 +1,75 @@
+# Model parameters. `base` applies everywhere; scenarios override.
+base:
+  calendar:
+    periods: 4
+    teaching_weeks_per_period: 7     # assumed; KTH periods ~7 teaching weeks + exam week
+    open_weeks_per_year: 34          # assumed: 28 teaching + exam/re-exam weeks, no summer
+  course:
+    courses_per_cohort: 1            # the target: one makerspace course per programme-year
+    section_size: 24                 # students per supervised session (swept 16-48)
+    teachers_per_section: 1          # course teacher/TA present, counts toward room cap
+    group_size: 4                    # project group
+    session_hours: 4                 # 4 h blocks (08-12, 13-17); 2 also supported
+    max_sessions_per_week: 2         # per section
+  room:
+    booking_efficiency: 0.85         # assumed: holidays, set-up/clean-up, maintenance days
+    other_daytime_use: 0.10          # assumed: share of 3203 daytime for outreach, inductions, thesis work
+    side_rooms_in_sessions: true     # sessions may spill into 3202 + 3D studio (adds 12 persons)
+  timetable:
+    busy_fraction: 0.0               # share of a cohort's daytime blocks taken by other teaching
+    busy_correlation: 0.0            # 0 = independent between cohorts, 1 = all cohorts busy at same times
+    min_free_blocks: 2               # the makerspace course owns at least this many blocks per week in the cohort's timetable
+    by_level: {}                     # per-level overrides of busy_fraction / min_free_blocks (bachelor | master)
+    project_weeks: 7                 # weeks of the period in which project sessions can happen (aligned to period end)
+    period_mix: [0.25, 0.25, 0.25, 0.25]  # share of courses in P1..P4
+    period_assignment: balanced      # balanced (greedy load-levelling) | random
+  open_access:
+    hours_variant: documented        # documented | extended (see facility.yaml)
+    occupancy: 0.6                   # assumed: average / max simultaneous users (peaky demand)
+    noncourse_share: 0.3             # assumed: open-access capacity used by non-course projects, teams, theses
+    persons_present_per_group: 2     # assumed: how many group members show up per open-access visit
+    rooms: [r3203, studio3d]         # 3202 closed evenings (AppE: partial access, no machining)
+  machines:
+    printer_hours_per_week: 60       # assumed: each printer runs ~60 h/week incl. unattended
+    printer_uptime: 0.75
+    printer_h_per_group: 8
+    cnc_hours_per_week: 40           # staffed daytime only
+    cnc_uptime: 0.5
+    cnc_share_of_groups: 0.3
+    cnc_h_per_group: 3
+    metal_hours_per_week: 40
+    metal_uptime: 0.5
+    metal_share_of_groups: 0.3
+    metal_h_per_group: 4
+  sim:
+    draws: 200
+    success_threshold: 0.95          # share of cohorts that must get all their sessions
+    seed: 1
+
+# Bachelor timetable calibration (tools/schedule_analysis.py -> results/schedule_calibration.json),
+# from TimeEdit VT26 + VT27-draft for CTFYS/CTMAT/CFATE years 1-2 and COPEN, mandatory courses:
+#   half-day blocks busy on average 0.70, but only 0.68 of 10 are free in >=75% of teaching
+#   weeks -> busy fraction for a weekly recurring 4 h slot ~0.93; a spring course owns a
+#   median 6 h/week in ~2 regular half-days; 2 h slots: 6.3 of 20 regularly free (~0.68).
+#   Pairwise correlation between programme years 0.0-0.4. Autumn assumed like spring.
+# Masters: no timetable data, keep the 0.7 assumption.
+scenarios:
+  optimal:
+    label: "Optimal spread"
+    description: "School-coordinated period allocation, no timetable conflicts, sessions anywhere in the 7 teaching weeks"
+  coordinated:
+    label: "Realistic, coordinated"
+    description: "School balances courses over P1-P4; bachelor cohorts only free in the makerspace course's own ~2 half-days/week (measured), masters ~70% busy (assumed); project sessions in the last 5 weeks of the period"
+    timetable: {busy_fraction: 0.7, busy_correlation: 0.3, project_weeks: 5,
+                by_level: {bachelor: {busy_fraction: 0.93, min_free_blocks: 2}}}
+  uncoordinated:
+    label: "Realistic, uncoordinated"
+    description: "As coordinated, but each programme picks its period independently (uniformly at random)"
+    timetable: {busy_fraction: 0.7, busy_correlation: 0.3, project_weeks: 5, period_assignment: random,
+                by_level: {bachelor: {busy_fraction: 0.93, min_free_blocks: 2}}}
+  concentrated:
+    label: "Concentrated P1-P2"
+    description: "As uncoordinated, but 70% of courses land in P1-P2 (AppE §8.1 expects an autumn peak)"
+    timetable: {busy_fraction: 0.7, busy_correlation: 0.3, project_weeks: 5, period_assignment: random,
+                period_mix: [0.35, 0.35, 0.15, 0.15],
+                by_level: {bachelor: {busy_fraction: 0.93, min_free_blocks: 2}}}

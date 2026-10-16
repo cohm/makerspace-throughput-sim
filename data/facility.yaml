@@ -1,0 +1,76 @@
+# SCI Makerspace facility — Alternative 1 (496 m², incl. basement), Teknikringen 8.
+# Every value carries `src`. "assumed" = not in the planning documents; edit freely.
+# Doc abbreviations (internal project planning documents, not in this repository):
+#   Plan  = Implementation-Plan-SCI-MakerSpace-FINAL.pdf (2026-05-15)
+#   AppA/AppE/AppF = Appendix A (Budget) / E (Safety) / F (Complete report)
+#   Decks = SCI-MakerSpace presentation Education.pptx / Lab.pptx
+
+rooms:
+  r3203:
+    name: "3203 Project/course room"
+    area_m2: 91
+    max_persons: 50
+    src: "Decks, ventilation/RFP slide ('3203: 50'); course slide 'Movable benches, up to 50 persons'"
+    role: main_course_room
+  r3202:
+    name: "3202 Heavy fabrication"
+    area_m2: 55
+    max_persons: 8
+    src: "Decks, ventilation/RFP slide"
+    role: side_room
+  studio3d:
+    name: "2209 east 3D printing studio"
+    area_m2: 20
+    max_persons: 4
+    src: "Decks, ventilation/RFP slide; 8 FDM printers per Rooms-and-functions slide"
+    role: side_room
+  r2211:
+    name: "2211 Student teams"
+    area_m2: 48
+    max_persons: 12
+    src: "Decks, ventilation/RFP slide; allocated to student teams in Alt 1"
+    role: student_teams   # not counted as course or open-access capacity
+  basement:
+    name: "Basement composites"
+    max_persons: 6
+    src: "Decks, ventilation/RFP slide"
+    role: specialist      # not counted (composites only, access level E)
+  r2207:
+    name: "2207 Lounge/entrance"
+    area_m2: 65
+    max_persons: 30
+    src: "Decks, Rooms-and-functions slide"
+    role: lounge          # not counted as work space
+
+machines:
+  fdm_printers:
+    count: 8
+    src: "AppA, AppD, Costs-machines.xlsx: 6 Prusa CORE One+ + 2 CORE One L"
+  cnc:
+    count: 1
+    src: "AppA/AppD: 1 Carvera desktop CNC (w/ laser module). Plan says '(2)' but only 1 budgeted"
+  metal_machines:
+    count: 4
+    src: "Decks: mill, bandsaw, lathe, metal bandsaw re-used in 3202 (+ new pillar drill, bandsaw, grinder, press brake)"
+
+hours:
+  # Weekday daytime is teaching priority (Plan p.10). Lunch 12-13 assumed not bookable.
+  daytime_bookable_h_per_day: 8      # 08-12, 13-17. src: Plan p.10 (08-17), lunch assumed
+  open_access_variants:
+    documented:
+      evening_h_per_weekday: 4       # 17-21. src: AppE §8.2
+      weekend_h_per_week: 6          # Sat 10-16. src: AppE §8.2
+    extended:
+      evening_h_per_weekday: 6       # 17-23. src: Education deck
+      weekend_h_per_week: 26         # Sat+Sun 10-23. src: Education deck
+
+staffing:
+  # Makerspace staff (course sessions are staffed by the course's own teachers).
+  staff_fte: 1.3                     # Ops manager 0.3 + Tech manager 1.0. src: AppA
+  student_assistant_fte: 1.0         # ~4 x 25%. src: AppA
+  fte_hours_per_week: 40
+  availability: 0.75                 # assumed: vacation, sick leave, term-time skew
+  staff_supervision_share: 0.5       # assumed: rest is maintenance, inductions, admin, purchasing
+  staff_per_open_hour: 1             # src: AppE §8.2 evenings "1 staff + student assistant"
+  sa_per_open_hour: 1                # src: AppE §8.2
+  max_users_per_supervisor: 20       # assumed

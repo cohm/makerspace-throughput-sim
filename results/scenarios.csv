@@ -1,0 +1,5 @@
+scenario,label,description,Y_fluid_bound,Y_sim,share_served_at_Y,share_served_at_Y_plus_session,mean_delivered_if_plan_16h,p5_delivered_if_plan_16h
+optimal,Optimal spread,"School-coordinated period allocation, no timetable conflicts, sessions anywhere in the 7 teaching weeks",17.85,16,0.98,0.238,16.0,16.0
+coordinated,"Realistic, coordinated","School balances courses over P1-P4; bachelor cohorts only free in the makerspace course's own ~2 half-days/week (measured), masters ~70% busy (assumed); project sessions in the last 5 weeks of the period",17.85,4,0.999,0.911,10.5,5.6
+uncoordinated,"Realistic, uncoordinated","As coordinated, but each programme picks its period independently (uniformly at random)",17.85,4,0.999,0.847,10.0,4.0
+concentrated,Concentrated P1-P2,"As uncoordinated, but 70% of courses land in P1-P2 (AppE §8.1 expects an autumn peak)",17.85,4,0.995,0.769,9.4,4.0

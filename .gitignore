@@ -1,0 +1,9 @@
+# docs
+Makerspace_docs_261016/
+
+# local common clutter
+.venv/
+__pycache__/
+.pytest_cache/
+.DS_Store
+.claude/

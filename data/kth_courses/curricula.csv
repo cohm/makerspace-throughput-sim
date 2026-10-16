@@ -1,0 +1,854 @@
+programme,track,track_name,year,course,name,status,credits,periods
+CTFYS,,,1,DD1301,Computer Introduction,V,1.5,P1
+CTFYS,,,1,DD1331,Fundamentals of Programming,O,5,P1 P2
+CTFYS,,,1,SF1672,Linear Algebra,O,7.5,P2
+CTFYS,,,1,SF1673,Analysis in one variable,O,7.5,P1
+CTFYS,,,1,SI1121,Thermodynamics,O,6,P1 P2
+CTFYS,,,1,SK1104,Classical Physics,O,7.5,P2 P3
+CTFYS,,,1,SF1674,Multivariable Calculus,O,7.5,P3
+CTFYS,,,1,SF1922,Probability Theory and Statistics,O,6,P4
+CTFYS,,,1,SG1112,Mechanics I,O,9,P3 P4
+CTFYS,,,1,SK1105,Experimental Physics,O,4,P4
+CTFYS,,,2,DD1327,Fundamentals of Computer Science,O,6,
+CTFYS,,,2,SE1055,"Strength of Materials and Solid Mechanics, Basic Course with Energy Methods",O,9,
+CTFYS,,,2,SF1544,"Numerical Methods, Basic Course IV",O,6,
+CTFYS,,,2,SF1681,Linear Algebra. Advanced Course,O,6,
+CTFYS,,,2,SF1683,Differential Equations and Transforms,O,9,
+CTFYS,,,2,SG1113,"Mechanics, Continuation Course",O,6,
+CTFYS,,,2,SH1014,Modern Physics,O,4,
+CTFYS,,,2,SI1146,Vector Analysis,O,4,
+CTFYS,,,2,SI1155,Theoretical Physics,O,6,
+CTFYS,,,2,SI1200,Mathematical Methods in Physics,O,4,
+CTFYS,,,3,EI1320,Electromagnetic Theory,O,9,
+CTFYS,,,3,EL1000,"Automatic Control, General Course",O,6,
+CTFYS,,,3,SG1218,Fluid Mechanics,O,4,
+CTFYS,,,3,SH1015,Applied Modern Physics,O,5,
+CTFYS,,,3,SI1336,Simulation and Modeling,O,6,
+CTFYS,,,3,EF112X,"Degree Project in Electrical Engineering, First Cycle",VV,15,
+CTFYS,,,3,SA114X,"Degree Project in Engineering Physics, First cycle",VV,15,
+CTFYS,,,3,AK1011,Ethics for Engineers,V,7.5,
+CTFYS,,,3,AK2014,Decision Theory,V,7.5,
+CTFYS,,,3,DD1380,Java Programming for Python Programmers,V,1.5,
+CTFYS,,,3,DD2352,Algorithms and Complexity,V,7.5,
+CTFYS,,,3,DD2421,Machine Learning,V,7.5,
+CTFYS,,,3,EQ1120,Discrete Time Signals and Systems,V,6,
+CTFYS,,,3,MH1023,"Practical Gender Equality and Diversity Work in Scientific, Technical and Industrial Environments",V,6,
+CTFYS,,,3,SF1677,Foundations of Analysis,V,7.5,
+CTFYS,,,3,SF1678,Groups and Rings,V,7.5,
+CTFYS,,,3,SF1679,Discrete Mathematics,V,7.5,
+CTFYS,,,3,SF1691,Complex Analysis,V,7.5,
+CTFYS,,,3,SF1861,Optimization,V,6,
+CTFYS,,,3,SF1904,"Markov Processes, Basic Course",V,3,
+CTFYS,,,3,SF2701,"Financial Mathematics, Basic Course",V,7.5,
+CTFYS,,,3,SF2930,Regression Analysis,V,7.5,
+CTFYS,,,3,SH2404,Astrophysics,V,7.5,
+CTFYS,,,3,SI1142,"Mathematical Methods in Physics, Additional Course",V,3,
+CTFYS,,,3,SI1162,Statistical Physics,V,7.5,
+CTFYS,,,3,SI2360,Analytical Mechanics and Classical Field Theory,V,7.5,
+CTFYS,,,3,SK2712,Environmental physics,V,7.5,
+CTMAT,,,1,DD1301,Computer Introduction,V,1.5,P1
+CTMAT,,,1,DD1333,Fundamentals of Programming,O,5,P1
+CTMAT,,,1,SA1006,Engineering Skills in Engineering Mathematics,O,8.5,P1 P2
+CTMAT,,,1,SF1672,Linear Algebra,O,7.5,P2
+CTMAT,,,1,SF1673,Analysis in one variable,O,7.5,P1
+CTMAT,,,1,SF1918,Probability Theory and Statistics,O,6,P2
+CTMAT,,,1,DD1328,Fundamentals of Computer Science for Scientific Computing,O,9,P3 P4
+CTMAT,,,1,SF1550,"Numerical Methods, basic course",O,6,P3 P4
+CTMAT,,,1,SF1674,Multivariable Calculus,O,7.5,P3
+CTMAT,,,1,SG1115,Particle Dynamics with project,O,7.5,P4
+CTMAT,,,2,SA1006,Engineering Skills in Engineering Mathematics,O,8.5,P4
+CTMAT,,,2,SF1679,Discrete Mathematics,O,7.5,
+CTMAT,,,2,SF1681,Linear Algebra. Advanced Course,O,6,
+CTMAT,,,2,SF1692,Analytical and Numerical Methods for Ordinary Differential Equations,O,5.5,
+CTMAT,,,2,SF1693,Analytical and Numerical Methods for Partial Differential Equations and  Transforms,O,11,
+CTMAT,,,2,SF1930,Statistical Learning and Data Analysis,O,6,
+CTMAT,,,2,SH1017,Physics for Engineering Mathematics,O,7.5,
+CTMAT,,,2,SF1677,Foundations of Analysis,VV,7.5,
+CTMAT,,,2,SF1678,Groups and Rings,VV,7.5,
+CTMAT,,,2,SF1691,Complex Analysis,VV,7.5,
+CTMAT,,,2,DD1420,Foundations of Machine Learning,O,7.5,
+CTMAT,,,3,SA1006,Engineering Skills in Engineering Mathematics,O,8.5,P1 P2
+CTMAT,,,3,EL1000,"Automatic Control, General Course",O,6,
+CTMAT,,,3,SF1811,Optimization,O,6,
+CTMAT,,,3,SA120X,"Degree project in Engineering Mathematics, first cycle",VV,15,
+CTMAT,,,3,EF112X,"Degree Project in Electrical Engineering, First Cycle",VV,15,
+CTMAT,,,3,DD1351,Logic for Computer Scientists,V,7.5,
+CTMAT,,,3,DD1367,Software Engineering in Project Form,V,9,
+CTMAT,,,3,DD1368,Database Technology,V,6,
+CTMAT,,,3,DD2350,"Algorithms, Data Structures and Complexity",V,9.5,
+CTMAT,,,3,DD2352,Algorithms and Complexity,V,7.5,
+CTMAT,,,3,DD2395,Computer Security,V,6,
+CTMAT,,,3,DD2421,Machine Learning,V,7.5,
+CTMAT,,,3,DH1623,"Human-Computer Interaction, Basic theory",V,4.5,
+CTMAT,,,3,DH1624,"Human-Computer Interaction, Basic project",V,3,
+CTMAT,,,3,EI1320,Electromagnetic Theory,V,9,
+CTMAT,,,3,EL2810,Machine Learning Theory,V,7.5,
+CTMAT,,,3,EP1100,Data Communications and Computer Networks,V,7.5,
+CTMAT,,,3,ID1200,Operating Systems,V,6,
+CTMAT,,,3,IS1500,Computer Organization and Components,V,9,
+CTMAT,,,3,SE1010,"Solid Mechanics, Basic Course with Project",V,12,
+CTMAT,,,3,SE1055,"Strength of Materials and Solid Mechanics, Basic Course with Energy Methods",V,9,
+CTMAT,,,3,SF1677,Foundations of Analysis,V,7.5,
+CTMAT,,,3,SF1678,Groups and Rings,V,7.5,
+CTMAT,,,3,SF1691,Complex Analysis,V,7.5,
+CTMAT,,,3,SF2701,"Financial Mathematics, Basic Course",V,7.5,
+CTMAT,,,3,SF2812,Applied Linear Optimization,V,7.5,
+CTMAT,,,3,SF2832,Mathematical Systems Theory,V,7.5,
+CTMAT,,,3,SF2863,Systems Engineering,V,7.5,
+CTMAT,,,3,SF2930,Regression Analysis,V,7.5,
+CTMAT,,,3,SF2955,Computer Intensive Methods in Mathematical Statistics,V,7.5,
+CTMAT,,,3,SG1218,Fluid Mechanics,V,4,
+CTMAT,,,3,SG1220,Fluid Mechanics for Engineers,V,6,
+CTMAT,,,3,SI1155,Theoretical Physics,V,6,
+CTMAT,,,3,SI1162,Statistical Physics,V,7.5,
+CTMAT,,,3,SF2944,Foundations of Probability Theory,V,7.5,
+CFATE,,,1,DD1301,Computer Introduction,V,1.5,P1
+CFATE,,,1,DD1333,Fundamentals of Programming,O,5,P1
+CFATE,,,1,SD1002,Vehicle Engineering,O,7,P2 P3 P4
+CFATE,,,1,SF1668,Mathematical and Numerical Analysis I,O,10,P1 P2
+CFATE,,,1,SF1694,Applied Linear Algebra,O,10.5,P1 P2 P3
+CFATE,,,1,SG1132,Mechanics I Inclusive Project,O,11,P2 P3 P4
+CFATE,,,1,SK1112,Physics I,O,9,P1 P4
+CFATE,,,1,SF1626,Calculus in Several Variables,O,7.5,P3
+CFATE,,,2,MF1024,Product Development,O,11,
+CFATE,,,2,SD1120,Noise and Vibration Control,O,9,
+CFATE,,,2,SE1010,"Solid Mechanics, Basic Course with Project",O,12,
+CFATE,,,2,SF1682,Analytical and Numerical Methods for Differential Equations,O,11,
+CFATE,,,2,SG1140,Mechanics II,O,6,
+CFATE,,,2,SG1216,Thermodynamics,O,6,
+CFATE,,,2,SG1217,"Fluid Mechanics, Basic Course",O,6,
+CFATE,,,3,EL1010,"Automatic Control, General Course",O,6,
+CFATE,,,3,SD2125,Signals and Mechanical Systems,O,6,
+CFATE,,,3,SE1025,FEM for Engineering Applications,O,6,
+CFATE,,,3,MF1017,Basic Electrical Engineering,O,6,
+CFATE,,,3,SF1861,Optimization,O,6,
+CFATE,,,3,SF1914,Probability Theory and Statistics,O,6,
+CFATE,,,3,DD1320,Applied Computer Science,VV,6,
+CFATE,,,3,EF112X,"Degree Project in Electrical Engineering, First Cycle",VV,15,
+CFATE,,,3,ME1003,"Industrial Management, Basic Course",VV,6,
+CFATE,,,3,MF130X,"Degree Project in Machine Design, First Cycle",VV,15,
+CFATE,,,3,MF131X,"Degree Project in Integrated Product Development, First Cycle",VV,15,
+CFATE,,,3,MF133X,"Degree Project in Mechatronics, First Cycle",VV,15,
+CFATE,,,3,MJ1401,Heat Transfer,VV,6,
+CFATE,,,3,MJ146X,"Degree Project in Sustainable Energy Engineering, First Cycle",VV,15,
+CFATE,,,3,SA115X,"Degree Project in Vehicle Engineering, First Level",VV,15,
+CFATE,,,3,SH1014,Modern Physics,VV,4,
+CFATE,,,3,SI1146,Vector Analysis,VV,4,
+CFATE,,,3,SI1155,Theoretical Physics,VV,6,
+CFATE,,,3,ME2163,Leading People and Organizations in Different Contexts,VV,6,
+COPEN,,,1,DD1310,Programming Techniques,O,6,P1 P2
+COPEN,,,1,SA1007,Engineering Skills,O,6,P1 P2 P3 P4
+COPEN,,,1,SF1624,Algebra and Geometry,O,7.5,P2
+COPEN,,,1,SF1625,Calculus in One Variable,O,7.5,P1
+COPEN,,,1,SK1115,Electromagnetism and Waves,O,7.5,P1 P2
+COPEN,,,1,KD1000,Chemical Principles for Sustainability,O,3,P4
+COPEN,,,1,SF1546,"Numerical Methods, Basic Course",O,6,P3 P4
+COPEN,,,1,SF1626,Calculus in Several Variables,O,7.5,P3
+COPEN,,,1,SG1133,Mechanics I,O,9,P3 P4
+TTFYM,,,1,SA2003,Sustainable Development in Engineering Physics,O,1.5,P1
+TTFYM,,"Track, Theoretical Physics",1,SI2380,Advanced Quantum Mechanics,O,7.5,P1
+TTFYM,,"Track, Theoretical Physics",1,SH2373,Special Relativity,VV,7.5,P2
+TTFYM,,"Track, Theoretical Physics",1,SI2215,Symmetries in Physics,VV,7.5,P2
+TTFYM,,"Track, Theoretical Physics",1,SI2510,Statistical Mechanics,VV,7.5,P1
+TTFYM,,"Track, Theoretical Physics",1,SI2530,Computational Physics,VV,7.5,P1
+TTFYM,,"Track, Theoretical Physics",1,SH2374,General Relativity,VV,7.5,P4
+TTFYM,,"Track, Theoretical Physics",1,SH2381,Quantum Information,VV,7.5,P3
+TTFYM,,"Track, Theoretical Physics",1,SI2360,Analytical Mechanics and Classical Field Theory,VV,7.5,P4
+TTFYM,,"Track, Theoretical Physics",1,SI2390,Relativistic Quantum Physics,VV,7.5,P3
+TTFYM,,"Track, Theoretical Physics",1,SI2400,Theoretical Particle Physics,VV,7.5,P4
+TTFYM,,"Track, Theoretical Physics",1,SI2520,Nonequilibrium Statistical Mechanics,VV,7.5,P3
+TTFYM,,"Track, Theoretical Physics",1,SI1142,"Mathematical Methods in Physics, Additional Course",V,3,P4
+TTFYM,,"Track, Theoretical Physics",1,SK2712,Environmental physics,V,7.5,P4
+TTFYM,,"Track, Theoretical Physics",1,CB2070,Molecular Quantum Mechanics,V,7.5,P3
+TTFYM,,"Track, Theoretical Physics",1,SK2534,Molecular Biophysics,V,7.5,P1
+TTFYM,,"Track, Theoretical Physics",1,SI1336,Simulation and Modeling,V,6,P2
+TTFYM,,"Track, Theoretical Physics",1,SK2758,Solid State Physics,V,7.5,P1
+TTFYM,,"Track, Theoretical Physics",1,SH2150,Machine Learning in Physics,V,7.5,P2
+TTFYM,,"Track, Subatomic and Astrophysics",1,SH2103,Subatomic Physics,O,7.5,P2
+TTFYM,,"Track, Subatomic and Astrophysics",1,SI2380,Advanced Quantum Mechanics,O,7.5,P1
+TTFYM,,"Track, Subatomic and Astrophysics",1,SH2314,"Medical Imaging, Signals and Systems",VV,7.5,P1
+TTFYM,,"Track, Subatomic and Astrophysics",1,SH2373,Special Relativity,VV,7.5,P2
+TTFYM,,"Track, Subatomic and Astrophysics",1,SH2306,Experimental Techniques for Nuclear and Particle Physics,VV,8,P1
+TTFYM,,"Track, Subatomic and Astrophysics",1,SH2011,Theoretical Nuclear Physics,VV,6,P4
+TTFYM,,"Track, Subatomic and Astrophysics",1,SH2203,Experimental Particle Physics,VV,7.5,P3
+TTFYM,,"Track, Subatomic and Astrophysics",1,SH2302,Nuclear Physics,VV,8,P3
+TTFYM,,"Track, Subatomic and Astrophysics",1,SH2374,General Relativity,VV,7.5,P4
+TTFYM,,"Track, Subatomic and Astrophysics",1,SI2390,Relativistic Quantum Physics,VV,7.5,P3
+TTFYM,,"Track, Subatomic and Astrophysics",1,SI2400,Theoretical Particle Physics,VV,7.5,P4
+TTFYM,,"Track, Subatomic and Astrophysics",1,SK2712,Environmental physics,V,7.5,P4
+TTFYM,,"Track, Biomedical Physics",1,SK2532,Biomedicine for Engineers,O,7.5,P1
+TTFYM,,"Track, Biomedical Physics",1,SK2501,"Physics of Biomedical Microscopy, Extended Course",VV,7.5,P2
+TTFYM,,"Track, Biomedical Physics",1,SK2533,Experimental Biophysics,VV,7.5,P2
+TTFYM,,"Track, Biomedical Physics",1,SK2534,Molecular Biophysics,VV,7.5,P1
+TTFYM,,"Track, Biomedical Physics",1,SH2314,"Medical Imaging, Signals and Systems",VV,7.5,P1
+TTFYM,,"Track, Biomedical Physics",1,CM2020,Ionising Radiation Imaging,V,7.5,P1
+TTFYM,,"Track, Biomedical Physics",1,SH2103,Subatomic Physics,V,7.5,P2
+TTFYM,,"Track, Biomedical Physics",1,SI1336,Simulation and Modeling,V,6,P2
+TTFYM,,"Track, Biomedical Physics",1,SK2303,Optical Physics,V,7.5,P1
+TTFYM,,"Track, Biomedical Physics",1,SK2541,Simulation and Modelling of Biological Systems,V,1.5,P2
+TTFYM,,"Track, Biomedical Physics",1,CM2019,Ultrasound,V,7.5,P4
+TTFYM,,"Track, Biomedical Physics",1,SI1155,Theoretical Physics,V,6,P4
+TTFYM,,"Track, Biomedical Physics",1,SK2712,Environmental physics,V,7.5,P4
+TTFYM,,"Track, Biomedical Physics",1,SK2535,Cellular Biophysics,VV,7.5,P3
+TTFYM,,"Track, Biomedical Physics",1,SK2536,Laboratory techniques in Life Sciences,VV,7.5,P4
+TTFYM,,"Track, Biomedical Physics",1,SK2551,X-ray physics and applications,VV,7.5,P3
+TTFYM,,"Track, Quantum Technology",1,SI2380,Advanced Quantum Mechanics,O,7.5,P1
+TTFYM,,"Track, Quantum Technology",1,SK2903,Quantum Technology,O,7.5,P1 P2
+TTFYM,,"Track, Quantum Technology",1,SK2560,Nanophotonics and Bionanophotonics,VV,7.5,P1
+TTFYM,,"Track, Quantum Technology",1,SK2906,Quantum Circuits,VV,7.5,P2
+TTFYM,,"Track, Quantum Technology",1,SK2908,Macroscopic quantum phenomena – superconductivity and magnetism,VV,7.5,P2
+TTFYM,,"Track, Quantum Technology",1,SK2758,Solid State Physics,V,7.5,P1
+TTFYM,,"Track, Quantum Technology",1,SI2520,Nonequilibrium Statistical Mechanics,VV,7.5,P3
+TTFYM,,"Track, Quantum Technology",1,SK2004,Project course in Quantum Technology,VV,7.5,P3 P4
+TTFYM,,"Track, Quantum Technology",1,SK2900,Quantum Photonics,VV,7.5,P4
+TTFYM,,"Track, Quantum Technology",1,SK2904,Quantum Materials,VV,7.5,P4
+TTFYM,,"Track, Quantum Technology",1,SH2381,Quantum Information,VV,7.5,P3
+TTFYM,,"Track, Quantum Technology",1,SK2712,Environmental physics,V,7.5,P4
+TTFYM,,"Track, Light and matter physics",1,SH2150,Machine Learning in Physics,V,7.5,P2
+TTFYM,,"Track, Light and matter physics",1,SK2303,Optical Physics,VV,7.5,P1
+TTFYM,,"Track, Light and matter physics",1,SK2402,Fundamentals of Photonics,VV,7.5,P2
+TTFYM,,"Track, Light and matter physics",1,SK2404,Optical Measurement Technology,VV,7.5,P2
+TTFYM,,"Track, Light and matter physics",1,SK2758,Solid State Physics,VV,7.5,P1
+TTFYM,,"Track, Light and matter physics",1,SK2908,Macroscopic quantum phenomena – superconductivity and magnetism,VV,7.5,P2
+TTFYM,,"Track, Light and matter physics",1,SK2005,Project course in Optics and Photonics,VV,7.5,P3 P4
+TTFYM,,"Track, Light and matter physics",1,SK2411,Laser Physics,VV,7.5,P3
+TTFYM,,"Track, Light and matter physics",1,SK2551,X-ray physics and applications,VV,7.5,P3
+TTFYM,,"Track, Light and matter physics",1,SK2900,Quantum Photonics,VV,7.5,P4
+TTFYM,,"Track, Light and matter physics",1,SK2907,Semiconductor Photonics,VV,7.5,P3
+TTFYM,,"Track, Light and matter physics",1,SK2904,Quantum Materials,VV,7.5,P4
+TTFYM,,"Track, Light and matter physics",1,SK2712,Environmental physics,V,7.5,P4
+TTFYM,,,2,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,
+TTFYM,,,2,SH2007,Research Methodology in Physics,O,3,
+TTFYM,,,2,SH204X,"Degree Project in Physics, Second Cycle",O,30,
+TTFYM,,,2,SI201X,"Degree Project in Theoretical Physics, Second Cycle",O,30,
+TTFYM,,,2,SK202X,"Degree Project in Applied Physics, Second Cycle",O,30,
+TTFYM,,"Track, Theoretical Physics",2,SI2410,Quantum Field Theory,VV,7.5,
+TTFYM,,"Track, Theoretical Physics",2,SI2530,Computational Physics,VV,7.5,
+TTFYM,,"Track, Theoretical Physics",2,SI2600,Condensed Matter Theory,VV,7.5,
+TTFYM,,"Track, Theoretical Physics",2,SH2150,Machine Learning in Physics,VV,7.5,
+TTFYM,,"Track, Theoretical Physics",2,SK2758,Solid State Physics,V,7.5,
+TTFYM,,"Track, Subatomic and Astrophysics",2,SH2204,Astroparticle Physics,VV,7.5,
+TTFYM,,"Track, Subatomic and Astrophysics",2,SH2306,Experimental Techniques for Nuclear and Particle Physics,VV,8,
+TTFYM,,"Track, Subatomic and Astrophysics",2,SH2405,High-Energy Astrophysics,VV,7.5,
+TTFYM,,"Track, Subatomic and Astrophysics",2,SH2150,Machine Learning in Physics,VV,7.5,
+TTFYM,,"Track, Subatomic and Astrophysics",2,SH2314,"Medical Imaging, Signals and Systems",VV,7.5,
+TTFYM,,"Track, Biomedical Physics",2,SH2150,Machine Learning in Physics,VV,7.5,
+TTFYM,,"Track, Biomedical Physics",2,SK2501,"Physics of Biomedical Microscopy, Extended Course",VV,7.5,
+TTFYM,,"Track, Biomedical Physics",2,SK2537,Fluorescence Spectroscopy in Biomedical Research,VV,7.5,
+TTFYM,,"Track, Biomedical Physics",2,SH2314,"Medical Imaging, Signals and Systems",VV,7.5,
+TTFYM,,"Track, Biomedical Physics",2,SK2539,Microscale Acoustofluidics,VV,7.5,
+TTFYM,,"Track, Biomedical Physics",2,SK2538,Data-driven Life Sciences,VV,7.5,
+TTFYM,,"Track, Biomedical Physics",2,SK2530,Introduction to Biomedicine,VV,6,
+TTFYM,,"Track, Biomedical Physics",2,CB2442,Bioinformatics,VV,7.5,
+TTFYM,,"Track, Biomedical Physics",2,SK2560,Nanophotonics and Bionanophotonics,VV,7.5,
+TTFYM,,"Track, Biomedical Physics",2,HL1007,"Medical Engineering, Basic Course",V,6,
+TTFYM,,"Track, Biomedical Physics",2,SI1336,Simulation and Modeling,V,6,
+TTFYM,,"Track, Biomedical Physics",2,CM2020,Ionising Radiation Imaging,V,7.5,
+TTFYM,,"Track, Biomedical Physics",2,SK2541,Simulation and Modelling of Biological Systems,V,1.5,
+TTFYM,,"Track, Biomedical Physics",2,SK2303,Optical Physics,V,7.5,
+TTFYM,,"Track, Biomedical Physics",2,BB2255,Applied Gene Technology,V,7.5,
+TTFYM,,"Track, Quantum Technology",2,SK2004,Project course in Quantum Technology,VV,7.5,
+TTFYM,,"Track, Quantum Technology",2,SK2560,Nanophotonics and Bionanophotonics,VV,7.5,
+TTFYM,,"Track, Quantum Technology",2,SK2906,Quantum Circuits,VV,7.5,
+TTFYM,,"Track, Quantum Technology",2,SH2150,Machine Learning in Physics,VV,7.5,
+TTFYM,,"Track, Quantum Technology",2,SK2908,Macroscopic quantum phenomena – superconductivity and magnetism,VV,7.5,
+TTFYM,,"Track, Quantum Technology",2,SK2758,Solid State Physics,V,7.5,
+TTFYM,,"Track, Light and matter physics",2,SK2303,Optical Physics,VV,7.5,
+TTFYM,,"Track, Light and matter physics",2,SK2404,Optical Measurement Technology,VV,7.5,
+TTFYM,,"Track, Light and matter physics",2,SK2758,Solid State Physics,VV,7.5,
+TTFYM,,"Track, Light and matter physics",2,SK2908,Macroscopic quantum phenomena – superconductivity and magnetism,VV,7.5,
+TTFYM,,"Track, Light and matter physics",2,SH2150,Machine Learning in Physics,VV,7.5,
+TTFYM,,"Track, Light and matter physics",2,SK2501,"Physics of Biomedical Microscopy, Extended Course",V,7.5,
+TTFYM,,"Track, Light and matter physics",2,SK2560,Nanophotonics and Bionanophotonics,V,7.5,
+TTFYM,,"Track, Light and matter physics",2,SI2380,Advanced Quantum Mechanics,V,7.5,
+TTFYM,,"Track, Light and matter physics",2,SI2600,Condensed Matter Theory,V,7.5,
+TAEEM,,,1,AH2923,Global Navigation Satellite Systems (GNSS),V,7.5,P4
+TAEEM,,,1,EF2262,Data Handling Systems for Satellites,V,6,P3
+TAEEM,,,1,EF2264,Operation of Space Systems,V,6,P4
+TAEEM,,,1,EL2450,Hybrid and Embedded Control Systems,V,7.5,P3
+TAEEM,,,1,EL2520,"Control Theory and Practice, Advanced Course",V,7.5,P4
+TAEEM,,,1,EL2810,Machine Learning Theory,V,7.5,P3
+TAEEM,,,1,MJ2246,Rocket Propulsion,V,6,P3
+TAEEM,,,1,SD2413,Fibre Composites - Analysis and Design,V,6,P4
+TAEEM,,,1,SD2414,Fibre Composites - Materials and Manufacturing,V,6,P3
+TAEEM,,,1,SD2432,Lightweight Design,V,20,P3 P4
+TAEEM,,,1,SD2805,Flight Mechanics,V,9,P3
+TAEEM,,,1,SD2905,Human Spaceflight,V,7.5,P3
+TAEEM,,,1,SD2910,Spacecraft Dynamics,V,9,P4
+TAEEM,,,1,SD2920,"System Integration for Space Technology, Part 1",V,3,P3 P4
+TAEEM,,,1,SE2139,Fracture Mechanics,V,6,P3
+TAEEM,,,1,SF2812,Applied Linear Optimization,V,7.5,P3
+TAEEM,,,1,SF2822,Applied Nonlinear Optimization,V,7.5,P4
+TAEEM,,,1,SF2842,Geometric Control Theory,V,7.5,P3
+TAEEM,,,1,SG2212,Computational Fluid Dynamics,V,7.5,P3
+TAEEM,,,1,SG2215,Compressible Flow,V,7.5,P4
+TAEEM,,,1,SH1003,Introductory Astronomy for Engineers,V,7.5,P3 P4
+TAEEM,,,1,SD2411,Lightweight Structures and FEM,O,8,P1 P2
+TAEEM,,,1,SD2601,Fundamentals of Flight,O,7.5,P1 P2
+TAEEM,,,1,SD2900,Fundamentals of Spaceflight,O,7.5,P1
+TAEEM,,,1,SF2863,Systems Engineering,O,7.5,P2
+TAEEM,,,1,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,P4
+TAEEM,,Systems Engineering,1,SF2812,Applied Linear Optimization,VV,7.5,P3
+TAEEM,,Systems Engineering,1,EL2450,Hybrid and Embedded Control Systems,V,7.5,P3
+TAEEM,,Systems Engineering,1,EL2810,Machine Learning Theory,V,7.5,P3
+TAEEM,,Systems Engineering,1,SD2905,Human Spaceflight,V,7.5,P3
+TAEEM,,Systems Engineering,1,SF2842,Geometric Control Theory,V,7.5,P3
+TAEEM,,Systems Engineering,1,EL2520,"Control Theory and Practice, Advanced Course",O,7.5,P4
+TAEEM,,Systems Engineering,1,SF2822,Applied Nonlinear Optimization,O,7.5,P4
+TAEEM,,Aeronautics,1,EL2520,"Control Theory and Practice, Advanced Course",V,7.5,P4
+TAEEM,,Aeronautics,1,SD2905,Human Spaceflight,V,7.5,P3
+TAEEM,,Aeronautics,1,SD2910,Spacecraft Dynamics,V,9,P4
+TAEEM,,Aeronautics,1,SG2212,Computational Fluid Dynamics,V,7.5,P3
+TAEEM,,Aeronautics,1,SG2215,Compressible Flow,V,7.5,P4
+TAEEM,,Aeronautics,1,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,P4
+TAEEM,,Aeronautics,1,SD2805,Flight Mechanics,O,9,P3
+TAEEM,,Lightweight Structures,1,SD2432,Lightweight Design,V,20,P3 P4
+TAEEM,,Lightweight Structures,1,SE2139,Fracture Mechanics,V,6,P3
+TAEEM,,Lightweight Structures,1,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,P4
+TAEEM,,Lightweight Structures,1,SD2413,Fibre Composites - Analysis and Design,O,6,P4
+TAEEM,,Lightweight Structures,1,SD2414,Fibre Composites - Materials and Manufacturing,O,6,P3
+TAEEM,,Space,1,AH2923,Global Navigation Satellite Systems (GNSS),V,7.5,P4
+TAEEM,,Space,1,EF2262,Data Handling Systems for Satellites,V,6,P3
+TAEEM,,Space,1,EF2264,Operation of Space Systems,V,6,P4
+TAEEM,,Space,1,EL2520,"Control Theory and Practice, Advanced Course",V,7.5,P4
+TAEEM,,Space,1,MJ2246,Rocket Propulsion,V,6,P3
+TAEEM,,Space,1,SD2805,Flight Mechanics,V,9,P3
+TAEEM,,Space,1,SD2905,Human Spaceflight,V,7.5,P3
+TAEEM,,Space,1,SG2215,Compressible Flow,V,7.5,P4
+TAEEM,,Space,1,SH1003,Introductory Astronomy for Engineers,V,7.5,P3 P4
+TAEEM,,Space,1,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,P4
+TAEEM,,Space,1,SD2910,Spacecraft Dynamics,O,9,P4
+TAEEM,,Space,1,SD2920,"System Integration for Space Technology, Part 1",O,3,P3 P4
+TAEEM,,,2,SD2432,Lightweight Design,V,20,P1 P2
+TAEEM,,,2,AG1321,Remote Sensing Technology,V,7.5,
+TAEEM,,,2,EF2240,Space Physics,V,6,
+TAEEM,,,2,EF2243,Solar System Physics,V,7.5,
+TAEEM,,,2,EF2260,Space Environment and Spacecraft Engineering,V,6,
+TAEEM,,,2,EL2620,Nonlinear Control,V,7.5,
+TAEEM,,,2,EL2805,Reinforcement Learning,V,7.5,
+TAEEM,,,2,EL2820,Modelling of Dynamical Systems,V,7.5,
+TAEEM,,,2,HL2035,Biomechanics and Neuronics,V,7.5,
+TAEEM,,,2,MJ2523,"Aircraft Propulsion, General Course",V,6,
+TAEEM,,,2,MJ2524,"Aircraft Propulsion, Advanced Course",V,6,
+TAEEM,,,2,SD2415,Process Modelling for Composite Manufacturing,V,6,
+TAEEM,,,2,SD2416,Structural Optimisation and Sandwich Design,V,6,
+TAEEM,,,2,SD2806,Transonic and supersonic aircraft aerodynamics,V,6,
+TAEEM,,,2,SD2810,Aeroelasticity,V,9,
+TAEEM,,,2,SD2830,Aircraft Performance and Air Traffic Management,V,6,
+TAEEM,,,2,SD2925,"System Integration for Space Technology, Part 2",V,3,
+TAEEM,,,2,SF2832,Mathematical Systems Theory,V,7.5,
+TAEEM,,,2,SF2852,Optimal Control Theory,V,7.5,
+TAEEM,,,2,SF2866,Applied Systems Engineering,V,7.5,
+TAEEM,,,2,SF2935,Modern Methods of Statistical Learning,V,7.5,
+TAEEM,,,2,SM2001,Data-driven Methods in Engineering Mechanics,V,7.5,
+TAEEM,,Systems Engineering,2,SF281X,"Degree Project in Systems Engineering, Second Cycle",O,30,
+TAEEM,,Systems Engineering,2,EL2620,Nonlinear Control,V,7.5,
+TAEEM,,Systems Engineering,2,EL2805,Reinforcement Learning,V,7.5,
+TAEEM,,Systems Engineering,2,EL2820,Modelling of Dynamical Systems,V,7.5,
+TAEEM,,Systems Engineering,2,SF2832,Mathematical Systems Theory,V,7.5,
+TAEEM,,Systems Engineering,2,SF2866,Applied Systems Engineering,V,7.5,
+TAEEM,,Systems Engineering,2,SF2935,Modern Methods of Statistical Learning,V,7.5,
+TAEEM,,Systems Engineering,2,SF2852,Optimal Control Theory,O,7.5,
+TAEEM,,Aeronautics,2,SD2810,Aeroelasticity,O,9,
+TAEEM,,Aeronautics,2,SD281X,"Degree Project in Aeronautics, Second Cycle",O,30,
+TAEEM,,Aeronautics,2,EH2720,Management of Projects,V,7.5,
+TAEEM,,Aeronautics,2,MJ2523,"Aircraft Propulsion, General Course",V,6,
+TAEEM,,Aeronautics,2,SD2806,Transonic and supersonic aircraft aerodynamics,V,6,
+TAEEM,,Aeronautics,2,SD2830,Aircraft Performance and Air Traffic Management,V,6,
+TAEEM,,Aeronautics,2,SM2001,Data-driven Methods in Engineering Mechanics,V,7.5,
+TAEEM,,Aeronautics,2,MJ2524,"Aircraft Propulsion, Advanced Course",V,6,
+TAEEM,,Lightweight Structures,2,SD2432,Lightweight Design,V,20,P1 P2
+TAEEM,,Lightweight Structures,2,SD2415,Process Modelling for Composite Manufacturing,O,6,
+TAEEM,,Lightweight Structures,2,SD241X,"Degree Project in Lightweight Structures, Second Cycle",O,30,
+TAEEM,,Lightweight Structures,2,EH2720,Management of Projects,V,7.5,
+TAEEM,,Lightweight Structures,2,HL2035,Biomechanics and Neuronics,V,7.5,
+TAEEM,,Lightweight Structures,2,SD2810,Aeroelasticity,V,9,
+TAEEM,,Lightweight Structures,2,SD2416,Structural Optimisation and Sandwich Design,O,6,
+TAEEM,,Space,2,EF2240,Space Physics,O,6,
+TAEEM,,Space,2,EF2260,Space Environment and Spacecraft Engineering,O,6,
+TAEEM,,Space,2,SD291X,"Degree Project in Space Technology, Second Cycle",O,30,
+TAEEM,,Space,2,SD2925,"System Integration for Space Technology, Part 2",O,3,
+TAEEM,,Space,2,AG1321,Remote Sensing Technology,V,7.5,
+TAEEM,,Space,2,EF2243,Solar System Physics,V,7.5,
+TAEEM,,Space,2,EH2720,Management of Projects,V,7.5,
+TAEEM,,Space,2,EL2620,Nonlinear Control,V,7.5,
+TFORM,,,1,AH2173,Public Transport,VV,7.5,P4
+TFORM,,,1,CK2320,Hydrogen,VV,7.5,P3
+TFORM,,,1,EL2520,"Control Theory and Practice, Advanced Course",VV,7.5,P4
+TFORM,,,1,MF2522,Systems Engineering,VV,6,P3 P4
+TFORM,,,1,SD2150,"Experimental Structure Dynamics, Project Course",VV,9,P3 P4
+TFORM,,,1,SD2155,Flow Acoustics,VV,6,P3
+TFORM,,,1,SD2231,Applied Vehicle Dynamics Control,VV,7.5,P4
+TFORM,,,1,SG2211,Vehicle Aerodynamics,VV,6,P4
+TFORM,,,1,AF2901,Road- and Railway Track Engineering,VV,7.5,P2
+TFORM,,,1,AH2170,Transport Data collection and Analysis,VV,7.5,P1
+TFORM,,,1,AH2171,Traffic Engineering and Management,VV,7.5,P2
+TFORM,,,1,AH2307,Urban Modeling and Decision Support,VV,7.5,P2
+TFORM,,,1,CK2300,Batteries,VV,7.5,P2
+TFORM,,,1,AH2174,Traffic Simulation Modelling and Applications,VV,7.5,P2
+TFORM,,,1,EL2700,Model Predictive Control,VV,7.5,P1
+TFORM,,,1,MF2007,Dynamics and Motion Control,VV,9,P2
+TFORM,,,1,MF2030,Mechatronics basic Course,VV,6,P1
+TFORM,,,1,MF2043,Robust Mechatronics,VV,6,P1
+TFORM,,,1,MJ2506,Energy Technologies for Sustainable Transportation,VV,6,P2
+TFORM,,,1,SD2111,Engineering Acoustics,VV,6,P1
+TFORM,,,1,SD2190,Vehicle Acoustics and Vibration,VV,6,P2
+TFORM,,,1,SD2250,Sustainable Vehicle Design,VV,7.5,P1
+TFORM,,,1,SD2411,Lightweight Structures and FEM,VV,8,P1 P2
+TFORM,,,1,SD2416,Structural Optimisation and Sandwich Design,VV,6,P2
+TFORM,,,1,SG2214,Fluid Mechanics,VV,7.5,P1
+TFORM,,,1,MF2011,Systems Engineering,VV,9,
+TFORM,,"Track, Railway Engineering ",1,AH2029,Railway Signalling System,VV,7.5,P1
+TFORM,,"Track, Railway Engineering ",1,AF2201,Bridge Design,VV,7.5,P3
+TFORM,,"Track, Railway Engineering ",1,AH2173,Public Transport,VV,7.5,P4
+TFORM,,"Track, Railway Engineering ",1,AH2301,Transport Policy and Evaluation,VV,7.5,P3
+TFORM,,"Track, Railway Engineering ",1,MF2522,Systems Engineering,VV,6,P3 P4
+TFORM,,"Track, Railway Engineering ",1,SD2231,Applied Vehicle Dynamics Control,VV,7.5,P4
+TFORM,,"Track, Railway Engineering ",1,SG2211,Vehicle Aerodynamics,VV,6,P4
+TFORM,,"Track, Railway Engineering ",1,AH2036,Railway Planning and Operations,VV,7.5,P3
+TFORM,,"Track, Railway Engineering ",1,EJ2440,Electric Transportation,O,6,P4
+TFORM,,"Track, Railway Engineering ",1,SD2307,Rail Vehicle Technology,O,7.5,P2
+TFORM,,"Track, Railway Engineering ",1,SD2313,Rail Vehicle Dynamics,O,8,P3
+TFORM,,"Track, Railway Engineering ",1,SA2002,Sustainable development and research methodology in engineering mechanics,O,3,P2
+TFORM,,"Track, Railway Engineering ",1,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,P1
+TFORM,,"Track, Railway Engineering ",1,SD2320,Challenge-based Railway Systems Design,VV,7.5,
+TFORM,,"Track, Automotive",1,SD2221,Vehicle System Technology,O,8,P1
+TFORM,,"Track, Automotive",1,EJ2410,Hybrid Vehicle Drives,O,7.5,P2
+TFORM,,"Track, Automotive",1,SA2002,Sustainable development and research methodology in engineering mechanics,O,3,P2
+TFORM,,"Track, Automotive",1,SD2222,Vehicle Components,O,8,P2
+TFORM,,"Track, Automotive",1,SD2225,"Ground Vehicle Dynamics, Basic Course",O,11,P3 P4
+TFORM,,"Track, Automotive",1,AF2901,Road- and Railway Track Engineering,VV,7.5,P2
+TFORM,,"Track, Automotive",1,AH2170,Transport Data collection and Analysis,VV,7.5,P1
+TFORM,,"Track, Automotive",1,AH2171,Traffic Engineering and Management,VV,7.5,P2
+TFORM,,"Track, Automotive",1,AH2174,Traffic Simulation Modelling and Applications,VV,7.5,P2
+TFORM,,"Track, Automotive",1,AH2307,Urban Modeling and Decision Support,VV,7.5,P2
+TFORM,,"Track, Automotive",1,CK2300,Batteries,VV,7.5,P2
+TFORM,,"Track, Automotive",1,EL2700,Model Predictive Control,VV,7.5,P1
+TFORM,,"Track, Automotive",1,MF2007,Dynamics and Motion Control,VV,9,P2
+TFORM,,"Track, Automotive",1,MF2030,Mechatronics basic Course,VV,6,P1
+TFORM,,"Track, Automotive",1,MF2043,Robust Mechatronics,VV,6,P1
+TFORM,,"Track, Automotive",1,MJ2506,Energy Technologies for Sustainable Transportation,VV,6,P2
+TFORM,,"Track, Automotive",1,SD2111,Engineering Acoustics,VV,6,P1
+TFORM,,"Track, Automotive",1,SD2190,Vehicle Acoustics and Vibration,VV,6,P2
+TFORM,,"Track, Automotive",1,SD2250,Sustainable Vehicle Design,VV,7.5,P1
+TFORM,,"Track, Automotive",1,SD2411,Lightweight Structures and FEM,VV,8,P1 P2
+TFORM,,"Track, Automotive",1,SD2416,Structural Optimisation and Sandwich Design,VV,6,P2
+TFORM,,"Track, Automotive",1,SG2214,Fluid Mechanics,VV,7.5,P1
+TFORM,,"Track, Automotive",1,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,P3
+TFORM,,"Track, Railway",1,SA2002,Sustainable development and research methodology in engineering mechanics,O,3,P2
+TFORM,,"Track, Railway",1,SD2221,Vehicle System Technology,O,8,P1
+TFORM,,"Track, Railway",1,SD2313,Rail Vehicle Dynamics,O,8,P3
+TFORM,,"Track, Railway",1,EJ2440,Electric Transportation,O,6,P4
+TFORM,,"Track, Railway",1,SD2307,Rail Vehicle Technology,O,7.5,P2
+TFORM,,"Track, Railway",1,AF2901,Road- and Railway Track Engineering,VV,7.5,P2
+TFORM,,"Track, Railway",1,AH2170,Transport Data collection and Analysis,VV,7.5,P1
+TFORM,,"Track, Railway",1,AH2171,Traffic Engineering and Management,VV,7.5,P2
+TFORM,,"Track, Railway",1,AH2174,Traffic Simulation Modelling and Applications,VV,7.5,P2
+TFORM,,"Track, Railway",1,AH2307,Urban Modeling and Decision Support,VV,7.5,P2
+TFORM,,"Track, Railway",1,CK2300,Batteries,VV,7.5,P2
+TFORM,,"Track, Railway",1,EL2700,Model Predictive Control,VV,7.5,P1
+TFORM,,"Track, Railway",1,MF2007,Dynamics and Motion Control,VV,9,P2
+TFORM,,"Track, Railway",1,MF2030,Mechatronics basic Course,VV,6,P1
+TFORM,,"Track, Railway",1,MF2043,Robust Mechatronics,VV,6,P1
+TFORM,,"Track, Railway",1,MJ2506,Energy Technologies for Sustainable Transportation,VV,6,P2
+TFORM,,"Track, Railway",1,SD2111,Engineering Acoustics,VV,6,P1
+TFORM,,"Track, Railway",1,SD2190,Vehicle Acoustics and Vibration,VV,6,P2
+TFORM,,"Track, Railway",1,SD2250,Sustainable Vehicle Design,VV,7.5,P1
+TFORM,,"Track, Railway",1,SD2411,Lightweight Structures and FEM,VV,8,P1 P2
+TFORM,,"Track, Railway",1,SD2416,Structural Optimisation and Sandwich Design,VV,6,P2
+TFORM,,"Track, Railway",1,SG2214,Fluid Mechanics,VV,7.5,P1
+TFORM,,"Track, Railway",1,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,P3
+TFORM,,,2,AF2901,Road- and Railway Track Engineering,VV,7.5,
+TFORM,,,2,AH2170,Transport Data collection and Analysis,VV,7.5,
+TFORM,,,2,AH2171,Traffic Engineering and Management,VV,7.5,
+TFORM,,,2,AH2173,Public Transport,VV,7.5,
+TFORM,,,2,AH2174,Traffic Simulation Modelling and Applications,VV,7.5,
+TFORM,,,2,AH2307,Urban Modeling and Decision Support,VV,7.5,
+TFORM,,,2,CK2300,Batteries,VV,7.5,
+TFORM,,,2,CK2320,Hydrogen,VV,7.5,
+TFORM,,,2,EL2700,Model Predictive Control,VV,7.5,
+TFORM,,,2,MF2011,Systems Engineering,VV,9,
+TFORM,,,2,MF2030,Mechatronics basic Course,VV,6,
+TFORM,,,2,MF2043,Robust Mechatronics,VV,6,
+TFORM,,,2,MJ2506,Energy Technologies for Sustainable Transportation,VV,6,
+TFORM,,,2,SD2190,Vehicle Acoustics and Vibration,VV,6,
+TFORM,,,2,SD2230,Vehicle Dynamics Project Course Part 2,VV,7.5,
+TFORM,,,2,SD2231,Applied Vehicle Dynamics Control,VV,7.5,
+TFORM,,,2,SD2250,Sustainable Vehicle Design,VV,7.5,
+TFORM,,,2,SD2411,Lightweight Structures and FEM,VV,8,
+TFORM,,,2,SD2416,Structural Optimisation and Sandwich Design,VV,6,
+TFORM,,,2,SG2214,Fluid Mechanics,VV,7.5,
+TFORM,,,2,SD2111,Engineering Acoustics,VV,6,
+TFORM,,"Track, Railway Engineering ",2,SD231X,"Degree Project in Rail Vehicle Engineering, Second Cycle",O,30,
+TFORM,,"Track, Automotive",2,SD2229,Vehicle Dynamics Project Course Part 1,O,7.5,
+TFORM,,"Track, Automotive",2,EJ2410,Hybrid Vehicle Drives,O,7.5,
+TFORM,,"Track, Automotive",2,SD221X,"Degree Project in Vehicle Engineering, Second Cycle",O,30,
+TFORM,,"Track, Railway",2,AH2029,Railway Signalling System,O,7.5,
+TFORM,,"Track, Railway",2,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,
+TFORM,,"Track, Railway",2,SA2002,Sustainable development and research methodology in engineering mechanics,O,3,
+TFORM,,"Track, Railway",2,SD2229,Vehicle Dynamics Project Course Part 1,O,7.5,
+TFORM,,"Track, Railway",2,SD231X,"Degree Project in Rail Vehicle Engineering, Second Cycle",O,30,
+TMRSM,,,1,MG1010,"Introductory Welding Technology, General Course",VV,6,P3
+TMRSM,,,1,SD2702,Naval Design,VV,20,P3 P4
+TMRSM,,,1,ME1003,"Industrial Management, Basic Course",VV,6,
+TMRSM,,,1,SD2411,Lightweight Structures and FEM,VV,8,
+TMRSM,,,1,SD2420,Advanced design of welded structures,VV,6,
+TMRSM,,,1,SG2218,Turbulence,VV,7.5,
+TMRSM,,,1,SD2709,Underwater Technology,VV,7.5,
+TMRSM,,"Track, Lightweight Structures",1,SD2709,Underwater Technology,VV,7.5,P1
+TMRSM,,"Track, Lightweight Structures",1,ME1003,"Industrial Management, Basic Course",VV,6,P1
+TMRSM,,"Track, Lightweight Structures",1,SD2411,Lightweight Structures and FEM,VV,8,P1 P2
+TMRSM,,"Track, Lightweight Structures",1,SD2420,Advanced design of welded structures,VV,6,P1
+TMRSM,,"Track, Lightweight Structures",1,SG2218,Turbulence,VV,7.5,P2
+TMRSM,,"Track, Lightweight Structures",1,SD2413,Fibre Composites - Analysis and Design,O,6,P4
+TMRSM,,"Track, Lightweight Structures",1,SD2414,Fibre Composites - Materials and Manufacturing,O,6,P3
+TMRSM,,"Track, Lightweight Structures",1,SD2721,Ship Design,O,9,P1 P2
+TMRSM,,"Track, Lightweight Structures",1,SD2722,Marine Structures,O,7.5,P1 P2
+TMRSM,,"Track, Lightweight Structures",1,SD2723,Marine Hydromechanics,O,7.5,P3 P4
+TMRSM,,"Track, Lightweight Structures",1,SD2726,Modelling ship’s propulsion and manoeuvring,O,6,P2
+TMRSM,,"Track, Management",1,AL2160,Environmental Management,O,7.5,P4
+TMRSM,,"Track, Management",1,EH2720,Management of Projects,O,7.5,P1
+TMRSM,,"Track, Management",1,SD2721,Ship Design,O,9,P1 P2
+TMRSM,,"Track, Management",1,SD2722,Marine Structures,O,7.5,P1 P2
+TMRSM,,"Track, Management",1,SD2723,Marine Hydromechanics,O,7.5,P3 P4
+TMRSM,,"Track, Management",1,SD2726,Modelling ship’s propulsion and manoeuvring,O,6,P2
+TMRSM,,"Track, Fluid Mechanics",1,SD2721,Ship Design,O,9,P1 P2
+TMRSM,,"Track, Fluid Mechanics",1,SD2722,Marine Structures,O,7.5,P1 P2
+TMRSM,,"Track, Fluid Mechanics",1,SD2723,Marine Hydromechanics,O,7.5,P3 P4
+TMRSM,,"Track, Fluid Mechanics",1,SD2726,Modelling ship’s propulsion and manoeuvring,O,6,P2
+TMRSM,,"Track, Fluid Mechanics",1,SG2212,Computational Fluid Dynamics,O,7.5,P3
+TMRSM,,"Track, Fluid Mechanics",1,SG2214,Fluid Mechanics,O,7.5,P1
+TMRSM,,"Track, Fluid Mechanics",1,SG2224,Applied Computational Fluid Dynamics,O,5,P4
+TMRSM,,,2,SD2702,Naval Design,VV,20,P1 P2
+TMRSM,,,2,ME1003,"Industrial Management, Basic Course",VV,6,
+TMRSM,,,2,SD2705,High-Speed Craft,VV,6,
+TMRSM,,,2,SD2709,Underwater Technology,VV,7.5,
+TMRSM,,,2,SG2218,Turbulence,VV,7.5,
+TMRSM,,,2,SM2501,Biomechanics of Human Movement,VV,7.5,
+TMRSM,,"Track, Lightweight Structures",2,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,
+TMRSM,,"Track, Lightweight Structures",2,SA2002,Sustainable development and research methodology in engineering mechanics,O,3,
+TMRSM,,"Track, Lightweight Structures",2,SD2416,Structural Optimisation and Sandwich Design,O,6,
+TMRSM,,"Track, Lightweight Structures",2,SD241X,"Degree Project in Lightweight Structures, Second Cycle",VV,30,
+TMRSM,,"Track, Lightweight Structures",2,SD2705,High-Speed Craft,VV,6,
+TMRSM,,"Track, Lightweight Structures",2,SD271X,"Degree Project in Naval Architecture, Second Cycle",VV,30,
+TMRSM,,"Track, Lightweight Structures",2,SD2702,Naval Design,VV,20,
+TMRSM,,"Track, Lightweight Structures",2,SD2709,Underwater Technology,VV,7.5,
+TMRSM,,"Track, Management",2,AL2181,Environmental System Analysis and Decision making,O,7.5,
+TMRSM,,"Track, Management",2,SA2002,Sustainable development and research methodology in engineering mechanics,O,3,
+TMRSM,,"Track, Management",2,SD2705,High-Speed Craft,VV,6,
+TMRSM,,"Track, Management",2,SD2709,Underwater Technology,VV,7.5,
+TMRSM,,"Track, Management",2,SD2702,Naval Design,VV,20,
+TMRSM,,"Track, Management",2,SD271X,"Degree Project in Naval Architecture, Second Cycle",O,30,
+TMRSM,,"Track, Fluid Mechanics",2,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,
+TMRSM,,"Track, Fluid Mechanics",2,SA2002,Sustainable development and research methodology in engineering mechanics,O,3,
+TMRSM,,"Track, Fluid Mechanics",2,SD2705,High-Speed Craft,VV,6,
+TMRSM,,"Track, Fluid Mechanics",2,SD271X,"Degree Project in Naval Architecture, Second Cycle",VV,30,
+TMRSM,,"Track, Fluid Mechanics",2,SG213X,"Degree Project in Fluid Mechanics, Second Cycle",VV,30,
+TMRSM,,"Track, Fluid Mechanics",2,SD2709,Underwater Technology,VV,7.5,
+TMRSM,,"Track, Fluid Mechanics",2,SD2702,Naval Design,VV,20,
+TTEMM,,,1,SD2110,Introduction to Noise Control,V,3,P1
+TTEMM,,,1,SD2111,Engineering Acoustics,V,6,P1
+TTEMM,,,1,SD2125,Signals and Mechanical Systems,V,6,P2
+TTEMM,,,1,SD2140,Vibro Acoustics,V,8,P2
+TTEMM,,,1,SD2165,Acoustical Measurements,V,8,P1 P2
+TTEMM,,,1,SE1025,FEM for Engineering Applications,V,6,P1
+TTEMM,,,1,SE2126,Material Mechanics,V,9,P1 P2
+TTEMM,,,1,SE2132,Applied Elasticity with FEM,V,9,P1 P2
+TTEMM,,,1,SE2137,Fatigue,V,6,P1
+TTEMM,,,1,SG2214,Fluid Mechanics,V,7.5,P1
+TTEMM,,,1,SG2218,Turbulence,V,7.5,P2
+TTEMM,,,1,SM2501,Biomechanics of Human Movement,V,7.5,P2
+TTEMM,,,1,SE2860,FEM Modelling,V,8,P2
+TTEMM,,,1,SG2225,Fluid Mechanics Continuation Course,V,4,P1
+TTEMM,,,1,SD2166,Building Acoustics and Community Noise,V,7.5,P1
+TTEMM,,,1,SD2150,"Experimental Structure Dynamics, Project Course",V,9,P3 P4
+TTEMM,,,1,SD2155,Flow Acoustics,V,6,P3
+TTEMM,,,1,SD2175,Numerical Methods for Acoustics and Vibration,V,9,P4
+TTEMM,,,1,SE2121,Introduction to Biomechanics,V,9,P4
+TTEMM,,,1,SE2123,Testing Techniques in Solid Mechanics,V,6,P3
+TTEMM,,,1,SE2134,Dynamic Problems in Solid Mechanics,V,7.5,P4
+TTEMM,,,1,SE2139,Fracture Mechanics,V,6,P3
+TTEMM,,,1,SG2211,Vehicle Aerodynamics,V,6,P4
+TTEMM,,,1,SG2212,Computational Fluid Dynamics,V,7.5,P3
+TTEMM,,,1,SG2224,Applied Computational Fluid Dynamics,V,5,P4
+TTEMM,,"Track, Fluid Mechanics",1,SD2155,Flow Acoustics,V,6,P3
+TTEMM,,"Track, Fluid Mechanics",1,SD2180,Non-linear Acoustics,V,6,P1
+TTEMM,,"Track, Fluid Mechanics",1,SE1025,FEM for Engineering Applications,V,6,P1
+TTEMM,,"Track, Fluid Mechanics",1,SE2126,Material Mechanics,V,9,P1 P2
+TTEMM,,"Track, Fluid Mechanics",1,SE2132,Applied Elasticity with FEM,V,9,P1 P2
+TTEMM,,"Track, Fluid Mechanics",1,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,P1
+TTEMM,,"Track, Fluid Mechanics",1,SA2002,Sustainable development and research methodology in engineering mechanics,O,3,P1
+TTEMM,,"Track, Fluid Mechanics",1,SG2214,Fluid Mechanics,O,7.5,P1
+TTEMM,,"Track, Fluid Mechanics",1,SG2218,Turbulence,O,7.5,P2
+TTEMM,,"Track, Fluid Mechanics",1,SG2212,Computational Fluid Dynamics,O,7.5,P3
+TTEMM,,"Track, Fluid Mechanics",1,SG2215,Compressible Flow,O,7.5,P4
+TTEMM,,"Track, Solid Mechanics",1,SD2150,"Experimental Structure Dynamics, Project Course",V,9,P3 P4
+TTEMM,,"Track, Solid Mechanics",1,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,P1
+TTEMM,,"Track, Solid Mechanics",1,SA2002,Sustainable development and research methodology in engineering mechanics,O,3,P1
+TTEMM,,"Track, Solid Mechanics",1,SE2126,Material Mechanics,O,9,P1 P2
+TTEMM,,"Track, Solid Mechanics",1,SE2132,Applied Elasticity with FEM,O,9,P1 P2
+TTEMM,,"Track, Solid Mechanics",1,SE2860,FEM Modelling,O,8,P2
+TTEMM,,"Track, Solid Mechanics",1,SD2125,Signals and Mechanical Systems,V,6,P2
+TTEMM,,"Track, Solid Mechanics",1,SD2140,Vibro Acoustics,V,8,P2
+TTEMM,,"Track, Solid Mechanics",1,SG1220,Fluid Mechanics for Engineers,V,6,P1
+TTEMM,,"Track, Solid Mechanics",1,SG2225,Fluid Mechanics Continuation Course,V,4,P1
+TTEMM,,"Track, Solid Mechanics",1,SG2214,Fluid Mechanics,V,7.5,P1
+TTEMM,,"Track, Sound and Vibrations",1,SE2123,Testing Techniques in Solid Mechanics,V,6,P3
+TTEMM,,"Track, Sound and Vibrations",1,SG2211,Vehicle Aerodynamics,V,6,P4
+TTEMM,,"Track, Sound and Vibrations",1,SG2215,Compressible Flow,V,7.5,P4
+TTEMM,,"Track, Sound and Vibrations",1,SE2860,FEM Modelling,V,8,P2
+TTEMM,,"Track, Sound and Vibrations",1,SG2214,Fluid Mechanics,V,7.5,P1
+TTEMM,,"Track, Sound and Vibrations",1,SG2225,Fluid Mechanics Continuation Course,V,4,P1
+TTEMM,,"Track, Sound and Vibrations",1,SE2126,Material Mechanics,V,9,P1 P2
+TTEMM,,"Track, Sound and Vibrations",1,SE2132,Applied Elasticity with FEM,V,9,P1 P2
+TTEMM,,"Track, Sound and Vibrations",1,SD2155,Flow Acoustics,O,6,P3
+TTEMM,,"Track, Sound and Vibrations",1,SD2175,Numerical Methods for Acoustics and Vibration,O,9,P4
+TTEMM,,"Track, Sound and Vibrations",1,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,P1
+TTEMM,,"Track, Sound and Vibrations",1,SA2002,Sustainable development and research methodology in engineering mechanics,O,3,P1
+TTEMM,,"Track, Sound and Vibrations",1,SD2125,Signals and Mechanical Systems,O,6,P2
+TTEMM,,"Track, Sound and Vibrations",1,SD2140,Vibro Acoustics,O,8,P2
+TTEMM,,"Track, Sound and Vibrations",1,SD2165,Acoustical Measurements,O,8,P1 P2
+TTEMM,,,2,SD2111,Engineering Acoustics,V,6,
+TTEMM,,,2,SD2125,Signals and Mechanical Systems,V,6,
+TTEMM,,,2,SD2165,Acoustical Measurements,V,8,
+TTEMM,,,2,SD2166,Building Acoustics and Community Noise,V,7.5,
+TTEMM,,,2,SD2180,Non-linear Acoustics,V,6,
+TTEMM,,,2,SD2190,Vehicle Acoustics and Vibration,V,6,
+TTEMM,,,2,SE1025,FEM for Engineering Applications,V,6,
+TTEMM,,,2,SE2126,Material Mechanics,V,9,
+TTEMM,,,2,SE2132,Applied Elasticity with FEM,V,9,
+TTEMM,,,2,SE2137,Fatigue,V,6,
+TTEMM,,,2,SE2145,"Reliability, Optimization and Design",V,9,
+TTEMM,,,2,SE2152,Mechanics of Fiber Networks and Materials,V,8,
+TTEMM,,,2,SE2860,FEM Modelling,V,8,
+TTEMM,,,2,SE2870,Fem for Nonlinear Problems in Solid Mechanics,V,7,
+TTEMM,,,2,SG1220,Fluid Mechanics for Engineers,V,6,
+TTEMM,,,2,SG2010,Project Course in Engineering Mechanics,V,15,
+TTEMM,,,2,SG2150,Rigid Body Dynamic,V,7,
+TTEMM,,,2,SG2214,Fluid Mechanics,V,7.5,
+TTEMM,,,2,SG2219,Advanced Compressible Flows,V,7.5,
+TTEMM,,,2,SG2221,Wave Motions and Hydrodynamic Stability,V,7.5,
+TTEMM,,,2,SG2225,Fluid Mechanics Continuation Course,V,4,
+TTEMM,,,2,SG2226,Wind Energy Aerodynamics,V,6,
+TTEMM,,,2,SM2001,Data-driven Methods in Engineering Mechanics,V,7.5,
+TTEMM,,,2,SM2501,Biomechanics of Human Movement,V,7.5,
+TTEMM,,,2,SG2218,Turbulence,V,7.5,
+TTEMM,,"Track, Fluid Mechanics",2,SG213X,"Degree Project in Fluid Mechanics, Second Cycle",O,30,
+TTEMM,,"Track, Fluid Mechanics",2,SD2180,Non-linear Acoustics,V,6,
+TTEMM,,"Track, Fluid Mechanics",2,SE2126,Material Mechanics,V,9,
+TTEMM,,"Track, Fluid Mechanics",2,SE2132,Applied Elasticity with FEM,V,9,
+TTEMM,,"Track, Solid Mechanics",2,SE202X,"Degree Project in Solid Mechanics, Second Cycle",O,30,
+TTEMM,,"Track, Solid Mechanics",2,SD2125,Signals and Mechanical Systems,V,6,
+TTEMM,,"Track, Solid Mechanics",2,SG1220,Fluid Mechanics for Engineers,V,6,
+TTEMM,,"Track, Solid Mechanics",2,SG2150,Rigid Body Dynamic,V,7,
+TTEMM,,"Track, Solid Mechanics",2,SD2140,Vibro Acoustics,V,8,
+TTEMM,,"Track, Solid Mechanics",2,SG2214,Fluid Mechanics,V,7.5,
+TTEMM,,"Track, Solid Mechanics",2,SG2225,Fluid Mechanics Continuation Course,V,4,
+TTEMM,,"Track, Sound and Vibrations",2,SE2126,Material Mechanics,V,9,
+TTEMM,,"Track, Sound and Vibrations",2,SE2132,Applied Elasticity with FEM,V,9,
+TTEMM,,"Track, Sound and Vibrations",2,SG2214,Fluid Mechanics,V,7.5,
+TTEMM,,"Track, Sound and Vibrations",2,SG2225,Fluid Mechanics Continuation Course,V,4,
+TTEMM,,"Track, Sound and Vibrations",2,SD211X,"Degree Project in Technical Acoustics, Second Cycle",O,30,
+TTMAM,,,1,SF2812,Applied Linear Optimization,VV,7.5,P3
+TTMAM,,,1,DD2356,Methods in High Performance Computing,V,7.5,P4
+TTMAM,,,1,DD2365,Advanced Computation in Fluid Mechanics,V,7.5,P4
+TTMAM,,,1,DD2421,Machine Learning,V,7.5,P3
+TTMAM,,,1,SF1677,Foundations of Analysis,V,7.5,P3 P4
+TTMAM,,,1,SF1678,Groups and Rings,V,7.5,P3 P4
+TTMAM,,,1,SF1691,Complex Analysis,V,7.5,P3 P4
+TTMAM,,,1,SF2526,Numerical algorithms for data-intensive science,V,7.5,P3
+TTMAM,,,1,SF2701,"Financial Mathematics, Basic Course",V,7.5,P4
+TTMAM,,,1,SF2822,Applied Nonlinear Optimization,V,7.5,P4
+TTMAM,,,1,SF2842,Geometric Control Theory,V,7.5,P3
+TTMAM,,,1,SF2930,Regression Analysis,V,7.5,P3
+TTMAM,,,1,SF2943,Time Series Analysis,V,7.5,P4
+TTMAM,,,1,SF2955,Computer Intensive Methods in Mathematical Statistics,V,7.5,P4
+TTMAM,,,1,SF2971,Martingales and Stochastic Integrals,V,7.5,P3
+TTMAM,,,1,SG2212,Computational Fluid Dynamics,V,7.5,P3
+TTMAM,,,1,SG2224,Applied Computational Fluid Dynamics,V,5,P4
+TTMAM,,,1,DD2352,Algorithms and Complexity,V,7.5,P3 P4
+TTMAM,,,1,DD2601,Deep Generative Models and Synthesis,V,7.5,P1
+TTMAM,,,1,DD2257,Visualization,V,7.5,P1
+TTMAM,,,1,DD2434,"Machine Learning, Advanced Course",V,7.5,P2
+TTMAM,,,1,DD2435,Mathematical Modelling of Biological Systems,V,9,P1 P2
+TTMAM,,,1,DD2440,Advanced Algorithms,V,6,P1 P2
+TTMAM,,,1,SF1811,Optimization,V,6,P2
+TTMAM,,,1,SF2852,Optimal Control Theory,V,7.5,P1
+TTMAM,,,1,SF2866,Applied Systems Engineering,V,7.5,P1
+TTMAM,,,1,SF2935,Modern Methods of Statistical Learning,V,7.5,P1
+TTMAM,,,1,SF2942,Portfolio Theory and Risk Management,V,7.5,P1
+TTMAM,,,1,SF2956,Topological Data Analysis,V,7.5,P1
+TTMAM,,,1,SF2975,Financial Derivatives,V,7.5,P1
+TTMAM,,,1,SF2980,Risk Management,V,7.5,P2
+TTMAM,,,1,SF2524,Matrix Computations for Large-scale Systems,VV,7.5,P2
+TTMAM,,,1,SF2527,Numerical Methods for Differential Equations I ,VV,7.5,P1 P2
+TTMAM,,,1,SF2832,Mathematical Systems Theory,VV,7.5,P2
+TTMAM,,,1,SF2863,Systems Engineering,VV,7.5,P2
+TTMAM,,,1,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,P1
+TTMAM,,,1,SA2001,Sustainable development and research methodology in mathematics,O,3,P1
+TTMAM,,,1,SF2940,Probability Theory,O,7.5,P1
+TTMAM,,"Track, Computational Mathematics",1,SF2526,Numerical algorithms for data-intensive science,VV,7.5,P3
+TTMAM,,"Track, Computational Mathematics",1,SF2525,Computational Methods for Stochastic Differential Equations and Machine Learning,VV,7.5,P3 P4
+TTMAM,,"Track, Computational Mathematics",1,SF2528,Numerical Methods for Differential Equations II,VV,7.5,P3 P4
+TTMAM,,"Track, Computational Mathematics",1,DD2365,Advanced Computation in Fluid Mechanics,VV,7.5,P4
+TTMAM,,"Track, Financial Mathematics",1,SF2930,Regression Analysis,VV,7.5,P3
+TTMAM,,"Track, Financial Mathematics",1,SF2971,Martingales and Stochastic Integrals,VV,7.5,P3
+TTMAM,,"Track, Financial Mathematics",1,SF2943,Time Series Analysis,VV,7.5,P4
+TTMAM,,"Track, Financial Mathematics",1,SF2701,"Financial Mathematics, Basic Course",O,7.5,P4
+TTMAM,,"Track, Mathematics of Data Science",1,SF2526,Numerical algorithms for data-intensive science,VV,7.5,P3
+TTMAM,,"Track, Mathematics of Data Science",1,SF2930,Regression Analysis,VV,7.5,P3
+TTMAM,,"Track, Mathematics of Data Science",1,SF2955,Computer Intensive Methods in Mathematical Statistics,VV,7.5,P4
+TTMAM,,"Track, Mathematics of Data Science",1,SF2525,Computational Methods for Stochastic Differential Equations and Machine Learning,VV,7.5,P3 P4
+TTMAM,,"Track, Mathematics of Data Science",1,SF2943,Time Series Analysis,VV,7.5,P4
+TTMAM,,"Track, Optimization and Systems Theory",1,SF2822,Applied Nonlinear Optimization,VV,7.5,P4
+TTMAM,,"Track, Optimization and Systems Theory",1,SF2866,Applied Systems Engineering,VV,7.5,P1
+TTMAM,,"Track, Optimization and Systems Theory",1,SF2832,Mathematical Systems Theory,VV,7.5,P2
+TTMAM,,"Track, Optimization and Systems Theory",1,SF2863,Systems Engineering,VV,7.5,P2
+TTMAM,,"Track, Optimization and Systems Theory",1,SF2812,Applied Linear Optimization,VV,7.5,P3
+TTMAM,,"Track, Optimization and Systems Theory",1,SF2842,Geometric Control Theory,VV,7.5,P3
+TTMAM,,"Track, Computer Simulations for Science and Engineering",1,DD2257,Visualization,VV,7.5,P1
+TTMAM,,"Track, Computer Simulations for Science and Engineering",1,SF2526,Numerical algorithms for data-intensive science,VV,7.5,P3
+TTMAM,,"Track, Computer Simulations for Science and Engineering",1,SF2822,Applied Nonlinear Optimization,VV,7.5,P4
+TTMAM,,"Track, Computer Simulations for Science and Engineering",1,SF2525,Computational Methods for Stochastic Differential Equations and Machine Learning,VV,7.5,P3 P4
+TTMAM,,"Track, Computer Simulations for Science and Engineering",1,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,P1
+TTMAM,,"Track, Computer Simulations for Science and Engineering",1,SA2001,Sustainable development and research methodology in mathematics,O,3,P1
+TTMAM,,"Track, Computer Simulations for Science and Engineering",1,SF2524,Matrix Computations for Large-scale Systems,O,7.5,P2
+TTMAM,,"Track, Computer Simulations for Science and Engineering",1,SF2940,Probability Theory,O,7.5,P1
+TTMAM,,,2,SF2524,Matrix Computations for Large-scale Systems,VV,7.5,
+TTMAM,,,2,SF2527,Numerical Methods for Differential Equations I ,VV,7.5,
+TTMAM,,,2,SF2812,Applied Linear Optimization,VV,7.5,
+TTMAM,,,2,SF2832,Mathematical Systems Theory,VV,7.5,
+TTMAM,,,2,SF2863,Systems Engineering,VV,7.5,
+TTMAM,,,2,DD2257,Visualization,V,7.5,
+TTMAM,,,2,DD2421,Machine Learning,V,7.5,
+TTMAM,,,2,DD2434,"Machine Learning, Advanced Course",V,7.5,
+TTMAM,,,2,DD2435,Mathematical Modelling of Biological Systems,V,9,
+TTMAM,,,2,DD2440,Advanced Algorithms,V,6,
+TTMAM,,,2,DD2445,Complexity Theory,V,7.5,
+TTMAM,,,2,SF1811,Optimization,V,6,
+TTMAM,,,2,SF2565,Program Construction in C++ for Scientific Computing,V,7.5,
+TTMAM,,,2,SF2852,Optimal Control Theory,V,7.5,
+TTMAM,,,2,SF2866,Applied Systems Engineering,V,7.5,
+TTMAM,,,2,SF2935,Modern Methods of Statistical Learning,V,7.5,
+TTMAM,,,2,SF2942,Portfolio Theory and Risk Management,V,7.5,
+TTMAM,,,2,SF2956,Topological Data Analysis,V,7.5,
+TTMAM,,,2,SF2957,Statistical Machine Learning,V,7.5,
+TTMAM,,,2,SF2975,Financial Derivatives,V,7.5,
+TTMAM,,,2,SF2980,Risk Management,V,7.5,
+TTMAM,,,2,DD2601,Deep Generative Models and Synthesis,V,7.5,
+TTMAM,,"Track, Computational Mathematics",2,SF250X,"Degree Project in Scientific Computing, Second Cycle",O,30,
+TTMAM,,"Track, Computational Mathematics",2,SF2524,Matrix Computations for Large-scale Systems,VV,7.5,
+TTMAM,,"Track, Computational Mathematics",2,SF2527,Numerical Methods for Differential Equations I ,VV,7.5,
+TTMAM,,"Track, Computational Mathematics",2,SF2529,Inverse Problems,VV,7.5,
+TTMAM,,"Track, Computational Mathematics",2,SF2565,Program Construction in C++ for Scientific Computing,VV,7.5,
+TTMAM,,"Track, Financial Mathematics",2,SF291X,"Degree Project in Financial Mathematics, Second Cycle",O,30,
+TTMAM,,"Track, Financial Mathematics",2,SF2942,Portfolio Theory and Risk Management,O,7.5,
+TTMAM,,"Track, Financial Mathematics",2,SF2975,Financial Derivatives,VV,7.5,
+TTMAM,,"Track, Financial Mathematics",2,SF2980,Risk Management,VV,7.5,
+TTMAM,,"Track, Financial Mathematics",2,SF2930,Regression Analysis,VV,7.5,
+TTMAM,,"Track, Financial Mathematics",2,SF2943,Time Series Analysis,VV,7.5,
+TTMAM,,"Track, Financial Mathematics",2,SF2971,Martingales and Stochastic Integrals,VV,7.5,
+TTMAM,,"Track, Mathematics of Data Science",2,SF290X,"Degree Project in Mathematical Statistics, Second Cycle",O,30,
+TTMAM,,"Track, Mathematics of Data Science",2,SF2935,Modern Methods of Statistical Learning,O,7.5,
+TTMAM,,"Track, Mathematics of Data Science",2,SF2529,Inverse Problems,VV,7.5,
+TTMAM,,"Track, Mathematics of Data Science",2,SF2956,Topological Data Analysis,VV,7.5,
+TTMAM,,"Track, Mathematics of Data Science",2,SF2957,Statistical Machine Learning,VV,7.5,
+TTMAM,,"Track, Optimization and Systems Theory",2,SF280X,"Degree Project in Optimization and Systems Theory, Second Cycle",O,30,
+TTMAM,,"Track, Optimization and Systems Theory",2,SF2832,Mathematical Systems Theory,VV,7.5,
+TTMAM,,"Track, Optimization and Systems Theory",2,SF2852,Optimal Control Theory,VV,7.5,
+TTMAM,,"Track, Optimization and Systems Theory",2,SF2863,Systems Engineering,VV,7.5,
+TTMAM,,"Track, Optimization and Systems Theory",2,SF2866,Applied Systems Engineering,VV,7.5,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,SF259X,"Degree Project in Scientific Computing, Second Cycle",O,30,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,AK2030,Theory and Methodology of Science (Natural and Technological Science),VV,4.5,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,BB2280,Molecular Modeling,VV,7.5,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,CB2442,Bioinformatics,VV,7.5,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,DD2421,Machine Learning,VV,7.5,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,DD2434,"Machine Learning, Advanced Course",VV,7.5,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,DD2435,Mathematical Modelling of Biological Systems,VV,9,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,SA2001,Sustainable development and research methodology in mathematics,VV,3,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,SF2524,Matrix Computations for Large-scale Systems,VV,7.5,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,SF2565,Program Construction in C++ for Scientific Computing,VV,7.5,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,SF2832,Mathematical Systems Theory,VV,7.5,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,SF2863,Systems Engineering,VV,7.5,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,SF2935,Modern Methods of Statistical Learning,VV,7.5,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,SF2942,Portfolio Theory and Risk Management,VV,7.5,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,SF2956,Topological Data Analysis,VV,7.5,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,SF2980,Risk Management,VV,7.5,
+TTMAM,,"Track, Computer Simulations for Science and Engineering",2,SK2532,Biomedicine for Engineers,VV,7.5,
+TNEEM,,,1,SH2302,Nuclear Physics,V,8,P3
+TNEEM,,,1,SH2605,Radiation Damage in Materials,V,6,P4
+TNEEM,,,1,SH2611,Small Reactors,V,6,P3 P4
+TNEEM,,,1,SH2613,Generation IV Reactors,V,6,P3 P4
+TNEEM,,,1,SH2705,Compact Reactor Simulator- Exercises in Reactor Kinetics and Dynamics,V,6,P3 P4
+TNEEM,,,1,SH2610,Leadership for Safe Nuclear Power Industry,V,6,P1
+TNEEM,,,1,SH2614,The Nuclear Fuel Cycle,V,6,P1 P2
+TNEEM,,,1,SH2704,Monte Carlo Methods and Simulations in Nuclear Technology,V,6,P2 P3
+TNEEM,,,1,SH2706,Sustainable Energy Transformation Technologies,V,9,P1 P2
+TNEEM,,,1,SH2772,Chemistry and Physics of Nuclear Fuels,V,8,P1 P2
+TNEEM,,,1,SH2774,Numerical Methods in Nuclear Engineering,V,6,P1 P2
+TNEEM,,,1,SH2600,"Nuclear Reactor Physics, Major Course",O,9,P1 P2
+TNEEM,,,1,SH2603,"Radiation, Protection, Dosimetry and Detectors",O,6,P1
+TNEEM,,,1,SH2701,Thermal-Hydraulics in Nuclear Energy Engineering,O,6,P2
+TNEEM,,,1,SH2612,Nuclear Power Safety,O,6,P3 P4
+TNEEM,,,1,SH2702,Nuclear Reactor Technology,O,8,P3
+TNEEM,,,2,AK2030,Theory and Methodology of Science (Natural and Technological Science),O,4.5,
+TNEEM,,,2,SH2007,Research Methodology in Physics,O,3,
+TNEEM,,,2,SH2610,Leadership for Safe Nuclear Power Industry,V,6,
+TNEEM,,,2,SH2614,The Nuclear Fuel Cycle,V,6,
+TNEEM,,,2,SH2706,Sustainable Energy Transformation Technologies,V,9,
+TNEEM,,,2,SH2772,Chemistry and Physics of Nuclear Fuels,V,8,
+TNEEM,,,2,SH2774,Numerical Methods in Nuclear Engineering,V,6,
+TNEEM,,,2,SH260X,"Degree Project in Nuclear Engineering, Second Cycle",VV,30,
+TNEEM,,,2,SH204X,"Degree Project in Physics, Second Cycle",VV,30,
+TBDVM,,,1,SF2526,Numerical algorithms for data-intensive science,VV,7.5,P3
+TBDVM,,,1,SF2930,Regression Analysis,VV,7.5,P3
+TBDVM,,,1,SF2943,Time Series Analysis,VV,7.5,P4
+TBDVM,,,1,DD2424,Deep Learning in Data Science,VV,7.5,P4
+TBDVM,,,1,SK2532,Biomedicine for Engineers,VV,7.5,P1
+TBDVM,,,1,SF2940,Probability Theory,O,7.5,P1
+TBDVM,,,1,SF2955,Computer Intensive Methods in Mathematical Statistics,O,7.5,P4
+TBDVM,,,2,DD2421,Machine Learning,VV,7.5,
+TBDVM,,,2,DD2610,"Deep Learning, advanced course",VV,7.5,
+TBDVM,,,2,SF2935,Modern Methods of Statistical Learning,VV,7.5,
+TBDVM,,,2,SF2956,Topological Data Analysis,VV,7.5,
+TBDVM,,,2,SF2957,Statistical Machine Learning,VV,7.5,
+TBDVM,,,2,DD2420,Probabilistic Graphical Models,VV,7.5,
+TMAKM,,,1,DD2352,Algorithms and Complexity,V,7.5,P3 P4
+TMAKM,,,1,DD2448,Foundations of Cryptography,V,7.5,P4
+TMAKM,,,1,SF2812,Applied Linear Optimization,V,7.5,P3
+TMAKM,,,1,SF2822,Applied Nonlinear Optimization,V,7.5,P4
+TMAKM,,,1,SF2842,Geometric Control Theory,V,7.5,P3
+TMAKM,,,1,SF2930,Regression Analysis,V,7.5,P3
+TMAKM,,,1,SF2943,Time Series Analysis,V,7.5,P4
+TMAKM,,,1,SF2955,Computer Intensive Methods in Mathematical Statistics,V,7.5,P4
+TMAKM,,,1,SF2971,Martingales and Stochastic Integrals,V,7.5,P3
+TMAKM,,,1,SF2972,Game Theory,V,7.5,P3
+TMAKM,,,1,SF2720,Chaotic Dynamical Systems,V,7.5,P3 P4
+TMAKM,,,1,SF2722,Differential Geometry,V,7.5,P3 P4
+TMAKM,,,1,SF2716,Selected Topics in Mathematics II,V,7.5,P3 P4
+TMAKM,,,1,DD2440,Advanced Algorithms,V,6,P1 P2
+TMAKM,,,1,DD2447,Statistical Methods in Applied Computer Science,V,6,P2
+TMAKM,,,1,SF2725,The History of Mathematics,V,7.5,P1
+TMAKM,,,1,SF2832,Mathematical Systems Theory,V,7.5,P2
+TMAKM,,,1,SF2852,Optimal Control Theory,V,7.5,P1
+TMAKM,,,1,SF2863,Systems Engineering,V,7.5,P2
+TMAKM,,,1,SF2975,Financial Derivatives,V,7.5,P1
+TMAKM,,,1,SF2980,Risk Management,V,7.5,P2
+TMAKM,,,1,SF2942,Portfolio Theory and Risk Management,V,7.5,P1
+TMAKM,,,1,SF2944,Foundations of Probability Theory,V,7.5,P1
+TMAKM,,,1,SF2704,Topics in Mathematics I,V,7.5,P3 P4
+TMAKM,,,1,SF2741,Enumerative Combinatorics,VV,7.5,P1 P2
+TMAKM,,,1,SF2743,Advanced Real Analysis I,O,7.5,P1 P2
+TMAKM,,,1,SA2001,Sustainable development and research methodology in mathematics,O,3,P3
+TMAKM,,,1,AK2034,Theory and Methodology of Science (Computational Science),O,4.5,P3
+TMAKM,,,2,SF278X,"Degree Project in Mathematics, Second Cycle",O,30,
+TMAKM,,,2,SF2740,Graph Theory,VV,7.5,
+TMAKM,,,2,DD2440,Advanced Algorithms,V,6,
+TMAKM,,,2,DD2445,Complexity Theory,V,7.5,
+TMAKM,,,2,SF2705,Fourier Analysis,V,7.5,
+TMAKM,,,2,SF2723,Topics in Mathematics III,V,7.5,
+TMAKM,,,2,SF2832,Mathematical Systems Theory,V,7.5,
+TMAKM,,,2,SF2852,Optimal Control Theory,V,7.5,
+TMAKM,,,2,SF2863,Systems Engineering,V,7.5,
+TMAKM,,,2,SF2942,Portfolio Theory and Risk Management,V,7.5,
+TMAKM,,,2,SF2980,Risk Management,V,7.5,

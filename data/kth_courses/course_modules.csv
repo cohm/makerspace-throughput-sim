@@ -1,0 +1,504 @@
+course,module,module_name,credits
+AF2201,ÖVN1,Exercises,1.5
+AF2201,BER1,Project,3.0
+AF2201,TEN1,Written examination,3.0
+AF2901,ÖVN1,Exercises,3.0
+AF2901,TEN1,Examination,4.5
+AH2029,TEN1,Examination,7.5
+AH2036,TEN1,Written exam,4.5
+AH2036,ÖVN1,Exercises,1.5
+AH2036,PRO1,Project assignment,1.5
+AH2170,,(none found),
+AH2171,,(none found),
+AH2173,PRO2,Project,3.5
+AH2173,TEN2,Written exa,4.0
+AH2174,TEN3,Written examination,4.0
+AH2174,PRO2,Project Assignments,3.5
+AH2301,PRO1,Project,3.5
+AH2307,TEN1,Examination,3.0
+AK2030,SEM1,Seminars,1.5
+AK2034,SEM1,Seminars,1.5
+AK2034,TEN1,Examination,3.0
+AL2160,PRO2,Project,7.5
+AL2181,TEN3,Exam,3.5
+AL2181,PRO4,Project,3.0
+AL2181,SEM1,Seminar,0.5
+AL2181,SEM2,Seminar,0.5
+BB2280,TEN1,Written exam,6.0
+BB2280,LAB1,Laboratory Work,1.5
+CB2442,LAB1,Computer exercises,2.5
+CB2442,TEN1,Written exam,5.0
+CK2300,TEN1,Written exam,4.0
+CK2300,PRO1,Project,3.5
+CK2320,TEN1,Written exam,4.0
+CK2320,PRO1,Project,3.5
+DD1310,LAB3,Laboratory Task,3.0
+DD1310,LAB2,Laboratory Task,1.5
+DD1310,LAB1,Laboratory Task,1.5
+DD1320,,(none found),
+DD1327,HEM1,Individual Home Assignments,4.0
+DD1327,PRO1,Individual Project Assignment,2.0
+DD1328,HEM3,Take-home Assignment,3.0
+DD1331,PRO1,Individual programming project,2.0
+DD1331,LAB1,Laboratory Assignment,2.0
+DD1333,LAB1,Laboratory Assignment,2.0
+DD1333,PRO1,Individual Programming Projekt,2.0
+DD1420,KON1,Digital quizzes,3.0
+DD1420,ÖVN1,Exercises,1.5
+DD2257,TEN1,Written Examination,4.0
+DD2257,LAB1,Laboratory Assignments,3.5
+DD2365,PRO1,Project,4.0
+DD2365,TEN1,Examination,3.5
+DD2420,OVN1,Exercises,2.5
+DD2420,OVN2,Exercises,2.5
+DD2420,KON1,Written partial exams,2.5
+DD2421,TEN1,Examination,4.0
+DD2421,LAB1,Laboratory Work,3.5
+DD2424,TEN1,Examination,3.0
+DD2424,LAB2,Laboratory work,4.5
+DD2434,,(none found),
+DD2435,PRO2,Project,3.0
+DD2435,TEN2,Examination,4.5
+DD2435,LAB1,Laboratory Work,1.5
+DD2610,PRO1,Project work,3.0
+DD2610,LAB1,Laboratory work,4.5
+EF112X,,(none found),
+EF2240,TEN1,Examination,6.0
+EF2260,PRO2,Project,1.5
+EF2260,PRO1,Project,1.5
+EF2260,TEN1,Oral examination,3.0
+EH2720,PRO2,Project,1.5
+EH2720,SEM1,Seminar,0.8
+EH2720,PRO1,Project,0.0
+EH2720,PRO4,Project,1.5
+EH2720,PRO3,Project,1.5
+EH2720,PRO5,Project,2.2
+EI1320,TEN2,Written Exam,3.0
+EI1320,TEN1,Written Exam,6.0
+EJ2410,PRO1,Project,3.0
+EJ2410,TEN1,Examination,4.5
+EJ2440,PRO1,Project Work,2.0
+EJ2440,TEN1,Written Exam,4.0
+EL1000,,(none found),
+EL1010,,(none found),
+EL2520,LAB2,Laboratory Work,1.5
+EL2520,TEN1,Examination,4.5
+EL2520,LAB1,Laboratory Work,1.5
+EL2700,TEN1,Exam,3.0
+EL2700,LAB3,Lab 3,1.5
+EL2700,LAB2,Lab 2,1.5
+EL2700,LAB1,Lab 1,1.5
+KD1000,TEN1,Written exam,3.0
+ME1003,TEN3,Exam,4.5
+ME1003,PRO1,Project,1.5
+ME2163,TEN1,Written exam,4.0
+ME2163,INL1,Individual reflection based on group assignments,2.0
+MF1017,LAB2,Laboratory work,2.0
+MF1017,TEN2,Written exam,2.5
+MF1017,INL2,Assignments,1.5
+MF1024,INL1,Hand in Exercise,3.0
+MF1024,PRO1,Project,4.0
+MF1024,TEN1,Written examination,4.0
+MF130X,,(none found),
+MF131X,,(none found),
+MF133X,,(none found),
+MF2007,PRO1,Project,6.0
+MF2007,TEN1,Written examination,3.0
+MF2011,INL1,Assignment,6.0
+MF2011,TEN1,Home exam,3.0
+MF2030,INL1,Hand in Task,3.0
+MF2030,TEN1,Written Exam,3.0
+MF2043,LAB2,Laboratory work,4.0
+MF2043,TEN2,Written examination,2.0
+MF2522,PRO1,Project assignment,3.0
+MF2522,TEN1,Examination,3.0
+MG1010,,(none found),
+MJ1401,LAB2,Laboratory work,0.5
+MJ1401,TEN2,Written exam,5.5
+MJ146X,,(none found),
+MJ2506,,(none found),
+SA1006,PRO1,Project 1,2.5
+SA1006,PRO2,Project 2,1.5
+SA1006,PRO3,Project 3,1.5
+SA1006,PRO4,Project 4,1.5
+SA1006,PRO5,Project 5,1.5
+SA1007,,(none found),
+SA114X,,(none found),
+SA115X,,(none found),
+SA120X,,(none found),
+SA2001,SEM1,Seminars,3.0
+SA2002,SEM1,Seminars,3.0
+SA2003,SEM1,Seminars,1.0
+SA2003,REF1,Reflection,0.5
+SD1002,ÖVN1,Exercise,5.0
+SD1002,PRO1,Project work,2.0
+SD1120,PRO1,Project,1.5
+SD1120,TEN2,Examination,3.0
+SD1120,TEN1,Examination,4.0
+SD1120,LAB1,Exercises,0.5
+SD2111,TEN2,Exam 2,2.5
+SD2111,TEN1,Exam 1,3.0
+SD2111,LAB1,Measurement Course,0.5
+SD211X,,(none found),
+SD2125,LAB2,Laboratory Works,1.0
+SD2125,TEN1,Control Test,3.0
+SD2125,LAB1,Laboratory Works,2.0
+SD2140,TEN1,Examination,8.0
+SD2150,,(none found),
+SD2155,,(none found),
+SD2165,TEN1,Examination,3.0
+SD2165,LAB1,Laboratory Work,5.0
+SD2175,,(none found),
+SD2190,INL1,Assignments,6.0
+SD221X,,(none found),
+SD2221,INL2,Excercises,4.0
+SD2221,TEN1,Examination,4.0
+SD2222,INL1,Assignments,2.0
+SD2222,TEN1,Examination,6.0
+SD2225,ÖVN1,Assignments,4.0
+SD2225,TEN1,Examination,7.0
+SD2229,PRO1,Report,7.5
+SD2230,PRO1,Report,7.5
+SD2231,,(none found),
+SD2250,RAP1,Report,4.5
+SD2250,PRO2,Project,3.0
+SD2307,PRO1,Project Task,3.0
+SD2307,TEN2,Written exam,2.5
+SD2307,TEN3,Oral exam,2.0
+SD2313,PRO1,Project,2.0
+SD2313,ÖVN1,Assignments,2.0
+SD2313,TEN1,Examination,4.0
+SD231X,,(none found),
+SD2320,PRO1,Project task,7.5
+SD2411,LAB2,Laboratory Work,2.0
+SD2411,TEN1,Examination,4.0
+SD2411,LAB1,Laboratory Work,2.0
+SD2413,HEM1,Take-home assignments,3.0
+SD2413,TEN2,Oral exam,3.0
+SD2414,ÖVN1,Project,1.5
+SD2414,TEN1,Examination,3.0
+SD2414,LAB1,Laboratory Work,1.5
+SD2415,TEN1,Examination,2.0
+SD2415,LAB1,Laboratory Work,4.0
+SD2416,LAB1,Laboratory Work,3.0
+SD2416,TEN2,Examination,3.0
+SD241X,,(none found),
+SD2420,BER2,Assignment 2,2.0
+SD2420,BER1,Assignment 1,2.0
+SD2420,LAB1,Labs and assignments,2.0
+SD2601,PRO1,Project,1.5
+SD2601,TEN1,Examination,3.0
+SD2601,PRO2,Project,3.0
+SD2702,ÖVN1,Exercises,5.0
+SD2702,ÖVN4,Exercises,5.0
+SD2702,ÖVN2,Exercises,5.0
+SD2702,ÖVN3,Exercises,5.0
+SD2705,PRO2,Design Project,6.0
+SD2709,PRO1,Project,7.5
+SD271X,,(none found),
+SD2721,ÖVN1,Assignments,4.5
+SD2721,ÖVN2,Assignments,4.5
+SD2722,ÖVN1,Assignments,7.5
+SD2723,ÖVN1,Assignments,5.5
+SD2723,TEN1,Examination,2.0
+SD2726,TEN1,Oral exam,2.0
+SD2726,ÖVN1,Excercises,4.0
+SD2805,PRO1,Project,3.0
+SD2805,TEN1,Examination,3.0
+SD2805,LAB1,Laboratory Work,3.0
+SD2810,PRO1,Project,3.0
+SD2810,TEN1,Examination,3.0
+SD2810,LAB1,Laboratory Work,3.0
+SD281X,PRO1,Exam Question,30.0
+SD2900,KON1,Conceptual Test,3.5
+SD2900,PRO1,Project Assignment,4.0
+SD2900,TEN1,Optional Oral Dissertation,0.0
+SD2910,PRO1,Assignments with Oral Presentation,4.0
+SD2910,TEN1,Oral Examination,5.0
+SD291X,,(none found),
+SD2920,INL1,Hand-in Assignments,1.0
+SD2920,PRO1,Project,2.0
+SD2925,INL1,Hand-in Assignments,1.0
+SD2925,PRO1,Project,2.0
+SE1010,PRO1,Project,3.0
+SE1010,LAB1,Laboratory Work,0.0
+SE1010,KON2,Partial exam,4.5
+SE1010,TEN2,Written exam,4.5
+SE1025,HEM1,Home Work,1.5
+SE1025,TEN1,Examination,4.5
+SE1025,LAB1,Laboratory Work,0.0
+SE1055,INL1,Assignment,1.0
+SE1055,TEN1,Examination,6.0
+SE1055,DIA1,Diagnostic Task,2.0
+SE1055,LAB1,Laboratory,0.0
+SE202X,,(none found),
+SE2126,ÖVN1,Assignments,1.5
+SE2126,TEN2,Examination,4.5
+SE2126,LAB1,Laboratory Work,3.0
+SE2132,PRO1,Exercise,3.0
+SE2132,TEN1,Examination,4.5
+SE2132,LAB1,Laboratory Work,1.5
+SE2860,,(none found),
+SF1544,TEN1,Written Examination,3.0
+SF1546,TEN1,Exaination,3.0
+SF1550,TEN1,Written exam,3.0
+SF1550,LAB1,Laboratory work,1.5
+SF1550,LAB2,Laboratory work,1.5
+SF1624,TEN1,Examination,7.5
+SF1625,TEN1,Examination,7.5
+SF1626,TEN1,Examination,7.5
+SF1668,LAB2,Lab Assignments,2.0
+SF1668,TEN1,Examination,6.0
+SF1668,LAB1,Lab Assignments,2.0
+SF1672,TEN1,Examination,6.0
+SF1672,LAB1,Laboratory Sessions,1.5
+SF1673,TEN1,Final Exam,7.5
+SF1674,TEN1,Final Exam,7.5
+SF1677,TEN1,Exam,7.5
+SF1678,TEN1,Exam,7.5
+SF1679,TEN1,Exam,7.5
+SF1681,TEN1,Exam,6.0
+SF1682,TEN1,Exam,6.0
+SF1683,TEN2,Exam,4.0
+SF1683,TEN1,Exam,5.0
+SF1691,TEN1,Exam,7.5
+SF1692,TEN1,Written exam,3.0
+SF1692,PRO1,Project,2.5
+SF1693,TEN1,Written exam,6.0
+SF1693,LAB1,Laboratory work,5.0
+SF1694,LAB1,Laboratory work,2.0
+SF1694,TEN1,Exam,7.5
+SF1694,PRO1,Project work,1.0
+SF1811,INL1,Home assignment,2.0
+SF1811,TEN2,Exam,4.0
+SF1861,HEM1,Assignments,1.5
+SF1861,TEN1,Examination,4.5
+SF1914,TEN1,Examination,6.0
+SF1918,TEN1,Examination,6.0
+SF1922,TEN1,Examination,6.0
+SF1930,TEN1,Written exam,4.0
+SF1930,INL1,Hand in assignment,2.0
+SF250X,,(none found),
+SF2524,TEN1,Examination,4.0
+SF2525,LAB1,Laboratory work,3.5
+SF2525,TEN1,Written exam,4.0
+SF2526,LAB1,Laboratory work,3.5
+SF2526,TEN1,Exam,4.0
+SF2527,TEN1,Written exam,3.0
+SF2528,TEN1,Written exam,3.5
+SF2529,LAB1,Laboratory work,3.5
+SF2529,TEN1,Written exam,4.0
+SF2565,PRO1,Project,3.5
+SF2565,TEN1,Examination,4.0
+SF259X,,(none found),
+SF2701,TEN1,Examination,7.5
+SF2740,TEN1,Examination,7.5
+SF2741,TEN1,Examination,7.5
+SF2743,TEN1,Examination,7.5
+SF278X,,(none found),
+SF280X,,(none found),
+SF2812,PRO2,Project,1.5
+SF2812,PRO1,Project,1.5
+SF2812,TEN1,Examination,4.5
+SF281X,,(none found),
+SF2822,PRO2,Project,1.5
+SF2822,PRO1,Project,1.5
+SF2822,TEN1,Examination,4.5
+SF2832,HEM2,Homework,1.5
+SF2832,TEN2,Written exam,6.0
+SF2842,HEM2,Home assignments,1.5
+SF2842,TEN2,Written exam,6.0
+SF2852,HEM2,Homework,1.5
+SF2852,TEN2,Written exam,6.0
+SF2863,HEM1,Home assignment,1.5
+SF2866,PRO1,Project Assignments,4.0
+SF2866,TEN1,Written Examniation,3.5
+SF290X,,(none found),
+SF291X,,(none found),
+SF2930,OVN1,Assignments,3.0
+SF2935,ÖVN1,Assignments,3.0
+SF2940,TEN1,Examination,7.5
+SF2942,TEN1,Examination,7.5
+SF2943,OVN1,Assignments,3.0
+SF2955,,(none found),
+SF2956,PRO1,Project,7.5
+SF2957,PRO1,Project,3.0
+SF2971,TEN1,Examination,7.5
+SF2975,TEN1,Examination,4.5
+SF2975,OVN1,Assignments,3.0
+SF2980,ÖVN1,Assignments,3.0
+SF2980,TEN1,Examination,4.5
+SG1112,INL1,Assignments,1.5
+SG1112,TEN2,Examination,4.5
+SG1112,TEN1,Examination,3.0
+SG1113,INL1,Hand in Task,1.5
+SG1115,INL1,Hand-in assignments,1.5
+SG1115,PRO1,Project,1.5
+SG1115,TEN1,Theory exam,1.5
+SG1115,TEN2,Problem exam,3.0
+SG1132,SEM1,Seminars,1.5
+SG1132,PRO1,Project,2.0
+SG1132,TEN2,Problem Examination,4.5
+SG1132,TEN1,Theory Examination,3.0
+SG1133,INL1,Assignments,1.5
+SG1133,TEN2,Examination,4.5
+SG1133,TEN1,Examination,3.0
+SG1140,INL1,Assignments,1.5
+SG1140,TEN2,Examination,3.0
+SG1140,TEN1,Examination,1.5
+SG1216,INL1,Hand in Task,1.5
+SG1216,TEN2,Examination,0.5
+SG1216,KON2,Control Test 2,1.5
+SG1216,KON1,Control Test 1,1.5
+SG1216,LAB1,Laboration,1.0
+SG1217,PRO2,Project,2.5
+SG1217,TEN2,Examination,0.5
+SG1217,KON2,Control Test,1.5
+SG1217,KON1,Control Test,1.5
+SG1218,PRO1,Project,1.5
+SG1218,LAB1,Laboration,0.5
+SG1218,TEN2,Exam,2.0
+SG213X,,(none found),
+SG2211,PRO1,Project,3.0
+SG2211,TEN1,Examination,2.2
+SG2211,LAB1,Laboratory Work,0.8
+SG2212,,(none found),
+SG2214,INL1,Assignments,3.0
+SG2214,TEN1,Examination,4.5
+SG2215,INL2,Assignment,1.5
+SG2215,TEN1,Examination,3.0
+SG2215,LAB2,Laboratory Work,0.8
+SG2215,LAB1,Laboratory Work,0.7
+SG2218,TEN1,Written examination,6.0
+SG2218,LAB1,Laboratory Work,1.5
+SG2224,SEM1,Project Seminar,4.0
+SG2224,INL1,Home Assignment,1.0
+SH1014,TEN1,Exam,4.0
+SH1015,PRO1,Project,3.0
+SH1015,LAB1,Laboratory Exercises,2.0
+SH1017,TEN1,Written exam,5.0
+SH1017,LAB1,Laboratory work,2.5
+SH2007,,(none found),
+SH2011,TEN1,Examination,6.0
+SH204X,,(none found),
+SH2103,TEN1,Examination,6.5
+SH2103,LAB1,Laboratory work,1.0
+SH2150,PRO1,Project,3.0
+SH2150,TEN1,Exam,4.5
+SH2203,TEN1,Exam,7.5
+SH2204,LAB1,Laboratory,1.0
+SH2204,TEN1,Exam,6.5
+SH2302,TEN1,Examination,4.0
+SH2302,LAB1,Laboratory Work,4.0
+SH2306,TEN1,Examination,6.0
+SH2306,LAB1,Laboratory Work,2.0
+SH2314,TEN1,Examination,4.5
+SH2314,LAB1,Laboratory Work,3.0
+SH2373,TEN1,Examination,7.5
+SH2374,TEN1,Examination,7.5
+SH2381,LAB1,Laborations,1.5
+SH2381,TEN1,Exam,6.0
+SH2405,PRO1,Project,4.5
+SH2405,TEN1,Exam,3.0
+SH2600,,(none found),
+SH2603,PRO1,Project,2.0
+SH2603,TEN1,Examination,3.0
+SH2603,LAB1,Laboratory Work,1.0
+SH260X,,(none found),
+SH2612,,(none found),
+SH2701,,(none found),
+SH2702,,(none found),
+SI1121,INL1,Hand in Task,1.0
+SI1121,TEN1,Written Examinations,4.0
+SI1121,LAB1,Laboratory Work,1.0
+SI1146,TEN1,Written Examination,4.0
+SI1155,TEN1,Examination,5.0
+SI1155,LAB1,Laboration,1.0
+SI1200,TEN1,Exam,4.0
+SI1336,PRO2,Final Project,3.0
+SI1336,PRO1,Project exercises,3.0
+SI201X,,(none found),
+SI2215,,(none found),
+SI2360,,(none found),
+SI2380,TEN1,Examination,7.5
+SI2390,,(none found),
+SI2400,,(none found),
+SI2410,,(none found),
+SI2510,,(none found),
+SI2520,TEN1,Examination,7.5
+SI2530,LAB1,Laboratory Work,3.0
+SI2530,PRO1,Project,4.5
+SI2600,,(none found),
+SK1104,,(none found),
+SK1105,RED1,Presentation,2.0
+SK1105,RED2,Presentation,2.0
+SK1112,INL1,Assignments,1.0
+SK1112,TEN1,Examination,5.0
+SK1112,LAB2,Laboratory Work,2.0
+SK1112,LAB1,Laboratory Work,1.0
+SK1115,INL1,Hand in tasks,1.5
+SK1115,TEN1,Written exam,4.5
+SK1115,LAB1,Laboratory experiments,1.5
+SK2004,PRO1,Project assignment,7.5
+SK2005,PRO1,Project work,7.5
+SK202X,XUP1,Examination Question,30.0
+SK2303,LAB1,Laboratory work,2.5
+SK2303,LAB2,Computer laboratory work,1.0
+SK2303,TEN1,Written exam,4.0
+SK2402,INL1,Assignments,2.5
+SK2402,LAB1,Laboratory work,1.0
+SK2402,TEN1,Examination,4.0
+SK2404,LAB1,Laboratory work,2.0
+SK2404,SEM1,Seminars,2.0
+SK2404,INL1,Home assignments,1.5
+SK2404,TEN1,Oral examination,2.0
+SK2411,TEN1,Examination,5.5
+SK2411,LAB1,Laboratory Work,2.0
+SK2501,SEM1,Seminar,1.5
+SK2501,TEN1,Examination,4.0
+SK2501,LAB1,Laboratory Experiments,2.0
+SK2530,TEN1,Examination,6.0
+SK2532,TEN1,Written exam,6.0
+SK2532,INL1,Hand in assignment,1.5
+SK2533,LAB1,Laboratory work,1.5
+SK2533,PRO1,Project,1.0
+SK2533,TEN1,Written exam,5.0
+SK2534,LAB1,Laboratory work,2.0
+SK2534,INL1,Hand in assignment,3.0
+SK2534,TEN1,Written exam,2.5
+SK2535,LAB1,Laboratory work,3.0
+SK2535,INL1,Hand in assignment,2.0
+SK2535,TEN1,Written exam,2.5
+SK2536,LAB1,Laboratory work,5.0
+SK2536,TEN1,Written exam,2.5
+SK2537,LAB1,Laboratory work,1.5
+SK2537,PRO1,Project,1.0
+SK2537,TEN1,Written exam,5.0
+SK2538,LAB1,Computer Lab,2.0
+SK2538,PRO1,Project,3.0
+SK2538,TEN1,Oral exam,2.5
+SK2539,PRO1,Project,6.0
+SK2539,LAB1,Laboratory work,1.5
+SK2551,TEN1,Oral exam,2.0
+SK2551,HEM1,Home assigments,1.5
+SK2551,SEM1,Seminars,3.0
+SK2551,LAB1,Laboratory work,1.0
+SK2560,INL1,Hand-in Tasks,1.0
+SK2560,TEN1,Written Examination,4.0
+SK2560,LAB1,Laboratory Experiments,2.5
+SK2758,LAB1,Laboratory Work,1.5
+SK2758,TEN2,Written exam,4.5
+SK2758,TEN3,Unsupervised examination,1.5
+SK2900,INL1,Hand-in tasks,1.0
+SK2900,TEN1,Examination,4.0
+SK2900,LAB1,Laboratory experiments,2.5
+SK2903,,(none found),
+SK2904,LAB1,Laboratory work,2.0
+SK2904,PRO1,Poject work,5.5
+SK2906,INL1,Homework Problems,7.5
+SK2907,LAB1,Labs,1.5
+SK2907,TEN1,Written exam,6.0
+SK2908,DIG1,Digital examination,2.5
+SK2908,INL1,Hand-in problems,2.5
+SK2908,SEM1,Seminar,2.5
+SM2501,PRO1,Project,7.5

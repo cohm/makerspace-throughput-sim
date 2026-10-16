@@ -1,0 +1,12 @@
+scenario,label,Y,share_served
+optimal,Optimal spread,4,1.0
+optimal,Optimal spread,8,1.0
+optimal,Optimal spread,12,1.0
+optimal,Optimal spread,16,0.9802
+optimal,Optimal spread,20,0.2384
+coordinated,"Realistic, coordinated",4,0.9989
+coordinated,"Realistic, coordinated",8,0.9111
+uncoordinated,"Realistic, uncoordinated",4,0.9986
+uncoordinated,"Realistic, uncoordinated",8,0.8472
+concentrated,Concentrated P1-P2,4,0.9947
+concentrated,Concentrated P1-P2,8,0.7691

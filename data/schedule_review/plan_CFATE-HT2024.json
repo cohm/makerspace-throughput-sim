@@ -1,0 +1,947 @@
+[
+  {
+    "type": "cohortMeta",
+    "program": "CFATE",
+    "cohort": "HT2024",
+    "years": [
+      {
+        "year": 1,
+        "sourceCohort": "HT2025",
+        "approximated": true,
+        "corroboratedBy": {
+          "year": 2,
+          "agrees": true
+        },
+        "confidence": "high"
+      },
+      {
+        "year": 2,
+        "sourceCohort": "HT2024",
+        "approximated": false,
+        "confidence": "exact"
+      },
+      {
+        "year": 3,
+        "sourceCohort": "HT2024",
+        "approximated": false,
+        "confidence": "exact"
+      }
+    ]
+  },
+  {
+    "code": "DD1333",
+    "name": "Grundläggande programmering",
+    "totalCredits": 5,
+    "periodCredits": {
+      "P1": 5,
+      "P2": 0,
+      "P3": 0,
+      "P4": 0
+    },
+    "year": 1,
+    "prerequisites": [],
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Fundamentals of Programming",
+    "gradingScale": "A-F",
+    "courseLevel": "G"
+  },
+  {
+    "code": "SD1002",
+    "name": "Farkostteknik",
+    "totalCredits": 7,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 3,
+      "P3": 2,
+      "P4": 2
+    },
+    "year": 1,
+    "prerequisites": [],
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Vehicle Engineering",
+    "gradingScale": "P/F",
+    "courseLevel": "G"
+  },
+  {
+    "code": "SG1132",
+    "name": "Mekanik I med projekt",
+    "totalCredits": 11,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 1.5,
+      "P3": 4.5,
+      "P4": 5
+    },
+    "year": 1,
+    "prerequisites": [],
+    "exams": [
+      "P3",
+      "P4"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Mechanics I Inclusive Project",
+    "gradingScale": "A-F",
+    "courseLevel": "G"
+  },
+  {
+    "code": "SF1694",
+    "name": "Tillämpad linjär algebra",
+    "totalCredits": 10.5,
+    "periodCredits": {
+      "P1": 3,
+      "P2": 6.5,
+      "P3": 1,
+      "P4": 0
+    },
+    "year": 1,
+    "prerequisites": [],
+    "exams": [
+      "P2"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Applied Linear Algebra",
+    "gradingScale": "A-F",
+    "courseLevel": "G"
+  },
+  {
+    "code": "SF1626",
+    "name": "Flervariabelanalys",
+    "totalCredits": 7.5,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 7.5,
+      "P4": 0
+    },
+    "year": 1,
+    "prerequisites": [],
+    "exams": [
+      "P3"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Calculus in Several Variables",
+    "gradingScale": "A-F",
+    "courseLevel": "G"
+  },
+  {
+    "code": "SK1112",
+    "name": "Fysik I",
+    "totalCredits": 9,
+    "periodCredits": {
+      "P1": 1,
+      "P2": 0,
+      "P3": 0,
+      "P4": 8
+    },
+    "year": 1,
+    "prerequisites": [],
+    "exams": [
+      "P4"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Physics I",
+    "gradingScale": "A-F",
+    "courseLevel": "G"
+  },
+  {
+    "code": "SF1668",
+    "name": "Matematisk och numerisk analys I",
+    "totalCredits": 10,
+    "periodCredits": {
+      "P1": 6,
+      "P2": 4,
+      "P3": 0,
+      "P4": 0
+    },
+    "year": 1,
+    "prerequisites": [],
+    "exams": [
+      "P1"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Mathematical and Numerical Analysis I",
+    "gradingScale": "A-F",
+    "courseLevel": "G"
+  },
+  {
+    "code": "SG1217",
+    "name": "Strömningsmekanik, grundkurs",
+    "totalCredits": 6,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 6,
+      "P4": 0
+    },
+    "year": 2,
+    "exams": [
+      "P3"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Fluid Mechanics, Basic Course",
+    "gradingScale": "A-F",
+    "courseLevel": "G",
+    "prerequisitesCompleted": [
+      "SG1132"
+    ]
+  },
+  {
+    "code": "SG1216",
+    "name": "Termodynamik",
+    "totalCredits": 6,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 0,
+      "P4": 6
+    },
+    "year": 2,
+    "exams": [
+      "P4"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Thermodynamics",
+    "gradingScale": "A-F",
+    "courseLevel": "G",
+    "prerequisitesCompleted": [
+      "SG1132"
+    ]
+  },
+  {
+    "code": "SF1682",
+    "name": "Analytiska och numeriska metoder för differentialekvationer",
+    "totalCredits": 11,
+    "periodCredits": {
+      "P1": 6,
+      "P2": 5,
+      "P3": 0,
+      "P4": 0
+    },
+    "year": 2,
+    "exams": [
+      "P1"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Analytical and Numerical Methods for Differential Equations",
+    "gradingScale": "A-F",
+    "courseLevel": "G",
+    "prerequisitesCompleted": [
+      "SF1626"
+    ]
+  },
+  {
+    "code": "SE1010",
+    "name": "Hållfasthetslära, grundkurs med projekt",
+    "totalCredits": 12,
+    "periodCredits": {
+      "P1": 3,
+      "P2": 9,
+      "P3": 0,
+      "P4": 0
+    },
+    "year": 2,
+    "exams": [
+      "P2"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Solid Mechanics, Basic Course with Project",
+    "gradingScale": "A-F",
+    "courseLevel": "G",
+    "prerequisitesCompleted": [
+      "SG1132"
+    ]
+  },
+  {
+    "code": "SD1120",
+    "name": "Ljud och vibrationer",
+    "totalCredits": 9,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 3,
+      "P4": 6
+    },
+    "year": 2,
+    "exams": [
+      "P3",
+      "P4"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Noise and Vibration Control",
+    "gradingScale": "A-F",
+    "courseLevel": "G",
+    "prerequisitesCompleted": [
+      "SF1626",
+      "SG1132"
+    ]
+  },
+  {
+    "code": "SG1140",
+    "name": "Mekanik II",
+    "totalCredits": 6,
+    "periodCredits": {
+      "P1": 6,
+      "P2": 0,
+      "P3": 0,
+      "P4": 0
+    },
+    "year": 2,
+    "exams": [
+      "P1"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Mechanics II",
+    "gradingScale": "A-F",
+    "courseLevel": "G",
+    "prerequisitesCompleted": [
+      "SG1132"
+    ]
+  },
+  {
+    "code": "MF1024",
+    "name": "Produktutveckling",
+    "totalCredits": 11,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 2,
+      "P3": 6,
+      "P4": 3
+    },
+    "year": 2,
+    "exams": [
+      "P3"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Product Development",
+    "gradingScale": "A-F",
+    "courseLevel": "G",
+    "prerequisitesCompleted": [
+      "SG1132"
+    ]
+  },
+  {
+    "name": "Valfri kurs, årskurs 3",
+    "nameEn": "Elective course, year 3",
+    "totalCredits": 9,
+    "periodCredits": {
+      "P1": 3,
+      "P2": 3,
+      "P3": 1.5,
+      "P4": 1.5
+    },
+    "year": 3,
+    "exams": [
+      "P1",
+      "P2",
+      "P3",
+      "P4"
+    ],
+    "category": "electivePlaceholder",
+    "type": "optionGroup",
+    "options": [
+      "DD1320",
+      "ME1003",
+      "ME2163",
+      "MJ1401",
+      "SH1014",
+      "SI1146",
+      "SI1155"
+    ],
+    "kind": "minCredits",
+    "minCredits": 9,
+    "comment": "Exempel på kurser som ger behörighet till masterprogram eller rekommenderas, även andra kan väljas",
+    "commentEn": "Examples of courses that give eligibility for a master's programme or are recommended; others may also be chosen",
+    "allowedNumberOfOptions": 7,
+    "qualifiesFor": {
+      "DD1320": [
+        {
+          "name": "Industriell produktutveckling",
+          "code": "TIPUM",
+          "track": "IPUC"
+        }
+      ],
+      "ME1003": [
+        {
+          "name": "Industriell ekonomi",
+          "code": "TINEM",
+          "track": null
+        }
+      ],
+      "ME2163": [
+        {
+          "name": "Industriell ekonomi",
+          "code": "TINEM",
+          "track": null
+        }
+      ],
+      "MJ1401": [
+        {
+          "name": "Hållbar energiteknik",
+          "code": "TSUEM",
+          "track": null
+        }
+      ],
+      "SH1014": [
+        {
+          "name": "Teknisk fysik",
+          "code": "TTFYM",
+          "track": null
+        }
+      ],
+      "SI1146": [
+        {
+          "name": "Teknisk fysik",
+          "code": "TTFYM",
+          "track": null
+        }
+      ],
+      "SI1155": [
+        {
+          "name": "Teknisk fysik",
+          "code": "TTFYM",
+          "track": null,
+          "tracks": [
+            "TFYA",
+            "TFYB",
+            "TFYG"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "code": "DD1320",
+    "name": "Tillämpad datalogi",
+    "nameEn": "Applied Computer Science",
+    "totalCredits": 6,
+    "periodCredits": {
+      "P1": 5,
+      "P2": 1,
+      "P3": 0,
+      "P4": 0
+    },
+    "rounds": [
+      {
+        "id": "P1",
+        "periodCredits": {
+          "P1": 5,
+          "P2": 1,
+          "P3": 0,
+          "P4": 0
+        },
+        "applicationCode": "10790"
+      },
+      {
+        "id": "P3-6",
+        "periodCredits": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 6,
+          "P4": 0
+        },
+        "applicationCode": "11750"
+      },
+      {
+        "id": "P3-4",
+        "periodCredits": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 4,
+          "P4": 2
+        },
+        "applicationCode": "11749"
+      }
+    ],
+    "year": 3,
+    "prerequisites": [],
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "recommended"
+  },
+  {
+    "code": "MF131X",
+    "name": "Examensarbete inom integrerad produktutveckling, grundnivå",
+    "totalCredits": 15,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 7.5,
+      "P4": 7.5
+    },
+    "year": 3,
+    "prerequisites": [],
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "conditionallyElective",
+    "nameEn": "Degree Project in Integrated Product Development, First Cycle",
+    "gradingScale": "P/F",
+    "courseLevel": "G"
+  },
+  {
+    "code": "SH1014",
+    "name": "Modern fysik",
+    "nameEn": "Modern Physics",
+    "totalCredits": 4,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 4,
+      "P3": 0,
+      "P4": 0
+    },
+    "year": 3,
+    "prerequisites": [],
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "recommended"
+  },
+  {
+    "code": "MJ1401",
+    "name": "Värmeöverföring",
+    "nameEn": "Heat Transfer",
+    "totalCredits": 6,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 6,
+      "P3": 0,
+      "P4": 0
+    },
+    "year": 3,
+    "prerequisites": [],
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "recommended"
+  },
+  {
+    "code": "EF112X",
+    "name": "Examensarbete inom elektroteknik, grundnivå",
+    "totalCredits": 15,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 7.5,
+      "P4": 7.5
+    },
+    "year": 3,
+    "prerequisites": [],
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "conditionallyElective",
+    "nameEn": "Degree Project in Electrical Engineering, First Cycle",
+    "gradingScale": "P/F",
+    "courseLevel": "G"
+  },
+  {
+    "code": "MF1017",
+    "name": "Elektroteknik",
+    "totalCredits": 6,
+    "periodCredits": {
+      "P1": 6,
+      "P2": 0,
+      "P3": 0,
+      "P4": 0
+    },
+    "year": 3,
+    "exams": [
+      "P1"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Basic Electrical Engineering",
+    "gradingScale": "A-F",
+    "courseLevel": "G",
+    "prerequisitesCompleted": [
+      "SF1626"
+    ]
+  },
+  {
+    "code": "MJ146X",
+    "name": "Examensarbete inom hållbar energiteknik, grundnivå",
+    "totalCredits": 15,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 7.5,
+      "P4": 7.5
+    },
+    "year": 3,
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "conditionallyElective",
+    "nameEn": "Degree Project in Sustainable Energy Engineering, First Cycle",
+    "gradingScale": "P/F",
+    "courseLevel": "G",
+    "prerequisitesCompleted": [
+      "SG1216"
+    ]
+  },
+  {
+    "code": "SF1914",
+    "name": "Sannolikhetsteori och statistik",
+    "totalCredits": 6,
+    "periodCredits": {
+      "P1": 6,
+      "P2": 0,
+      "P3": 0,
+      "P4": 0
+    },
+    "year": 3,
+    "exams": [
+      "P1"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Probability Theory and Statistics",
+    "gradingScale": "A-F",
+    "courseLevel": "G",
+    "prerequisitesCompleted": [
+      "SF1668"
+    ]
+  },
+  {
+    "code": "ME1003",
+    "name": "Industriell ekonomi, grundkurs",
+    "nameEn": "Industrial Management, Basic Course",
+    "totalCredits": 6,
+    "periodCredits": {
+      "P1": 6,
+      "P2": 0,
+      "P3": 0,
+      "P4": 0
+    },
+    "rounds": [
+      {
+        "id": "P1",
+        "periodCredits": {
+          "P1": 6,
+          "P2": 0,
+          "P3": 0,
+          "P4": 0
+        },
+        "applicationCode": "10922"
+      },
+      {
+        "id": "P2",
+        "periodCredits": {
+          "P1": 0,
+          "P2": 6,
+          "P3": 0,
+          "P4": 0
+        },
+        "applicationCode": "10926"
+      },
+      {
+        "id": "P3",
+        "periodCredits": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 6,
+          "P4": 0
+        },
+        "applicationCode": "10928"
+      }
+    ],
+    "year": 3,
+    "prerequisites": [],
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "recommended"
+  },
+  {
+    "code": "ME2163",
+    "name": "Ledarskap och organisering i olika miljöer",
+    "totalCredits": 6,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 0,
+      "P4": 6
+    },
+    "year": 3,
+    "prerequisites": [],
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "recommended"
+  },
+  {
+    "code": "SE1025",
+    "name": "FEM för ingenjörstillämpningar",
+    "totalCredits": 6,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 6,
+      "P4": 0
+    },
+    "year": 3,
+    "exams": [
+      "P3"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "FEM for Engineering Applications",
+    "gradingScale": "A-F",
+    "courseLevel": "G",
+    "prerequisitesCompleted": [
+      "SE1010"
+    ]
+  },
+  {
+    "code": "SI1146",
+    "name": "Vektoranalys",
+    "nameEn": "Vector Analysis",
+    "totalCredits": 4,
+    "periodCredits": {
+      "P1": 4,
+      "P2": 0,
+      "P3": 0,
+      "P4": 0
+    },
+    "year": 3,
+    "prerequisites": [],
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "recommended"
+  },
+  {
+    "code": "MF130X",
+    "name": "Examensarbete inom maskinkonstruktion, grundnivå",
+    "totalCredits": 15,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 7.5,
+      "P4": 7.5
+    },
+    "year": 3,
+    "prerequisites": [],
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "conditionallyElective",
+    "nameEn": "Degree Project in Machine Design, First Cycle",
+    "gradingScale": "P/F",
+    "courseLevel": "G"
+  },
+  {
+    "type": "optionGroup",
+    "name": "Kandidatexamensarbete",
+    "nameEn": "Degree project, first cycle",
+    "year": 3,
+    "totalCredits": 15,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 7.5,
+      "P4": 7.5
+    },
+    "options": [
+      "EF112X",
+      "MF130X",
+      "MF131X",
+      "MF133X",
+      "MF135X",
+      "MJ146X",
+      "SA115X"
+    ],
+    "allowedNumberOfOptions": 1,
+    "kind": "pickN",
+    "pickN": 1,
+    "exams": [],
+    "category": "conditionallyElective"
+  },
+  {
+    "code": "SA115X",
+    "name": "Examensarbete inom farkostteknik, grundnivå",
+    "totalCredits": 15,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 7.5,
+      "P4": 7.5
+    },
+    "year": 3,
+    "prerequisites": [],
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "conditionallyElective",
+    "nameEn": "Degree Project in Vehicle Engineering, First Level",
+    "gradingScale": "P/F",
+    "courseLevel": "G"
+  },
+  {
+    "code": "MF135X",
+    "name": "Examensarbete inom Innovations-och produktutvecklingsprocesser, grundnivå",
+    "totalCredits": 15,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 7.5,
+      "P4": 7.5
+    },
+    "year": 3,
+    "prerequisites": [],
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "conditionallyElective",
+    "gradingScale": "P/F",
+    "courseLevel": "G"
+  },
+  {
+    "code": "SD2125",
+    "name": "Signaler och mekaniska system",
+    "totalCredits": 6,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 6,
+      "P3": 0,
+      "P4": 0
+    },
+    "year": 3,
+    "exams": [
+      "P2"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Signals and Mechanical Systems",
+    "gradingScale": "A-F",
+    "courseLevel": "A",
+    "prerequisitesCompleted": [
+      "SF1668",
+      "SF1694",
+      "SF1626",
+      "SF1682"
+    ]
+  },
+  {
+    "code": "EL1010",
+    "name": "Reglerteknik, allmän kurs",
+    "totalCredits": 6,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 6,
+      "P3": 0,
+      "P4": 0
+    },
+    "year": 3,
+    "exams": [
+      "P2"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Automatic Control, General Course",
+    "gradingScale": "A-F",
+    "courseLevel": "G",
+    "prerequisitesCompleted": [
+      "SF1682"
+    ]
+  },
+  {
+    "code": "MF133X",
+    "name": "Examensarbete inom mekatronik, grundnivå",
+    "totalCredits": 15,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 7.5,
+      "P4": 7.5
+    },
+    "year": 3,
+    "prerequisites": [],
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "conditionallyElective",
+    "nameEn": "Degree Project in Mechatronics, First Cycle",
+    "gradingScale": "P/F",
+    "courseLevel": "G"
+  },
+  {
+    "code": "SI1155",
+    "name": "Teoretisk fysik",
+    "nameEn": "Theoretical Physics",
+    "totalCredits": 6,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 0,
+      "P4": 6
+    },
+    "year": 3,
+    "prerequisites": [],
+    "exams": [],
+    "teacher": "",
+    "description": "",
+    "category": "recommended"
+  },
+  {
+    "code": "SF1861",
+    "name": "Optimeringslära",
+    "totalCredits": 6,
+    "periodCredits": {
+      "P1": 0,
+      "P2": 0,
+      "P3": 0,
+      "P4": 6
+    },
+    "year": 3,
+    "exams": [
+      "P4"
+    ],
+    "teacher": "",
+    "description": "",
+    "category": "mandatory",
+    "nameEn": "Optimization",
+    "gradingScale": "A-F",
+    "courseLevel": "G",
+    "prerequisitesCompleted": [
+      "SF1626",
+      "SF1668"
+    ]
+  }
+]

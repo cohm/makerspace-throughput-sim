@@ -1,0 +1,16 @@
+others_plan_h,variant,mean_all,CTFYS-1_planned,CTFYS-1_mean,CTFYS-1_served,CTFYS-2_planned,CTFYS-2_mean,CTFYS-2_served,CTFYS-3_planned,CTFYS-3_mean,CTFYS-3_served
+8,"As proposed: SK1105 8 h, SE1055 8 h, year-3 device 12 h",7.9,8,8.0,1.0,8,8.0,0.98,12,9.3,0.15
+8,SK1105 at 12 h,8.2,12,11.9,0.95,8,7.9,0.94,12,9.3,0.09
+8,Year-3 course owns 3 half-days,8.1,8,8.0,1.0,8,8.0,0.99,12,11.1,0.56
+8,Year-3 course owns 4 half-days,8.1,8,8.0,0.98,8,8.0,0.95,12,11.7,0.84
+8,"Year-3 owns 3 half-days, project over all 7 weeks",8.2,8,8.0,0.98,8,7.8,0.91,12,12.0,0.96
+12,"As proposed: SK1105 8 h, SE1055 8 h, year-3 device 12 h",9.9,8,7.9,0.94,8,7.3,0.65,12,7.5,0.02
+12,SK1105 at 12 h,10.3,12,11.0,0.56,8,7.2,0.62,12,7.9,0.01
+12,Year-3 course owns 3 half-days,10.0,8,7.9,0.91,8,7.3,0.66,12,9.2,0.14
+12,Year-3 course owns 4 half-days,10.2,8,7.8,0.9,8,7.4,0.65,12,10.0,0.39
+12,"Year-3 owns 3 half-days, project over all 7 weeks",10.4,8,7.9,0.94,8,7.3,0.69,12,11.4,0.68
+16,"As proposed: SK1105 8 h, SE1055 8 h, year-3 device 12 h",10.9,8,7.6,0.75,8,6.0,0.35,12,6.7,0.0
+16,SK1105 at 12 h,11.0,12,10.3,0.39,8,5.8,0.29,12,6.8,0.0
+16,Year-3 course owns 3 half-days,11.0,8,7.5,0.8,8,6.1,0.29,12,7.7,0.05
+16,Year-3 course owns 4 half-days,11.1,8,7.4,0.68,8,6.3,0.31,12,7.6,0.06
+16,"Year-3 owns 3 half-days, project over all 7 weeks",11.3,8,7.6,0.78,8,6.4,0.38,12,10.6,0.45

@@ -1,0 +1,41 @@
+# Concrete makerspace course candidates, per programme-year (cohort key as in results/cohorts.csv).
+# A plan pins the makerspace course to:
+#   period        1-4
+#   own_blocks    half-days the course holds in TimeEdit in most of its teaching weeks
+#                 (from data/schedule_events.csv); omitted -> generic random own slots
+#   own_halfdays  number of owned half-days when their positions are unknown
+#   weeks         [first, last] teaching week of the project phase; omitted -> scenario default
+#   planned_hours makerspace hours per group in that course
+# Programme-years without a plan stay generic.
+
+plan_sets:
+  ctfys_proposal:
+    label: "CTFYS proposal: SK1105 / SE1055 / SH1015"
+    plans:
+      CTFYS-1:
+        course: "SK1105 Experimentell fysik"
+        period: 4
+        own_blocks: [Tue am, Tue pm, Wed am, Wed pm]
+        weeks: [2, 7]
+        planned_hours: 8
+        note: >-
+          Replace 1-2 of the 4 three-hour labs with a makerspace project. The labs already run
+          as ~24-student sessions Tue/Wed am+pm in P4 weeks 2-7 (VT26 and VT27 TimeEdit), so the
+          course owns 4 half-days a week for the whole cohort.
+      CTFYS-2:
+        course: "SE1055 Hållfasthetslära, grundkurs med energimetoder"
+        period: 3
+        own_blocks: [Mon pm, Tue am, Wed am, Fri pm]
+        weeks: [3, 7]
+        planned_hours: 8
+        note: >-
+          Project in place of some exercise sessions. Own half-days are the VT27-draft P3 slots
+          used in >= 4 of 8 weeks (VT26 had Mon pm, Tue pm, Wed am, Fri am).
+      CTFYS-3:
+        course: "SH1015 Tillämpad modern fysik (assumed to be the year-3 lab course)"
+        period: 1
+        planned_hours: 12
+        note: >-
+          Replace one of the four labs with a bigger project: build a measurement device in the
+          makerspace, calibrate it, then measure something with it. Autumn: no timetable data,
+          so generic own slots (2 half-days).

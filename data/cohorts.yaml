@@ -1,0 +1,40 @@
+# Cohort inputs. Year-1 / external-master numbers are UHR "antagna" (final round),
+# fetched from https://www.uhr.se/api/antagningsstatistik/searchTotal?searchterm=HT25&larosaten=KTH&tillfalle=urv2&utbildningstyp=program&pagesize=100&page=1
+# (change searchterm to HT24/HT26). Admitted != registered: replace with Ladok
+# registrations from SCI study administration when available.
+# Everything under `assumptions:` is NOT sourced.
+
+civing:   # civilingenjör programmes, year-1 admitted
+  CTFYS: {name: "Teknisk fysik",     admitted: {HT24: 165, HT25: 140, HT26: 143}}
+  CTMAT: {name: "Teknisk matematik", admitted: {HT24: 85,  HT25: 75,  HT26: 75}}
+  CFATE: {name: "Farkostteknik",     admitted: {HT24: 145, HT25: 115, HT26: 112}}
+copen:
+  COPEN: {name: "Öppen ingång (1 yr)", admitted: {HT24: 160, HT25: 108, HT26: 90}}
+
+masters:  # external international-master admissions only (internal KTH students NOT included)
+  TTFYM: {name: "Engineering Physics",                    admitted: {HT24: 69,  HT25: 48, HT26: 43}}
+  TAEEM: {name: "Aerospace Engineering",                  admitted: {HT24: 140, HT25: 90, HT26: 90}}
+  TFORM: {name: "Vehicle Engineering",                    admitted: {HT24: 64,  HT25: 51, HT26: 52}}
+  TJVTM: {name: "Railway Engineering (TFORM track HT26)", admitted: {HT24: 25,  HT25: 28, HT26: 26}}
+  TMRSM: {name: "Naval Architecture",                     admitted: {HT24: 29,  HT25: 24, HT26: 21}}
+  TTEMM: {name: "Engineering Mechanics",                  admitted: {HT24: 75,  HT25: 54, HT26: 37}}
+  TTMAM: {name: "Applied & Computational Mathematics",    admitted: {HT24: 50,  HT25: 24, HT26: 29}}
+  CSSE:  {name: "Computer Simulations (TTMAM track)",     admitted: {HT24: 38,  HT25: 34, HT26: 25}}
+  TNEEM: {name: "Nuclear Energy Engineering",             admitted: {HT24: 46,  HT25: 42, HT26: 41}}
+  TBDVM: {name: "Biostatistics & Data Science (joint KI)", admitted: {HT24: 60, HT25: 44, HT26: 58}}
+  MATH:  {name: "Mathematics (joint SU) — PLACEHOLDER",   admitted: {HT24: 20,  HT25: 20, HT26: 20}, placeholder: true}
+
+assumptions:
+  intake_years: [HT25, HT26]         # average these
+  retention_y1_y2: 0.85              # civing year 1 -> 2
+  retention_y2_y3: 0.95
+  copen_to_sci_share: 0.25           # share of COPEN year-1 students who continue in an SCI programme
+  copen_retention: 0.85
+  copen_split: {CTFYS: 0.5, CTMAT: 0.2, CFATE: 0.3}
+  master_showup: 0.70                # registered / admitted for international masters
+  master_retention_y1_y2: 0.95
+  civing_y3_to_sci_master: 0.60      # share of SCI civing year-3 students entering an SCI master
+  internal_flow:                     # where they go (rows sum to 1)
+    CTFYS: {TTFYM: 0.55, TNEEM: 0.10, TTMAM: 0.10, CSSE: 0.10, TAEEM: 0.05, TTEMM: 0.05, MATH: 0.05}
+    CTMAT: {TTMAM: 0.40, MATH: 0.25, CSSE: 0.15, TBDVM: 0.15, TTFYM: 0.05}
+    CFATE: {TAEEM: 0.35, TFORM: 0.25, TTEMM: 0.20, TMRSM: 0.10, TJVTM: 0.05, CSSE: 0.05}

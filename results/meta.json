@@ -1,0 +1,28 @@
+{
+ "draws": 200,
+ "sweep_draws": 80,
+ "parallel_sections": 2,
+ "room_hours_per_period": 214.20000000000002,
+ "analytic": {
+  "parallel_sections": 2.0,
+  "room_hours_per_year": 856.8000000000001,
+  "section_hours_supply": 1713.6000000000001,
+  "total_sections": 96.0,
+  "total_groups": 505.0,
+  "total_students": 1970.0,
+  "Y_room_bound": 17.85,
+  "Y_section_cap": 56.0,
+  "Y_max": 17.85
+ },
+ "open_access": {
+  "open_wanted": 26.0,
+  "open_by_staff": 19.5,
+  "open_by_sa": 30.0,
+  "open_hours": 19.5,
+  "open_binding": "staff",
+  "simultaneous_users": 40.0,
+  "person_hours_course": 11138.4,
+  "groups": 505.0,
+  "Z": 11.028118811881187
+ }
+}

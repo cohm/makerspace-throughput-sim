@@ -1,0 +1,9 @@
+term,period,level,mean_pairwise_corr
+VT26,P3,all,0.25
+VT26,P3,mandatory,0.27
+VT26,P4,all,0.74
+VT26,P4,mandatory,0.36
+VT27,P3,all,0.12
+VT27,P3,mandatory,-0.01
+VT27,P4,all,0.66
+VT27,P4,mandatory,0.38
