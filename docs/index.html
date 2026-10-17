@@ -48,11 +48,11 @@
 body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--body); }
 .wrap { max-width: 1240px; margin: 0 auto; padding-block: 28px 56px;
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-header { display: grid; gap: 6px; margin-bottom: 22px; max-width: 100ch; }
+header { display: grid; gap: 6px; margin-bottom: 22px; }
 .eyebrow { font: 600 12px/1 var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 h1 { font: 600 clamp(26px, 4vw, 36px)/1.15 var(--display); margin: 0; color: var(--accent); }
 h2 { font: 600 18px/1.25 var(--display); margin: 0; color: var(--accent); }
-.lede { color: var(--ink-2); margin: 4px 0 0; }
+.lede { color: var(--ink-2); margin: 4px 0 0; max-width: 120ch; }
 .grid { display: grid; grid-template-columns: 330px minmax(0, 1fr); gap: 22px; align-items: start; }
 @media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } }
 
@@ -127,6 +127,11 @@ code { font: 12.5px var(--mono); }
 /* Course simulation */
 .sim-intro { display: grid; gap: 6px; max-width: 100ch; margin-bottom: 14px; }
 .sim-intro p { margin: 0; color: var(--ink-2); }
+.help { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-left: 4px; padding: 0; border-radius: 50%; border: 1px solid var(--base); background: var(--sheet); color: var(--muted); font: 600 10.5px/1 var(--ui); cursor: help; vertical-align: 1px; }
+.help:hover, .help:focus-visible, .help[aria-expanded="true"] { border-color: var(--accent); color: var(--accent); outline: none; }
+#helpbox { position: fixed; z-index: 60; max-width: 300px; padding: 9px 11px; border-radius: 6px; background: var(--ink); color: var(--sheet); font: 12.5px/1.45 var(--ui); box-shadow: 0 4px 16px rgba(0,0,0,.18); pointer-events: none; }
+.sim-shared { font: 12.5px/1.45 var(--ui); color: var(--ink-2); padding: 8px 12px; border: 1px solid var(--rule); border-radius: 6px; background: var(--sheet); margin-bottom: 14px; }
+.sim-shared button { font: 600 12.5px var(--ui); color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
 .sim-disclaimer { padding: 10px 12px; border: 1.5px dashed var(--serious); border-radius: 6px; background: var(--sheet); color: var(--ink) !important; }
 .sim-bar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-bottom: 14px; font: 13px var(--ui); color: var(--ink-2); }
 .seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; background: var(--sheet); }
@@ -304,7 +309,7 @@ code { font: 12.5px var(--mono); }
     <div class="sim-intro">
       <h2>One makerspace course per programme-year, academic year 2027/28</h2>
       <p class="sim-disclaimer"><b>The activities on this tab were made up for throughput simulation.</b> The course coordinators have not been involved in this step, and nothing here is a proposal for their courses. Attaching plausible activities to real courses that already have lab or project modules still gives a useful first-order estimate of how much use the makerspace could support.</p>
-      <p> Each course's picture is split into its project groups. Step through a period, course by course or week by week. Each group then lands as a puzzle piece in the makerspace's slots. Supervised sessions take whole sections of 24 into the course's own daytime half-days. Unsupervised work goes into the staffed evenings, two group members per visit. Change students, group size, hours or period on any card. A new seed gives a slightly different year.</p>
+      <p> Each course's picture is split into its project groups. Step through a period, course by course or week by week. Each group then lands as a puzzle piece in the makerspace's slots. Supervised sessions take whole sections of 24 into the course's own daytime half-days. Unsupervised work goes into the staffed evenings, two group members per visit. Change students, group size, hours, period or weeks on any card. Rooms, staffing and section rules are shared with the Capacity model tab and set there. A new seed gives a slightly different year. Bachelor and master thesis groups also use free daytime capacity in P3 and P4.</p>
     </div>
     <div class="sim-bar">
       <div class="seg" id="sim-periods" role="group" aria-label="Period"></div>
@@ -315,8 +320,8 @@ code { font: 12.5px var(--mono); }
       <span id="sim-progress"></span>
       <label for="sim-seed">Seed<input id="sim-seed" type="number" min="0" step="1"></label>
       <button type="button" class="btn ghost" id="sim-shuffle">New seed</button>
-      <label for="sim-open">Staffed evenings/week<input id="sim-open" type="number" min="0" max="6" step="1"></label>
     </div>
+    <p class="sim-shared" id="sim-shared"></p>
     <div class="sim-grid">
       <div id="sim-cards" aria-label="Courses in this period"></div>
       <div class="panel">
@@ -332,7 +337,8 @@ code { font: 12.5px var(--mono); }
       <h2>How the simulation works</h2>
       <p><b>Courses:</b> one real course per programme-year from the 2026 programme syllabi on kth.se, mandatory or conditionally elective where possible and with LAB or PRO-type examination modules. The makerspace activities are invented. Participants are summed over the programme-years that take a course; for now each course has one taker with the whole cohort. Many courses are shared between programmes, and Ladok numbers can replace this later.</p>
       <p><b>Daytime:</b> each half-day holds 62 people (3203 plus the 3202 and 3D-studio side rooms). A section of about 24 students in whole groups, plus a teacher, meets only in the half-days its course owns in the timetable. These are taken from TimeEdit for SK1105 and SE1055, and drawn at random per seed for the others (2 for bachelor, 3 for master courses). Hatched cells are booked for other use (23% of half-days, as in the capacity model). Sessions are spread over the course's project weeks, at most 2 per section per week.</p>
-      <p><b>Evenings:</b> only staffed evenings are open, 4 by default (about 20 staffed hours a week with the budgeted staff). Each takes 40 people (two supervisors), and a group sends up to two members per visit. Courses marked "example" are invented but plausible projects. Period dates are approximate.</p>
+      <p><b>Evenings:</b> only staffed evenings are open. Their number follows from the staffing set on the Capacity model tab (staffed hours per week divided by 4 h, at most 6). Each takes as many people as the supervisors on duty can oversee, and a group sends the number of members per visit set there.</p>
+      <p><b>Theses:</b> bachelor theses (groups of two) and master theses (individual) in P3 and P4 book free daytime half-days after the courses have been placed, and use evenings when the day is full. Their numbers are assumptions: a share of each year-3 or master year-2 cohort uses the makerspace, with the bench hours shown on their cards. The capacity model has no thesis demand of its own; its "other daytime use" covers part of it. Courses marked "example" are invented but plausible projects. Period dates are approximate.</p>
     </section>
   </section>
 </div>
@@ -656,17 +662,27 @@ const SimCore = (() => {
     return { groups, sizes, sections, own, gs };
   }
 
+  const periodsOf = c => c.periods || [c.period];
+  const isThesis = c => c.kind === "thesis";
+
+  // Thesis bench visits are split over the entry's periods (earlier periods get the remainder).
+  function thesisVisits(c, per, rules) {
+    const ps = periodsOf(c), total = Math.ceil((c.bench_h || 0) / rules.visit_h), k = ps.indexOf(per);
+    return k < 0 ? 0 : Math.floor(total / ps.length) + (k < total % ps.length ? 1 : 0);
+  }
+
   function schedule(courses, rules, seed) {
     const W = rules.teaching_weeks;
     const out = { periods: {}, results: [] };
     let eid = 0;
     const prep = courses.map(c => prepare(c, rules, seed));
-    const sessionsNeeded = c => Math.ceil(c.sup_h / rules.session_h);
-    const visitsNeeded = c => Math.ceil(c.unsup_h / rules.visit_h);
+    const sessionsNeeded = c => isThesis(c) ? 0 : Math.ceil(c.sup_h / rules.session_h);
+    const visitsNeeded = c => isThesis(c) ? 0 : Math.ceil(c.unsup_h / rules.visit_h);
     const res = courses.map((c, i) => ({ id: c.id, students: c.n_students, groups: prep[i].groups, sizes: prep[i].sizes,
-      sections: prep[i].sections.length, own: prep[i].own,
+      sections: prep[i].sections.length, own: prep[i].own, thesis: isThesis(c),
       supReq: sessionsNeeded(c) * rules.session_h, unsupReq: visitsNeeded(c) * rules.visit_h,
-      supSessions: 0, groupSupSessions: 0, groupVisits: 0, supShort: 0, unsupShort: 0 }));
+      benchReq: isThesis(c) ? Math.ceil((c.bench_h || 0) / rules.visit_h) * rules.visit_h : 0,
+      supSessions: 0, groupSupSessions: 0, groupVisits: 0, benchVisits: 0, supShort: 0, unsupShort: 0, benchShort: 0 }));
 
     for (const per of ["P1", "P2", "P3", "P4"]) {
       const r = mulberry32(seed ^ hash(per));
@@ -676,21 +692,29 @@ const SimCore = (() => {
       const open = Array.from({ length: W }, () => OPEN_ROWS.map((_, j) => ({
         cap: rules.open_cap_persons, used: 0, open: openSet.has(j), events: [] })));
       const events = [];
-      const idx = courses.map((c, i) => i).filter(i => courses[i].period === per);
-      const win = i => [courses[i].weeks[0] - 1, Math.min(courses[i].weeks[1], W) - 1];
+      const idx = courses.map((c, i) => i).filter(i => periodsOf(courses[i]).includes(per));
+      const win = i => [Math.min(courses[i].weeks[0], W) - 1, Math.min(courses[i].weeks[1], W) - 1];
+      const cidx = idx.filter(i => !isThesis(courses[i])), tidx = idx.filter(i => isThesis(courses[i]));
 
       // Supervised: whole sections (groups + a teacher) in the course's own daytime half-days
       const secs = [];
-      for (const i of idx) prep[i].sections.forEach(g => {
+      for (const i of cidx) prep[i].sections.forEach(g => {
         const [w0, w1] = win(i);
         secs.push({ c: i, groups: g, persons: g.reduce((s, k) => s + prep[i].sizes[k], 0) + rules.teachers_per_section,
           need: sessionsNeeded(courses[i]), w0, w1 });
       });
       // Unsupervised: single groups (up to visit_members people) in staffed evening/Saturday slots
       const grs = [];
-      for (const i of idx) for (let g = 0; g < prep[i].groups; g++) {
+      for (const i of cidx) for (let g = 0; g < prep[i].groups; g++) {
         const [w0, w1] = win(i);
         grs.push({ c: i, g, persons: Math.min(rules.visit_members, prep[i].sizes[g]), need: visitsNeeded(courses[i]), w0, w1 });
+      }
+      // Theses: whole groups book any free daytime half-day after the courses; evenings as fallback
+      const ths = [];
+      for (const i of tidx) for (let g = 0; g < prep[i].groups; g++) {
+        const [w0, w1] = win(i);
+        ths.push({ c: i, g, persons: prep[i].sizes[g], evePersons: Math.min(rules.visit_members, prep[i].sizes[g]),
+          need: thesisVisits(courses[i], per, rules), w0, w1 });
       }
 
       for (let w = 0; w < W; w++) {
@@ -717,10 +741,34 @@ const SimCore = (() => {
             res[x.c].supSessions++; res[x.c].groupSupSessions += x.groups.length;
           }
         }
+        const ta = ths.filter(x => x.need > 0 && w >= x.w0 && w <= x.w1);
+        ta.forEach(x => { x.quota = Math.min(2, Math.ceil(x.need / (x.w1 - w + 1))); x.done = 0; x.used = new Set(); });
+        for (let round = 0; round < 2; round++) {
+          const order = shuffle(ta.slice(), r).sort((a, b) => b.need / (b.w1 - w + 1) - a.need / (a.w1 - w + 1));
+          for (const x of order) {
+            if (x.done >= x.quota || x.need === 0) continue;
+            let best = -1, bv = -1;
+            day[w].forEach((cell, s) => {
+              const free = cell.cap - cell.used;
+              if (cell.blocked || x.used.has(s) || free < x.persons) return;
+              const v = free + r() * 0.5;
+              if (v > bv) { bv = v; best = s; }
+            });
+            if (best < 0) continue;
+            const cell = day[w][best];
+            cell.used += x.persons;
+            const ev = { id: eid++, c: x.c, kind: "thesis", w, slot: best, groups: [x.g], persons: x.persons };
+            cell.events.push(ev); events.push(ev);
+            x.need--; x.done++; x.used.add(best);
+            res[x.c].benchVisits++;
+          }
+        }
         const ga = grs.filter(x => x.need > 0 && w >= x.w0 && w <= x.w1);
         ga.forEach(x => { x.quota = Math.ceil(x.need / (x.w1 - w + 1)); x.done = 0; x.used = new Set(); });
+        // thesis groups that missed their weekly quota in daytime try the evenings, after the courses
+        const te = ta.filter(x => x.done < x.quota && x.need > 0).map(x => ({ ...x, persons: x.evePersons, thesis: x, used: new Set() }));
         for (let round = 0; round < 2; round++) {
-          const order = shuffle(ga.slice(), r).sort((a, b) => b.need / (b.w1 - w + 1) - a.need / (a.w1 - w + 1));
+          const order = shuffle(ga.slice(), r).sort((a, b) => b.need / (b.w1 - w + 1) - a.need / (a.w1 - w + 1)).concat(round === 0 ? te : []);
           for (const x of order) {
             if (x.done >= x.quota || x.need === 0) continue;
             let best = -1, bv = -1;
@@ -732,15 +780,17 @@ const SimCore = (() => {
             if (best < 0) continue;
             const cell = open[w][best];
             cell.used += x.persons;
-            const ev = { id: eid++, c: x.c, kind: "unsup", w, slot: best, groups: [x.g], persons: x.persons };
+            const ev = { id: eid++, c: x.c, kind: x.thesis ? "thesis-eve" : "unsup", w, slot: best, groups: [x.g], persons: x.persons };
             cell.events.push(ev); events.push(ev);
             x.need--; x.done++; x.used.add(best);
-            res[x.c].groupVisits++;
+            if (x.thesis) { x.thesis.need--; x.thesis.done++; res[x.c].benchVisits++; }
+            else res[x.c].groupVisits++;
           }
         }
       }
       for (const x of secs) res[x.c].supShort += x.need * x.groups.length;
       for (const x of grs) res[x.c].unsupShort += x.need;
+      for (const x of ths) res[x.c].benchShort += x.need;
 
       const dayCap = day.flat().filter(c => !c.blocked).reduce((s, c) => s + c.cap, 0);
       const dayUsed = day.flat().reduce((s, c) => s + c.used, 0);
@@ -750,11 +800,12 @@ const SimCore = (() => {
     }
     out.results = res.map(x => ({ ...x,
       supGot: x.groupSupSessions / x.groups * rules.session_h,
-      unsupGot: x.groupVisits / x.groups * rules.visit_h }));
+      unsupGot: x.groupVisits / x.groups * rules.visit_h,
+      benchGot: x.benchVisits / x.groups * rules.visit_h }));
     return out;
   }
 
-  return { DAYS, HALF, OPEN_ROWS, mulberry32, hash, participants, prepare, schedule };
+  return { DAYS, HALF, OPEN_ROWS, mulberry32, hash, participants, prepare, schedule, periodsOf, isThesis, thesisVisits };
 })();
 
 const SimUI = (() => {
@@ -796,6 +847,7 @@ const SimUI = (() => {
     loop: c => `<rect x="34" y="18" width="82" height="66" rx="10" fill="none" stroke="${c}" stroke-width="7"/><rect x="34" y="18" width="82" height="66" rx="10" fill="none" ${S}/><rect x="26" y="58" width="16" height="22" fill="var(--critical)" ${S}/><path d="M78 12 L90 18 L78 24" fill="none" ${S}/>`,
     wearable: c => `<rect x="56" y="26" width="38" height="48" rx="10" fill="${c}" ${S}/><path d="M62 26 L66 6 L84 6 L88 26 M62 74 L66 94 L84 94 L88 74" fill="none" ${S}/><path d="M64 50 L70 50 L74 40 L78 60 L82 50 L86 50" fill="none" stroke="var(--sheet)" stroke-width="2.4"/>`,
     knot: c => `<path d="M75 16 C120 16 120 70 75 70 C40 70 30 40 60 30 C95 18 120 60 92 82 C70 98 30 84 38 56 C44 34 90 30 100 52" fill="none" stroke="${c}" stroke-width="6" stroke-linecap="round"/>`,
+    thesis: c => `<rect x="30" y="14" width="56" height="74" rx="3" fill="var(--sheet)" ${S}/><path d="M40 30 L76 30 M40 40 L76 40 M40 50 L66 50" stroke="var(--ink)" stroke-width="2"/><circle cx="102" cy="62" r="18" fill="${c}" ${S}/><circle cx="102" cy="62" r="6" fill="var(--sheet)" ${S}/><path d="M102 38 L102 44 M102 80 L102 86 M78 62 L84 62 M120 62 L126 62 M85 45 L89 49 M115 75 L119 79 M85 79 L89 75 M115 49 L119 45" ${S}/>`,
     origami: c => `<path d="M30 76 L75 18 L120 76 Z" fill="${c}" ${S}/><path d="M75 18 L75 76 M52 47 L98 47 M30 76 L98 47 M120 76 L52 47" stroke="var(--sheet)" stroke-width="1.6"/>`,
   };
 
@@ -838,7 +890,7 @@ const SimUI = (() => {
   }
 
   // ---- State
-  let D, rules, base, cohortSize = {}, over = {}, seed = 2027, mode = "course", period = "P1", revealed = new Set(), stepIdx = {}, sched, root;
+  let D, rules, base, cohortBase = {}, cohortSize = {}, shared = null, over = {}, seed = 2027, mode = "course", period = "P1", revealed = new Set(), stepIdx = {}, sched, root;
   const courses = () => base.map(c => {
     const o = over[c.id] || {};
     const merged = { ...c, ...o };
@@ -859,7 +911,8 @@ const SimUI = (() => {
 
   function courseOrder(p) {
     const cs = courses();
-    return sched.periods[p].courses.slice().sort((a, b) => cs[a].weeks[0] - cs[b].weeks[0] || a - b);
+    return sched.periods[p].courses.slice().sort((a, b) =>
+      (SimCore.isThesis(cs[a]) - SimCore.isThesis(cs[b])) || cs[a].weeks[0] - cs[b].weeks[0] || a - b);
   }
   function stepsOf(p) {
     const P = sched.periods[p];
@@ -877,14 +930,28 @@ const SimUI = (() => {
     }
   }
   function colorOf(ci) {
-    const P = sched.periods[courses()[ci].period];
-    return COLORS[P.courses.indexOf(ci) % COLORS.length];
+    const c = courses()[ci];
+    if (c.color) return c.color;
+    const P = sched.periods[SimCore.periodsOf(c)[0]];
+    return COLORS[P.courses.filter(i => !SimCore.isThesis(courses()[i])).indexOf(ci) % COLORS.length];
   }
   const fmt = v => (Math.round(v * 10) / 10).toString();
   function state(res) {
-    if (res.supShort === 0 && res.unsupShort === 0) return ["var(--good)", "fits"];
-    return res.supGot >= 0.75 * res.supReq ? ["var(--warning)", "squeezed"] : ["var(--critical)", "does not fit"];
+    if (res.supShort === 0 && res.unsupShort === 0 && res.benchShort === 0) return ["var(--good)", "fits"];
+    const got = res.thesis ? res.benchGot : res.supGot, req = res.thesis ? res.benchReq : res.supReq;
+    return got >= 0.75 * req ? ["var(--warning)", "squeezed"] : ["var(--critical)", "does not fit"];
   }
+  const CARD_HELP = {
+    students: "Participants. By default the sum over the programme-years that take the course (a share of each cohort). Type a number to override.",
+    group_size: "Students per project group (1\u201310). Groups are what the pieces on the board show.",
+    sup_h: "Hours per group in supervised daytime sessions. A whole section (about 24 students in whole groups, plus a teacher) comes at once, in the half-days the course owns in its timetable.",
+    unsup_h: "Hours per group of unsupervised work in the staffed evenings and on Saturdays, a few group members per visit.",
+    bench_h: "Makerspace hours each thesis group needs over the thesis, split over the periods. Groups book free daytime half-days after the courses, or evenings when the day is full.",
+    period: "Period of 2027/28 in which the makerspace activity takes place.",
+    w0: "First teaching week of the period in which the makerspace activity can take place.",
+    w1: "Last teaching week of the period in which the makerspace activity can take place.",
+  };
+  const helpBtn = key => `<button type="button" class="help" data-help-text="${CARD_HELP[key]}" aria-label="About this setting">?</button>`;
   const takersText = c => (c.takers || []).map(t => `${t.cohort} (${t.students != null ? t.students + " st" : Math.round((t.share ?? 1) * 100) + "%"})`).join(", ");
 
   // ---- Rendering
@@ -908,23 +975,35 @@ const SimUI = (() => {
       const anyPlaced = P.events.some(e => e.c === ci && revealed.has(period + ":" + e.id));
       const st = state(res);
       const w = c.weeks;
+      const th = SimCore.isThesis(c), W = rules.teaching_weeks;
       const mods = c.modules && c.modules.length ? c.modules.join(", ") : "no LAB/PRO module";
+      const inp = (key, label, attrs) => `<label>${label}${helpBtn(key)}<input type="number" ${attrs} data-f="${key}" id="sim-${c.id}-${key}"></label>`;
+      const weeksIn = inp("w0", "From week", `min="1" max="${W}" step="1" value="${Math.min(w[0], W)}"`) + inp("w1", "To week", `min="1" max="${W}" step="1" value="${Math.min(w[1], W)}"`);
+      const inputs = th
+        ? inp("students", "Students", `min="1" max="2000" step="1" value="${res.students}"`) +
+          inp("group_size", "Group size", `min="1" max="10" step="1" value="${c.group_size}"`) +
+          inp("bench_h", "Bench h", `min="0" max="200" step="4" value="${c.bench_h}"`) + weeksIn
+        : inp("students", "Students", `min="1" max="500" step="1" value="${res.students}"`) +
+          inp("group_size", "Group size", `min="1" max="10" step="1" value="${c.group_size}"`) +
+          inp("sup_h", "Supervised h", `min="0" max="40" step="4" value="${c.sup_h}"`) +
+          inp("unsup_h", "Unsuperv. h", `min="0" max="40" step="2" value="${c.unsup_h}"`) +
+          `<label>Period${helpBtn("period")}<select data-f="period" id="sim-${c.id}-period">${PERIODS.map(p => `<option${p === c.period ? " selected" : ""}>${p}</option>`).join("")}</select></label>` + weeksIn;
+      const meta = th
+        ? `${res.students} students \u00b7 ${res.groups} groups of up to ${c.group_size} \u00b7 ${SimCore.periodsOf(c).join("\u2013")}, weeks ${w[0]}\u2013${w[1]} of each \u00b7 any free daytime half-day, evenings as fallback`
+        : `${res.students} students \u00b7 ${res.groups} groups \u00b7 ${res.sections} section${res.sections === 1 ? "" : "s"} \u00b7 weeks ${w[0]}\u2013${w[1]} \u00b7 owns ${res.own.map(i => SimCore.HALF[i]).join(", ")}`;
+      const result = th
+        ? `bench time ${fmt(res.benchGot)} of ${res.benchReq} h per group`
+        : `supervised ${fmt(res.supGot)} of ${res.supReq} h \u00b7 unsupervised ${fmt(res.unsupGot)} of ${res.unsupReq} h`;
       return `<article class="sc${anyPlaced ? " broken" : ""}${ci === curC ? " current" : ""}" data-c="${ci}" style="--cc:${color}">
-        <div class="sc-head"><span class="sc-dot"></span><span class="sc-mock">Mock example</span><span class="sc-coh">${takersText(c)}</span></div>
+        <div class="sc-head"><span class="sc-dot"></span><span class="sc-mock">${th ? "Assumed numbers" : "Mock example"}</span><span class="sc-coh">${th ? (c.takers || []).length + " programme-years" : takersText(c)}</span></div>
         <div class="sc-course">${c.code} ${c.course_name || ""}</div>
         <h3>${c.activity}</h3>
         ${illustration(c, color, res.groups)}
         <p>${c.text}</p>
-        <div class="sc-meta">Syllabus: ${mods}${c.pick_note ? ` \u00b7 ${c.pick_note}` : ""}</div>
-        <div class="sc-meta">${res.students} students \u00b7 ${res.groups} groups \u00b7 ${res.sections} section${res.sections === 1 ? "" : "s"} \u00b7 weeks ${w[0]}\u2013${w[1]} \u00b7 owns ${res.own.map(i => SimCore.HALF[i]).join(", ")}</div>
-        <div class="sc-in">
-          <label>Students<input type="number" min="1" max="500" step="1" value="${res.students}" data-f="students" id="sim-${c.id}-students"></label>
-          <label>Group size<input type="number" min="1" max="10" step="1" value="${c.group_size}" data-f="group_size" id="sim-${c.id}-gs"></label>
-          <label>Supervised h<input type="number" min="0" max="40" step="4" value="${c.sup_h}" data-f="sup_h" id="sim-${c.id}-sup"></label>
-          <label>Unsuperv. h<input type="number" min="0" max="40" step="2" value="${c.unsup_h}" data-f="unsup_h" id="sim-${c.id}-unsup"></label>
-          <label>Period<select data-f="period" id="sim-${c.id}-period">${PERIODS.map(p => `<option${p === c.period ? " selected" : ""}>${p}</option>`).join("")}</select></label>
-        </div>
-        <div class="sc-res"><span class="pill"><i style="background:${st[0]}"></i>${st[1]}</span> supervised ${fmt(res.supGot)} of ${res.supReq} h \u00b7 unsupervised ${fmt(res.unsupGot)} of ${res.unsupReq} h</div>
+        ${th ? "" : `<div class="sc-meta">Syllabus: ${mods}${c.pick_note ? ` \u00b7 ${c.pick_note}` : ""}</div>`}
+        <div class="sc-meta">${meta}</div>
+        <div class="sc-in">${inputs}</div>
+        <div class="sc-res"><span class="pill"><i style="background:${st[0]}"></i>${st[1]}</span> ${result}</div>
       </article>`;
     }).join("");
 
@@ -959,10 +1038,11 @@ const SimUI = (() => {
     for (const e of cell.events) {
       const vis = revealed.has(period + ":" + e.id);
       const c = cs[e.c], color = colorOf(e.c), sizes = sched.results[e.c].sizes;
-      const what = e.kind === "sup" ? "supervised session" : "open-access visit";
+      const what = { sup: "supervised session", unsup: "open-access visit", thesis: "thesis bench time", "thesis-eve": "thesis bench time (evening)" }[e.kind];
+      const bg = e.kind.startsWith("thesis") ? `repeating-linear-gradient(135deg, ${color} 0 2px, color-mix(in srgb, ${color} 35%, var(--sheet)) 2px 4px)` : color;
       for (const g of e.groups) {
         const n = e.kind === "sup" ? sizes[g] : e.persons;
-        inner += `<span class="pc${vis ? "" : " hidden-pc"}" data-c="${e.c}" data-e="${e.id}" data-g="${g}" style="grid-column: span ${Math.min(n, UNITS)};background:${color}" title="${c.code} ${c.activity} \u00b7 group ${g + 1} (${n} ${n === 1 ? "person" : "people"}) \u00b7 ${what}"></span>`;
+        inner += `<span class="pc${vis ? "" : " hidden-pc"}" data-c="${e.c}" data-e="${e.id}" data-g="${g}" style="grid-column: span ${Math.min(n, UNITS)};background:${bg}" title="${c.code} ${c.activity} \u00b7 group ${g + 1} (${n} ${n === 1 ? "person" : "people"}) \u00b7 ${what}"></span>`;
       }
       if (e.kind === "sup") for (let t = 0; t < e.teachers; t++)
         inner += `<span class="pc teacher${vis ? "" : " hidden-pc"}" data-c="${e.c}" title="Teacher, ${c.code}"></span>`;
@@ -972,12 +1052,13 @@ const SimUI = (() => {
 
   function renderSummary() {
     const cs = courses();
-    const rows = cs.map((c, i) => ({ c, r: sched.results[i] })).sort((a, b) => a.c.period.localeCompare(b.c.period) || a.c.id.localeCompare(b.c.id));
+    const rows = cs.map((c, i) => ({ c, r: sched.results[i] })).sort((a, b) =>
+      (SimCore.isThesis(a.c) - SimCore.isThesis(b.c)) || SimCore.periodsOf(a.c)[0].localeCompare(SimCore.periodsOf(b.c)[0]) || a.c.id.localeCompare(b.c.id));
     const pu = PERIODS.map(p => `${p}: daytime ${Math.round(sched.periods[p].dayUtil * 100)}%, open ${Math.round(sched.periods[p].openUtil * 100)}%`).join(" \u00b7 ");
-    root.querySelector("#sim-summary").innerHTML = `<p class="sim-pu">Every activity below is a <b>mock example</b> attached to a real course. Place use per period: ${pu}</p><div class="tablewrap"><table><thead><tr><th>Period</th><th>Course</th><th>Mock activity</th><th>Taken by</th><th class="num">Students</th><th class="num">Group size</th><th class="num">Supervised h</th><th class="num">Unsupervised h</th><th>State</th></tr></thead><tbody>` +
+    root.querySelector("#sim-summary").innerHTML = `<p class="sim-pu">Every activity below is a <b>mock example</b> attached to a real course; thesis numbers are assumptions. Place use per period: ${pu}</p><div class="tablewrap"><table><thead><tr><th>Period</th><th>Course</th><th>Mock activity</th><th>Taken by</th><th class="num">Students</th><th class="num">Group size</th><th class="num">Supervised h</th><th class="num">Unsupervised h</th><th class="num">Thesis bench h</th><th>State</th></tr></thead><tbody>` +
       rows.map(({ c, r }) => {
-        const st = state(r);
-        return `<tr><td>${c.period}</td><td>${c.code} ${c.course_name || ""}</td><td>${c.activity}</td><td>${takersText(c)}</td><td class="num">${r.students}</td><td class="num">${c.group_size}</td><td class="num">${fmt(r.supGot)} / ${r.supReq}</td><td class="num">${fmt(r.unsupGot)} / ${r.unsupReq}</td><td><span class="pill"><i style="background:${st[0]}"></i>${st[1]}</span></td></tr>`;
+        const st = state(r), th = SimCore.isThesis(c);
+        return `<tr><td>${SimCore.periodsOf(c).join("\u2013")}</td><td>${c.code} ${c.course_name || ""}</td><td>${c.activity}</td><td>${th ? (c.takers || []).length + " programme-years" : takersText(c)}</td><td class="num">${r.students}</td><td class="num">${c.group_size}</td><td class="num">${th ? "\u2013" : fmt(r.supGot) + " / " + r.supReq}</td><td class="num">${th ? "\u2013" : fmt(r.unsupGot) + " / " + r.unsupReq}</td><td class="num">${th ? fmt(r.benchGot) + " / " + r.benchReq : "\u2013"}</td><td><span class="pill"><i style="background:${st[0]}"></i>${st[1]}</span></td></tr>`;
       }).join("") + `</tbody></table></div>`;
   }
 
@@ -1025,9 +1106,8 @@ const SimUI = (() => {
   function init(el, data) {
     root = el; D = data; rules = { ...data.rules, teaching_weeks: data.calendar.teaching_weeks };
     base = data.courses;
-    cohortSize = data.cohort_sizes;
+    cohortBase = data.cohort_sizes; cohortSize = { ...cohortBase };
     root.querySelector("#sim-seed").value = seed;
-    root.querySelector("#sim-open").value = rules.open_slots_per_week;
     recompute(true);
     render();
     root.addEventListener("click", e => {
@@ -1049,13 +1129,18 @@ const SimUI = (() => {
     root.addEventListener("change", e => {
       const t = e.target;
       if (t.id === "sim-seed") { seed = Math.max(0, Math.floor(+t.value || 0)); recompute(false); render(); return; }
-      if (t.id === "sim-open") { rules.open_slots_per_week = Math.max(0, Math.min(6, +t.value || 0)); recompute(false); render(); return; }
       const card = t.closest(".sc");
       if (card && t.dataset.f) {
         const c = courses()[+card.dataset.c];
-        let v = t.dataset.f === "period" ? t.value : Math.max(0, +t.value || 0);
-        if (t.dataset.f === "group_size") v = Math.max(1, Math.min(10, Math.round(v)));
-        over[c.id] = { ...(over[c.id] || {}), [t.dataset.f]: v };
+        const f = t.dataset.f;
+        let v = f === "period" ? t.value : Math.max(0, +t.value || 0);
+        if (f === "group_size") v = Math.max(1, Math.min(10, Math.round(v)));
+        if (f === "w0" || f === "w1") {
+          const W = rules.teaching_weeks, wk = [...c.weeks];
+          wk[f === "w0" ? 0 : 1] = Math.max(1, Math.min(W, Math.round(v) || 1));
+          if (wk[0] > wk[1]) wk[f === "w0" ? 1 : 0] = wk[f === "w0" ? 0 : 1];
+          over[c.id] = { ...(over[c.id] || {}), weeks: wk };
+        } else over[c.id] = { ...(over[c.id] || {}), [f]: v };
         recompute(false); render();
       }
     });
@@ -1070,14 +1155,36 @@ const SimUI = (() => {
     root.addEventListener("pointerleave", () => setFocus(""));
   }
 
-  return { init };
+  // Shared physical/operational assumptions from the Capacity model tab
+  function setShared(sh) {
+    if (!root) return;
+    const key = JSON.stringify(sh);
+    if (shared && JSON.stringify(shared) === key) return;
+    shared = sh;
+    for (const k of ["section_students", "teachers_per_section", "day_cap_persons", "day_available", "teaching_weeks",
+      "max_sessions_per_week", "open_slots_per_week", "open_cap_persons", "visit_members"]) rules[k] = sh[k];
+    rules.own_n = { ...sh.own_n };
+    cohortSize = Object.fromEntries(Object.entries(cohortBase).map(([k, v]) => [k, Math.max(1, Math.round(v * sh.cohort_scale))]));
+    root.querySelector("#sim-shared").innerHTML =
+      `<b>Shared with the Capacity model tab:</b> sections of ${sh.section_students} + ${sh.teachers_per_section} teacher${sh.teachers_per_section === 1 ? "" : "s"} \u00b7 ` +
+      `${sh.day_cap_persons} people per half-day \u00b7 ${Math.round(sh.day_available * 100)}% of half-days bookable \u00b7 ` +
+      `at most ${sh.max_sessions_per_week} sessions per section and week \u00b7 ${sh.teaching_weeks} weeks per period \u00b7 ` +
+      `courses own ${sh.own_n.bachelor} (bachelor) / ${sh.own_n.master} (master) half-days where not known \u00b7 cohort sizes \u00d7${sh.cohort_scale.toFixed(2)} \u00b7 ` +
+      `${(Math.round(sh.staffed_hours * 10) / 10)} staffed open hours a week \u2192 ${sh.open_slots_per_week} evening${sh.open_slots_per_week === 1 ? "" : "s"} of ${sh.open_cap_persons} people, ${sh.visit_members} member${sh.visit_members === 1 ? "" : "s"} per visit` +
+      `${sh.session_hours_model !== 4 ? " \u00b7 (the simulation always uses half-day sessions)" : ""}. ` +
+      `<button type="button" id="sim-goto-model">Change them there</button>`;
+    recompute(false);
+    render();
+  }
+
+  return { init, setShared };
 })();
 
 if (typeof module !== "undefined") module.exports = { SimCore };
 
 </script>
 <script>
-const D = {"cohorts": [{"cohort": "COPEN-1", "programme": "COPEN", "name": "\u00d6ppen ing\u00e5ng (1 yr)", "year": 1, "level": "bachelor", "students": 99}, {"cohort": "CTFYS-1", "programme": "CTFYS", "name": "Teknisk fysik", "year": 1, "level": "bachelor", "students": 142}, {"cohort": "CTFYS-2", "programme": "CTFYS", "name": "Teknisk fysik", "year": 2, "level": "bachelor", "students": 131}, {"cohort": "CTFYS-3", "programme": "CTFYS", "name": "Teknisk fysik", "year": 3, "level": "bachelor", "students": 124}, {"cohort": "CTMAT-1", "programme": "CTMAT", "name": "Teknisk matematik", "year": 1, "level": "bachelor", "students": 75}, {"cohort": "CTMAT-2", "programme": "CTMAT", "name": "Teknisk matematik", "year": 2, "level": "bachelor", "students": 68}, {"cohort": "CTMAT-3", "programme": "CTMAT", "name": "Teknisk matematik", "year": 3, "level": "bachelor", "students": 65}, {"cohort": "CFATE-1", "programme": "CFATE", "name": "Farkostteknik", "year": 1, "level": "bachelor", "students": 114}, {"cohort": "CFATE-2", "programme": "CFATE", "name": "Farkostteknik", "year": 2, "level": "bachelor", "students": 103}, {"cohort": "CFATE-3", "programme": "CFATE", "name": "Farkostteknik", "year": 3, "level": "bachelor", "students": 98}, {"cohort": "TTFYM-1", "programme": "TTFYM", "name": "Engineering Physics", "year": 1, "level": "master", "students": 75}, {"cohort": "TTFYM-2", "programme": "TTFYM", "name": "Engineering Physics", "year": 2, "level": "master", "students": 71}, {"cohort": "TAEEM-1", "programme": "TAEEM", "name": "Aerospace Engineering", "year": 1, "level": "master", "students": 87}, {"cohort": "TAEEM-2", "programme": "TAEEM", "name": "Aerospace Engineering", "year": 2, "level": "master", "students": 83}, {"cohort": "TFORM-1", "programme": "TFORM", "name": "Vehicle Engineering", "year": 1, "level": "master", "students": 51}, {"cohort": "TFORM-2", "programme": "TFORM", "name": "Vehicle Engineering", "year": 2, "level": "master", "students": 48}, {"cohort": "TJVTM-1", "programme": "TJVTM", "name": "Railway Engineering (TFORM track HT26)", "year": 1, "level": "master", "students": 22}, {"cohort": "TJVTM-2", "programme": "TJVTM", "name": "Railway Engineering (TFORM track HT26)", "year": 2, "level": "master", "students": 21}, {"cohort": "TMRSM-1", "programme": "TMRSM", "name": "Naval Architecture", "year": 1, "level": "master", "students": 22}, {"cohort": "TMRSM-2", "programme": "TMRSM", "name": "Naval Architecture", "year": 2, "level": "master", "students": 21}, {"cohort": "TTEMM-1", "programme": "TTEMM", "name": "Engineering Mechanics", "year": 1, "level": "master", "students": 47}, {"cohort": "TTEMM-2", "programme": "TTEMM", "name": "Engineering Mechanics", "year": 2, "level": "master", "students": 45}, {"cohort": "TTMAM-1", "programme": "TTMAM", "name": "Applied & Computational Mathematics", "year": 1, "level": "master", "students": 41}, {"cohort": "TTMAM-2", "programme": "TTMAM", "name": "Applied & Computational Mathematics", "year": 2, "level": "master", "students": 39}, {"cohort": "CSSE-1", "programme": "CSSE", "name": "Computer Simulations (TTMAM track)", "year": 1, "level": "master", "students": 37}, {"cohort": "CSSE-2", "programme": "CSSE", "name": "Computer Simulations (TTMAM track)", "year": 2, "level": "master", "students": 35}, {"cohort": "TNEEM-1", "programme": "TNEEM", "name": "Nuclear Energy Engineering", "year": 1, "level": "master", "students": 37}, {"cohort": "TNEEM-2", "programme": "TNEEM", "name": "Nuclear Energy Engineering", "year": 2, "level": "master", "students": 35}, {"cohort": "TBDVM-1", "programme": "TBDVM", "name": "Biostatistics & Data Science (joint KI)", "year": 1, "level": "master", "students": 42}, {"cohort": "TBDVM-2", "programme": "TBDVM", "name": "Biostatistics & Data Science (joint KI)", "year": 2, "level": "master", "students": 39}, {"cohort": "MATH-1", "programme": "MATH", "name": "Mathematics (joint SU) \u2014 PLACEHOLDER", "year": 1, "level": "master", "students": 27}, {"cohort": "MATH-2", "programme": "MATH", "name": "Mathematics (joint SU) \u2014 PLACEHOLDER", "year": 2, "level": "master", "students": 26}], "facility": {"rooms": {"r3203": {"name": "3203 Project/course room", "area_m2": 91, "max_persons": 50, "src": "Decks, ventilation/RFP slide ('3203: 50'); course slide 'Movable benches, up to 50 persons'", "role": "main_course_room"}, "r3202": {"name": "3202 Heavy fabrication", "area_m2": 55, "max_persons": 8, "src": "Decks, ventilation/RFP slide", "role": "side_room"}, "studio3d": {"name": "2209 east 3D printing studio", "area_m2": 20, "max_persons": 4, "src": "Decks, ventilation/RFP slide; 8 FDM printers per Rooms-and-functions slide", "role": "side_room"}, "r2211": {"name": "2211 Student teams", "area_m2": 48, "max_persons": 12, "src": "Decks, ventilation/RFP slide; allocated to student teams in Alt 1", "role": "student_teams"}, "basement": {"name": "Basement composites", "max_persons": 6, "src": "Decks, ventilation/RFP slide", "role": "specialist"}, "r2207": {"name": "2207 Lounge/entrance", "area_m2": 65, "max_persons": 30, "src": "Decks, Rooms-and-functions slide", "role": "lounge"}}, "machines": {"fdm_printers": {"count": 8, "src": "AppA, AppD, Costs-machines.xlsx: 6 Prusa CORE One+ + 2 CORE One L"}, "cnc": {"count": 1, "src": "AppA/AppD: 1 Carvera desktop CNC (w/ laser module). Plan says '(2)' but only 1 budgeted"}, "metal_machines": {"count": 4, "src": "Decks: mill, bandsaw, lathe, metal bandsaw re-used in 3202 (+ new pillar drill, bandsaw, grinder, press brake)"}}, "hours": {"daytime_bookable_h_per_day": 8, "open_access_variants": {"documented": {"evening_h_per_weekday": 4, "weekend_h_per_week": 6}, "extended": {"evening_h_per_weekday": 6, "weekend_h_per_week": 26}}}, "staffing": {"staff_fte": 1.3, "student_assistant_fte": 1.0, "fte_hours_per_week": 40, "availability": 0.75, "staff_supervision_share": 0.5, "staff_per_open_hour": 1, "sa_per_open_hour": 1, "max_users_per_supervisor": 20}}, "base": {"calendar": {"periods": 4, "teaching_weeks_per_period": 7, "open_weeks_per_year": 34}, "course": {"courses_per_cohort": 1, "section_size": 24, "teachers_per_section": 1, "group_size": 4, "session_hours": 4, "max_sessions_per_week": 2}, "room": {"booking_efficiency": 0.85, "other_daytime_use": 0.1, "side_rooms_in_sessions": true}, "timetable": {"busy_fraction": 0.0, "busy_correlation": 0.0, "min_free_blocks": 2, "by_level": {}, "project_weeks": 7, "period_mix": [0.25, 0.25, 0.25, 0.25], "period_assignment": "balanced"}, "open_access": {"hours_variant": "documented", "occupancy": 0.6, "noncourse_share": 0.3, "persons_present_per_group": 2, "rooms": ["r3203", "studio3d"]}, "machines": {"printer_hours_per_week": 60, "printer_uptime": 0.75, "printer_h_per_group": 8, "cnc_hours_per_week": 40, "cnc_uptime": 0.5, "cnc_share_of_groups": 0.3, "cnc_h_per_group": 3, "metal_hours_per_week": 40, "metal_uptime": 0.5, "metal_share_of_groups": 0.3, "metal_h_per_group": 4}, "sim": {"draws": 200, "success_threshold": 0.95, "seed": 1}}, "scenarios": {"optimal": {"label": "Optimal spread", "description": "School-coordinated period allocation, no timetable conflicts, sessions anywhere in the 7 teaching weeks"}, "coordinated": {"label": "Realistic, coordinated", "description": "School balances courses over P1-P4; bachelor cohorts only free in the makerspace course's own ~2 half-days/week (measured), masters ~70% busy (assumed); project sessions in the last 5 weeks of the period", "timetable": {"busy_fraction": 0.7, "busy_correlation": 0.3, "project_weeks": 5, "by_level": {"bachelor": {"busy_fraction": 0.93, "min_free_blocks": 2}}}}, "uncoordinated": {"label": "Realistic, uncoordinated", "description": "As coordinated, but each programme picks its period independently (uniformly at random)", "timetable": {"busy_fraction": 0.7, "busy_correlation": 0.3, "project_weeks": 5, "period_assignment": "random", "by_level": {"bachelor": {"busy_fraction": 0.93, "min_free_blocks": 2}}}}, "concentrated": {"label": "Concentrated P1-P2", "description": "As uncoordinated, but 70% of courses land in P1-P2 (AppE \u00a78.1 expects an autumn peak)", "timetable": {"busy_fraction": 0.7, "busy_correlation": 0.3, "project_weeks": 5, "period_assignment": "random", "period_mix": [0.35, 0.35, 0.15, 0.15], "by_level": {"bachelor": {"busy_fraction": 0.93, "min_free_blocks": 2}}}}}, "check": {"analytic": {"parallel_sections": 2, "room_hours_per_year": 856.8000000000001, "section_hours_supply": 1713.6000000000001, "total_sections": 96, "total_groups": 505, "total_students": 1970, "Y_room_bound": 17.85, "Y_section_cap": 56, "Y_max": 17.85}, "Z": 11.028118811881187}, "sim": {"calendar": {"year": "2027/28", "teaching_weeks": 7, "note": "Period starts for 2027/28: HT27 teaching starts 2027-08-30 (kth.se curriculum data); the other starts are approximate. The board shows 7 teaching weeks per period and ignores single holidays (e.g. Easter 2028 falls in P4).", "periods": {"P1": {"term": "HT27", "start": "2027-08-30"}, "P2": {"term": "HT27", "start": "2027-11-01"}, "P3": {"term": "VT28", "start": "2028-01-17"}, "P4": {"term": "VT28", "start": "2028-03-20"}}}, "rules": {"section_students": 24, "teachers_per_section": 1, "session_h": 4, "max_sessions_per_week": 2, "day_cap_persons": 62, "day_available": 0.765, "open_slots_per_week": 4, "open_cap_persons": 40, "visit_members": 2, "visit_h": 4, "own_n": {"bachelor": 2, "master": 3}}, "courses": [{"id": "SH1015", "code": "SH1015", "takers": [{"cohort": "CTFYS-3", "share": 1.0}], "activity": "Build a radiation detector", "period": "P1", "weeks": [1, 7], "group_size": 4, "sup_h": 12, "unsup_h": 8, "own_n": 3, "motif": "detector", "text": "One of the four labs becomes a larger project: build a detector, calibrate it with a check source, then go out and measure background radiation somewhere on campus.", "pick_note": "Suggested by the CTFYS programme director; SH1015 has PRO1 and LAB1.", "course_name": "Applied Modern Physics", "modules": ["LAB1", "PRO1"], "level": "bachelor"}, {"id": "SA1006", "code": "SA1006", "takers": [{"cohort": "CTMAT-3", "share": 1.0}], "activity": "Design of experiments with a catapult", "period": "P1", "weeks": [2, 6], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "catapult", "text": "One of the course's project modules uses a laser-cut catapult with adjustable arm, angle and tension as the test object for a factorial design, then hits a target in one shot.", "course_name": "Engineering Skills in Engineering Mathematics", "modules": ["PRO1", "PRO2", "PRO3", "PRO4", "PRO5"], "level": "bachelor"}, {"id": "SD2900", "code": "SD2900", "takers": [{"cohort": "TAEEM-1", "share": 1.0}], "activity": "CubeSat structure mock-up", "period": "P1", "weeks": [2, 7], "group_size": 5, "sup_h": 12, "unsup_h": 8, "motif": "cubesat", "text": "Teams design a 1U CubeSat frame, print and machine it, and check it against launch loads with a shaker test and a finite-element model.", "course_name": "Fundamentals of Spaceflight", "modules": ["PRO1"], "level": "master"}, {"id": "SD2810", "code": "SD2810", "takers": [{"cohort": "TAEEM-2", "share": 1.0}], "activity": "Flutter model for the wind tunnel", "period": "P1", "weeks": [2, 6], "group_size": 4, "sup_h": 8, "unsup_h": 8, "motif": "airfoil", "text": "A printed wing section on a flexible mount is tuned to flutter inside the wind-tunnel speed range; groups compare the onset speed with their aeroelastic model.", "course_name": "Aeroelasticity", "modules": ["LAB1", "PRO1"], "level": "master"}, {"id": "SD2229", "code": "SD2229", "takers": [{"cohort": "TFORM-2", "share": 1.0}], "activity": "Instrumented scale vehicle", "period": "P1", "weeks": [2, 7], "group_size": 4, "sup_h": 8, "unsup_h": 8, "motif": "car", "text": "Groups add an IMU and wheel-speed sensors to a 1:10 vehicle and identify its handling from manoeuvres, compared with a bicycle model.", "course_name": "Vehicle Dynamics Project Course Part 1", "modules": ["PRO1"], "level": "master"}, {"id": "SD2111", "code": "SD2111", "takers": [{"cohort": "TJVTM-2", "share": 1.0}], "activity": "Track vibration sensor", "period": "P1", "weeks": [3, 6], "group_size": 3, "sup_h": 4, "unsup_h": 4, "motif": "sensor", "text": "Build a low-cost accelerometer node, deploy it next to a commuter line and estimate track condition from the vibration spectra.", "pick_note": "Conditionally elective with a LAB measurement module; railway is a TFORM track from HT26.", "course_name": "Engineering Acoustics", "modules": ["LAB1"], "level": "master"}, {"id": "SD2165", "code": "SD2165", "takers": [{"cohort": "TTEMM-1", "share": 1.0}], "activity": "Loudspeaker shaker and plate modes", "period": "P1", "weeks": [2, 6], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "beam", "text": "Build a shaker from a loudspeaker and find mode shapes of cut plates with Chladni patterns and an accelerometer, compared with FE eigenmodes.", "course_name": "Acoustical Measurements", "modules": ["LAB1"], "level": "master"}, {"id": "SF2529", "code": "SF2529", "takers": [{"cohort": "TTMAM-2", "share": 1.0}], "activity": "Weather stations and an inverse problem", "period": "P1", "weeks": [3, 7], "group_size": 3, "sup_h": 4, "unsup_h": 4, "motif": "weather", "text": "Build a few cheap sensor nodes, deploy them around campus and reconstruct a temperature field from sparse, noisy data.", "course_name": "Inverse Problems", "modules": ["LAB1"], "level": "master"}, {"id": "SH2603", "code": "SH2603", "takers": [{"cohort": "TNEEM-1", "share": 1.0}], "activity": "Printed shielding geometries", "period": "P1", "weeks": [3, 6], "group_size": 3, "sup_h": 4, "unsup_h": 4, "motif": "detector", "text": "Print shield geometries filled with different materials and measure attenuation with a detector, compared with Monte Carlo transport results.", "course_name": "Radiation, Protection, Dosimetry and Detectors", "modules": ["LAB1", "PRO1"], "level": "master"}, {"id": "SK1115", "code": "SK1115", "takers": [{"cohort": "COPEN-1", "share": 1.0}], "activity": "Build and measure a wind-turbine generator", "period": "P2", "weeks": [2, 7], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "turbine", "text": "Teams wind a coil, mount magnets on a printed rotor with their own blades and measure induced voltage and power against wind speed.", "course_name": "Electromagnetism and Waves", "modules": ["LAB1"], "level": "bachelor"}, {"id": "SD1002", "code": "SD1002", "takers": [{"cohort": "CFATE-1", "share": 1.0}], "activity": "Design and fly a glider", "period": "P2", "weeks": [1, 7], "group_size": 4, "sup_h": 12, "unsup_h": 8, "motif": "glider", "text": "First-year teams design, build and fly a small glider, iterating wing area and centre of gravity. The makerspace plan already uses SD1002 as its model for material budgets.", "course_name": "Vehicle Engineering", "modules": ["PRO1"], "level": "bachelor"}, {"id": "SE1010", "code": "SE1010", "takers": [{"cohort": "CFATE-2", "share": 1.0}], "activity": "Lightweight bracket, designed and tested", "period": "P2", "weeks": [3, 7], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "gear", "text": "Groups design a bracket for minimum mass at a given load, print or mill it, and test it to failure against their hand calculations.", "course_name": "Solid Mechanics, Basic Course with Project", "modules": ["LAB1", "PRO1"], "level": "bachelor"}, {"id": "SD2125", "code": "SD2125", "takers": [{"cohort": "CFATE-3", "share": 1.0}], "activity": "Instrumented vibration measurement", "period": "P2", "weeks": [2, 6], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "spring", "text": "Build a small mass-spring-damper rig with an accelerometer and identify its transfer function from step and sweep responses.", "pick_note": "SD2125 is also mandatory for TTEMM year 1 (shared course; one taker modelled for now).", "course_name": "Signals and Mechanical Systems", "modules": ["LAB1", "LAB2"], "level": "bachelor"}, {"id": "SH2103", "code": "SH2103", "takers": [{"cohort": "TTFYM-1", "share": 1.0}], "activity": "Cosmic-ray muon counter", "period": "P2", "weeks": [2, 7], "group_size": 3, "sup_h": 8, "unsup_h": 4, "motif": "interferometer", "text": "Groups build a scintillator and SiPM counter in a printed light-tight housing and measure the muon rate against zenith angle.", "course_name": "Subatomic Physics", "modules": ["LAB1"], "level": "master"}, {"id": "EJ2410", "code": "EJ2410", "takers": [{"cohort": "TFORM-1", "share": 1.0}], "activity": "Hybrid drivetrain test bench", "period": "P2", "weeks": [3, 7], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "car", "text": "A bench with a small motor, flywheel and printed gearbox shows energy flows between drive modes; groups measure losses and compare with their model.", "course_name": "Hybrid Vehicle Drives", "modules": ["PRO1"], "level": "master"}, {"id": "SD2307", "code": "SD2307", "takers": [{"cohort": "TJVTM-1", "share": 1.0}], "activity": "Scale bogie on a track rig", "period": "P2", "weeks": [3, 7], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "train", "text": "A 1:10 bogie runs on a short curved track section; students measure wheel-rail forces with strain gauges and relate them to curving theory.", "course_name": "Rail Vehicle Technology", "modules": ["PRO1"], "level": "master"}, {"id": "SD2705", "code": "SD2705", "takers": [{"cohort": "TMRSM-2", "share": 1.0}], "activity": "Model hull in the towing tank", "period": "P2", "weeks": [2, 7], "group_size": 4, "sup_h": 8, "unsup_h": 8, "motif": "boat", "text": "Groups print a 1 m planing hull from their design, measure resistance in a towing tank and scale the result to full size.", "course_name": "High-Speed Craft", "modules": ["PRO2"], "level": "master"}, {"id": "SM2501", "code": "SM2501", "takers": [{"cohort": "TTEMM-2", "share": 1.0}], "activity": "Instrumented insole", "period": "P2", "weeks": [2, 7], "group_size": 3, "sup_h": 8, "unsup_h": 4, "motif": "wearable", "text": "Build a pressure-sensing insole and an IMU logger, record gait and compare joint loads with a musculoskeletal model.", "pick_note": "Elective, with a PRO module; listed in the makerspace plan as ready from 2027.", "course_name": "Biomechanics of Human Movement", "modules": ["PRO1"], "level": "master"}, {"id": "SH2007", "code": "SH2007", "takers": [{"cohort": "TNEEM-2", "share": 1.0}], "activity": "Natural-circulation loop experiment", "period": "P2", "weeks": [2, 7], "group_size": 3, "sup_h": 4, "unsup_h": 4, "motif": "loop", "text": "Plan, build and run a small experiment: a printed loop with a heater that shows natural circulation, measured and compared with a 1D model.", "pick_note": "No TNEEM year-2 course has a LAB/PRO module; SH2007 is listed in the makerspace plan as ready from 2027.", "course_name": "Research Methodology in Physics", "modules": [], "level": "master"}, {"id": "SF2957", "code": "SF2957", "takers": [{"cohort": "TBDVM-2", "share": 1.0}], "activity": "Experimental design with home-made sensors", "period": "P2", "weeks": [3, 6], "group_size": 3, "sup_h": 4, "unsup_h": 2, "motif": "sensor", "text": "Plan and run a randomised experiment with cheap sensors and use it as data for a statistical learning project, including power and bias.", "pick_note": "SF2957 is also conditionally elective for TTMAM year 2 (shared course).", "course_name": "Statistical Machine Learning", "modules": ["PRO1"], "level": "master"}, {"id": "SE1055", "code": "SE1055", "takers": [{"cohort": "CTFYS-2", "share": 1.0}], "activity": "Lightweight truss bridge", "period": "P3", "weeks": [3, 7], "group_size": 4, "sup_h": 8, "unsup_h": 4, "own": ["Mon pm", "Tue am", "Wed am", "Fri pm"], "motif": "bridge", "text": "Groups design a laser-cut truss bridge, predict its failure load with energy methods and test it to failure, in place of some exercise sessions.", "pick_note": "Suggested by the CTFYS programme director (SG1113 in P1 is an alternative).", "course_name": "Strength of Materials and Solid Mechanics, Basic Course with Energy Methods", "modules": ["LAB1"], "level": "bachelor"}, {"id": "SK2005", "code": "SK2005", "takers": [{"cohort": "TTFYM-2", "share": 1.0}], "activity": "3D-printed interferometer", "period": "P3", "weeks": [1, 7], "group_size": 3, "sup_h": 12, "unsup_h": 8, "motif": "interferometer", "text": "Students print kinematic mounts, build a Michelson interferometer and use it to measure the thermal expansion of printed parts.", "course_name": "Project course in Optics and Photonics", "modules": ["PRO1"], "level": "master"}, {"id": "SD2414", "code": "SD2414", "takers": [{"cohort": "TMRSM-1", "share": 1.0}], "activity": "Composite sandwich panels", "period": "P3", "weeks": [2, 7], "group_size": 4, "sup_h": 8, "unsup_h": 8, "motif": "panel", "text": "Lay up sandwich panels in the basement composites room, cure them and test them in four-point bending against laminate theory.", "course_name": "Fibre Composites - Materials and Manufacturing", "modules": ["LAB1", "\u00d6VN1"], "level": "master"}, {"id": "SF2812", "code": "SF2812", "takers": [{"cohort": "MATH-1", "share": 1.0}], "activity": "Optimal nesting for the laser cutter", "period": "P3", "weeks": [3, 6], "group_size": 3, "sup_h": 4, "unsup_h": 2, "motif": "lattice", "text": "Formulate a cutting-stock problem for real parts, solve it and cut the optimised layout, comparing material waste with the default layout.", "pick_note": "The Mathematics master has no LAB course; SF2812 is elective with PRO modules.", "course_name": "Applied Linear Optimization", "modules": ["PRO1", "PRO2"], "level": "master"}, {"id": "SF2565", "code": "SF2565", "takers": [{"cohort": "CSSE-2", "share": 1.0}], "activity": "Digital twin of a balancing robot", "period": "P3", "weeks": [2, 7], "group_size": 3, "sup_h": 8, "unsup_h": 4, "motif": "robot", "text": "Write the simulation and the embedded controller of a two-wheeled balancing robot in C++, then build the robot and tune it.", "pick_note": "Period assumed (not published on kth.se).", "course_name": "Program Construction in C++ for Scientific Computing", "modules": ["PRO1"], "level": "master"}, {"id": "SF2705", "code": "SF2705", "takers": [{"cohort": "MATH-2", "share": 1.0}], "activity": "Fourier analysis of a home-made instrument", "period": "P3", "weeks": [3, 6], "group_size": 3, "sup_h": 4, "unsup_h": 2, "motif": "speaker", "text": "Build a simple string or wind instrument, record it and analyse its spectrum; tune the design so that the overtones match a target.", "pick_note": "No LAB/PRO course in Mathematics year 2; elective; period assumed.", "course_name": "Fourier Analysis", "modules": [], "level": "master"}, {"id": "SK1105", "code": "SK1105", "takers": [{"cohort": "CTFYS-1", "share": 1.0}], "activity": "A home-built spectrometer", "period": "P4", "weeks": [2, 7], "group_size": 3, "sup_h": 8, "unsup_h": 4, "own": ["Tue am", "Tue pm", "Wed am", "Wed pm"], "motif": "spectrometer", "text": "Two of the four labs become a project: a grating spectrometer in a 3D-printed housing with a phone camera, calibrated against known lamps. The labs already run in ~24-student sessions on Tue/Wed (TimeEdit).", "pick_note": "Suggested by the CTFYS programme director; examined through RED modules, not LAB/PRO.", "course_name": "Experimental Physics", "modules": [], "level": "bachelor"}, {"id": "SG1115", "code": "SG1115", "takers": [{"cohort": "CTMAT-1", "share": 1.0}], "activity": "Modelling a double pendulum", "period": "P4", "weeks": [3, 7], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "pendulum", "text": "The course project becomes a build: a double pendulum with angle sensors, compared with numerical solutions, including where they diverge.", "course_name": "Particle Dynamics with project", "modules": ["PRO1"], "level": "bachelor"}, {"id": "SH1017", "code": "SH1017", "takers": [{"cohort": "CTMAT-2", "share": 1.0}], "activity": "Optics and waves bench", "period": "P4", "weeks": [2, 6], "group_size": 3, "sup_h": 8, "unsup_h": 4, "motif": "spectrometer", "text": "Lab sessions on a printed optical bench students assemble themselves: diffraction, interference and a simple spectrometer.", "course_name": "Physics for Engineering Mathematics", "modules": ["LAB1"], "level": "bachelor"}, {"id": "SF2822", "code": "SF2822", "takers": [{"cohort": "TTMAM-1", "share": 1.0}], "activity": "Optimised and printed structure", "period": "P4", "weeks": [3, 7], "group_size": 3, "sup_h": 8, "unsup_h": 4, "motif": "lattice", "text": "Students write a small topology optimiser, print the resulting beam and test whether its stiffness matches the computation.", "course_name": "Applied Nonlinear Optimization", "modules": ["PRO1", "PRO2"], "level": "master"}, {"id": "DD2365", "code": "DD2365", "takers": [{"cohort": "CSSE-1", "share": 1.0}], "activity": "Validate a flow simulation by experiment", "period": "P4", "weeks": [3, 7], "group_size": 3, "sup_h": 4, "unsup_h": 4, "motif": "drop", "text": "Print a bluff body, film its wake in a small water channel and compare the shedding frequency with the group's own simulation.", "course_name": "Advanced Computation in Fluid Mechanics", "modules": ["PRO1"], "level": "master"}, {"id": "DD2424", "code": "DD2424", "takers": [{"cohort": "TBDVM-1", "share": 1.0}], "activity": "Wearable sensor dataset", "period": "P4", "weeks": [2, 5], "group_size": 3, "sup_h": 4, "unsup_h": 4, "motif": "wearable", "text": "Assemble a wearable motion logger, collect a labelled activity dataset from the class and train a model on it.", "course_name": "Deep Learning in Data Science", "modules": ["LAB2"], "level": "master"}], "cohort_sizes": {"COPEN-1": 99, "CTFYS-1": 142, "CTFYS-2": 131, "CTFYS-3": 124, "CTMAT-1": 75, "CTMAT-2": 68, "CTMAT-3": 65, "CFATE-1": 114, "CFATE-2": 103, "CFATE-3": 98, "TTFYM-1": 75, "TTFYM-2": 71, "TAEEM-1": 87, "TAEEM-2": 83, "TFORM-1": 51, "TFORM-2": 48, "TJVTM-1": 22, "TJVTM-2": 21, "TMRSM-1": 22, "TMRSM-2": 21, "TTEMM-1": 47, "TTEMM-2": 45, "TTMAM-1": 41, "TTMAM-2": 39, "CSSE-1": 37, "CSSE-2": 35, "TNEEM-1": 37, "TNEEM-2": 35, "TBDVM-1": 42, "TBDVM-2": 39, "MATH-1": 27, "MATH-2": 26}}};
+const D = {"cohorts": [{"cohort": "COPEN-1", "programme": "COPEN", "name": "\u00d6ppen ing\u00e5ng (1 yr)", "year": 1, "level": "bachelor", "students": 99}, {"cohort": "CTFYS-1", "programme": "CTFYS", "name": "Teknisk fysik", "year": 1, "level": "bachelor", "students": 142}, {"cohort": "CTFYS-2", "programme": "CTFYS", "name": "Teknisk fysik", "year": 2, "level": "bachelor", "students": 131}, {"cohort": "CTFYS-3", "programme": "CTFYS", "name": "Teknisk fysik", "year": 3, "level": "bachelor", "students": 124}, {"cohort": "CTMAT-1", "programme": "CTMAT", "name": "Teknisk matematik", "year": 1, "level": "bachelor", "students": 75}, {"cohort": "CTMAT-2", "programme": "CTMAT", "name": "Teknisk matematik", "year": 2, "level": "bachelor", "students": 68}, {"cohort": "CTMAT-3", "programme": "CTMAT", "name": "Teknisk matematik", "year": 3, "level": "bachelor", "students": 65}, {"cohort": "CFATE-1", "programme": "CFATE", "name": "Farkostteknik", "year": 1, "level": "bachelor", "students": 114}, {"cohort": "CFATE-2", "programme": "CFATE", "name": "Farkostteknik", "year": 2, "level": "bachelor", "students": 103}, {"cohort": "CFATE-3", "programme": "CFATE", "name": "Farkostteknik", "year": 3, "level": "bachelor", "students": 98}, {"cohort": "TTFYM-1", "programme": "TTFYM", "name": "Engineering Physics", "year": 1, "level": "master", "students": 75}, {"cohort": "TTFYM-2", "programme": "TTFYM", "name": "Engineering Physics", "year": 2, "level": "master", "students": 71}, {"cohort": "TAEEM-1", "programme": "TAEEM", "name": "Aerospace Engineering", "year": 1, "level": "master", "students": 87}, {"cohort": "TAEEM-2", "programme": "TAEEM", "name": "Aerospace Engineering", "year": 2, "level": "master", "students": 83}, {"cohort": "TFORM-1", "programme": "TFORM", "name": "Vehicle Engineering", "year": 1, "level": "master", "students": 51}, {"cohort": "TFORM-2", "programme": "TFORM", "name": "Vehicle Engineering", "year": 2, "level": "master", "students": 48}, {"cohort": "TJVTM-1", "programme": "TJVTM", "name": "Railway Engineering (TFORM track HT26)", "year": 1, "level": "master", "students": 22}, {"cohort": "TJVTM-2", "programme": "TJVTM", "name": "Railway Engineering (TFORM track HT26)", "year": 2, "level": "master", "students": 21}, {"cohort": "TMRSM-1", "programme": "TMRSM", "name": "Naval Architecture", "year": 1, "level": "master", "students": 22}, {"cohort": "TMRSM-2", "programme": "TMRSM", "name": "Naval Architecture", "year": 2, "level": "master", "students": 21}, {"cohort": "TTEMM-1", "programme": "TTEMM", "name": "Engineering Mechanics", "year": 1, "level": "master", "students": 47}, {"cohort": "TTEMM-2", "programme": "TTEMM", "name": "Engineering Mechanics", "year": 2, "level": "master", "students": 45}, {"cohort": "TTMAM-1", "programme": "TTMAM", "name": "Applied & Computational Mathematics", "year": 1, "level": "master", "students": 41}, {"cohort": "TTMAM-2", "programme": "TTMAM", "name": "Applied & Computational Mathematics", "year": 2, "level": "master", "students": 39}, {"cohort": "CSSE-1", "programme": "CSSE", "name": "Computer Simulations (TTMAM track)", "year": 1, "level": "master", "students": 37}, {"cohort": "CSSE-2", "programme": "CSSE", "name": "Computer Simulations (TTMAM track)", "year": 2, "level": "master", "students": 35}, {"cohort": "TNEEM-1", "programme": "TNEEM", "name": "Nuclear Energy Engineering", "year": 1, "level": "master", "students": 37}, {"cohort": "TNEEM-2", "programme": "TNEEM", "name": "Nuclear Energy Engineering", "year": 2, "level": "master", "students": 35}, {"cohort": "TBDVM-1", "programme": "TBDVM", "name": "Biostatistics & Data Science (joint KI)", "year": 1, "level": "master", "students": 42}, {"cohort": "TBDVM-2", "programme": "TBDVM", "name": "Biostatistics & Data Science (joint KI)", "year": 2, "level": "master", "students": 39}, {"cohort": "MATH-1", "programme": "MATH", "name": "Mathematics (joint SU) \u2014 PLACEHOLDER", "year": 1, "level": "master", "students": 27}, {"cohort": "MATH-2", "programme": "MATH", "name": "Mathematics (joint SU) \u2014 PLACEHOLDER", "year": 2, "level": "master", "students": 26}], "facility": {"rooms": {"r3203": {"name": "3203 Project/course room", "area_m2": 91, "max_persons": 50, "src": "Decks, ventilation/RFP slide ('3203: 50'); course slide 'Movable benches, up to 50 persons'", "role": "main_course_room"}, "r3202": {"name": "3202 Heavy fabrication", "area_m2": 55, "max_persons": 8, "src": "Decks, ventilation/RFP slide", "role": "side_room"}, "studio3d": {"name": "2209 east 3D printing studio", "area_m2": 20, "max_persons": 4, "src": "Decks, ventilation/RFP slide; 8 FDM printers per Rooms-and-functions slide", "role": "side_room"}, "r2211": {"name": "2211 Student teams", "area_m2": 48, "max_persons": 12, "src": "Decks, ventilation/RFP slide; allocated to student teams in Alt 1", "role": "student_teams"}, "basement": {"name": "Basement composites", "max_persons": 6, "src": "Decks, ventilation/RFP slide", "role": "specialist"}, "r2207": {"name": "2207 Lounge/entrance", "area_m2": 65, "max_persons": 30, "src": "Decks, Rooms-and-functions slide", "role": "lounge"}}, "machines": {"fdm_printers": {"count": 8, "src": "AppA, AppD, Costs-machines.xlsx: 6 Prusa CORE One+ + 2 CORE One L"}, "cnc": {"count": 1, "src": "AppA/AppD: 1 Carvera desktop CNC (w/ laser module). Plan says '(2)' but only 1 budgeted"}, "metal_machines": {"count": 4, "src": "Decks: mill, bandsaw, lathe, metal bandsaw re-used in 3202 (+ new pillar drill, bandsaw, grinder, press brake)"}}, "hours": {"daytime_bookable_h_per_day": 8, "open_access_variants": {"documented": {"evening_h_per_weekday": 4, "weekend_h_per_week": 6}, "extended": {"evening_h_per_weekday": 6, "weekend_h_per_week": 26}}}, "staffing": {"staff_fte": 1.3, "student_assistant_fte": 1.0, "fte_hours_per_week": 40, "availability": 0.75, "staff_supervision_share": 0.5, "staff_per_open_hour": 1, "sa_per_open_hour": 1, "max_users_per_supervisor": 20}}, "base": {"calendar": {"periods": 4, "teaching_weeks_per_period": 7, "open_weeks_per_year": 34}, "course": {"courses_per_cohort": 1, "section_size": 24, "teachers_per_section": 1, "group_size": 4, "session_hours": 4, "max_sessions_per_week": 2}, "room": {"booking_efficiency": 0.85, "other_daytime_use": 0.1, "side_rooms_in_sessions": true}, "timetable": {"busy_fraction": 0.0, "busy_correlation": 0.0, "min_free_blocks": 2, "by_level": {}, "project_weeks": 7, "period_mix": [0.25, 0.25, 0.25, 0.25], "period_assignment": "balanced"}, "open_access": {"hours_variant": "documented", "occupancy": 0.6, "noncourse_share": 0.3, "persons_present_per_group": 2, "rooms": ["r3203", "studio3d"]}, "machines": {"printer_hours_per_week": 60, "printer_uptime": 0.75, "printer_h_per_group": 8, "cnc_hours_per_week": 40, "cnc_uptime": 0.5, "cnc_share_of_groups": 0.3, "cnc_h_per_group": 3, "metal_hours_per_week": 40, "metal_uptime": 0.5, "metal_share_of_groups": 0.3, "metal_h_per_group": 4}, "sim": {"draws": 200, "success_threshold": 0.95, "seed": 1}}, "scenarios": {"optimal": {"label": "Optimal spread", "description": "School-coordinated period allocation, no timetable conflicts, sessions anywhere in the 7 teaching weeks"}, "coordinated": {"label": "Realistic, coordinated", "description": "School balances courses over P1-P4; bachelor cohorts only free in the makerspace course's own ~2 half-days/week (measured), masters ~70% busy (assumed); project sessions in the last 5 weeks of the period", "timetable": {"busy_fraction": 0.7, "busy_correlation": 0.3, "project_weeks": 5, "by_level": {"bachelor": {"busy_fraction": 0.93, "min_free_blocks": 2}}}}, "uncoordinated": {"label": "Realistic, uncoordinated", "description": "As coordinated, but each programme picks its period independently (uniformly at random)", "timetable": {"busy_fraction": 0.7, "busy_correlation": 0.3, "project_weeks": 5, "period_assignment": "random", "by_level": {"bachelor": {"busy_fraction": 0.93, "min_free_blocks": 2}}}}, "concentrated": {"label": "Concentrated P1-P2", "description": "As uncoordinated, but 70% of courses land in P1-P2 (AppE \u00a78.1 expects an autumn peak)", "timetable": {"busy_fraction": 0.7, "busy_correlation": 0.3, "project_weeks": 5, "period_assignment": "random", "period_mix": [0.35, 0.35, 0.15, 0.15], "by_level": {"bachelor": {"busy_fraction": 0.93, "min_free_blocks": 2}}}}}, "check": {"analytic": {"parallel_sections": 2, "room_hours_per_year": 856.8000000000001, "section_hours_supply": 1713.6000000000001, "total_sections": 96, "total_groups": 505, "total_students": 1970, "Y_room_bound": 17.85, "Y_section_cap": 56, "Y_max": 17.85}, "Z": 11.028118811881187}, "sim": {"calendar": {"year": "2027/28", "teaching_weeks": 7, "note": "Period starts for 2027/28: HT27 teaching starts 2027-08-30 (kth.se curriculum data); the other starts are approximate. The board shows 7 teaching weeks per period and ignores single holidays (e.g. Easter 2028 falls in P4).", "periods": {"P1": {"term": "HT27", "start": "2027-08-30"}, "P2": {"term": "HT27", "start": "2027-11-01"}, "P3": {"term": "VT28", "start": "2028-01-17"}, "P4": {"term": "VT28", "start": "2028-03-20"}}}, "rules": {"section_students": 24, "teachers_per_section": 1, "session_h": 4, "max_sessions_per_week": 2, "day_cap_persons": 62, "day_available": 0.765, "open_slots_per_week": 4, "open_cap_persons": 40, "visit_members": 2, "visit_h": 4, "own_n": {"bachelor": 2, "master": 3}}, "courses": [{"id": "SH1015", "code": "SH1015", "takers": [{"cohort": "CTFYS-3", "share": 1.0}], "activity": "Build a radiation detector", "period": "P1", "weeks": [1, 7], "group_size": 4, "sup_h": 12, "unsup_h": 8, "own_n": 3, "motif": "detector", "text": "One of the four labs becomes a larger project: build a detector, calibrate it with a check source, then go out and measure background radiation somewhere on campus.", "pick_note": "Suggested by the CTFYS programme director; SH1015 has PRO1 and LAB1.", "course_name": "Applied Modern Physics", "modules": ["LAB1", "PRO1"], "level": "bachelor"}, {"id": "SA1006", "code": "SA1006", "takers": [{"cohort": "CTMAT-3", "share": 1.0}], "activity": "Design of experiments with a catapult", "period": "P1", "weeks": [2, 6], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "catapult", "text": "One of the course's project modules uses a laser-cut catapult with adjustable arm, angle and tension as the test object for a factorial design, then hits a target in one shot.", "course_name": "Engineering Skills in Engineering Mathematics", "modules": ["PRO1", "PRO2", "PRO3", "PRO4", "PRO5"], "level": "bachelor"}, {"id": "SD2900", "code": "SD2900", "takers": [{"cohort": "TAEEM-1", "share": 1.0}], "activity": "CubeSat structure mock-up", "period": "P1", "weeks": [2, 7], "group_size": 5, "sup_h": 12, "unsup_h": 8, "motif": "cubesat", "text": "Teams design a 1U CubeSat frame, print and machine it, and check it against launch loads with a shaker test and a finite-element model.", "course_name": "Fundamentals of Spaceflight", "modules": ["PRO1"], "level": "master"}, {"id": "SD2810", "code": "SD2810", "takers": [{"cohort": "TAEEM-2", "share": 1.0}], "activity": "Flutter model for the wind tunnel", "period": "P1", "weeks": [2, 6], "group_size": 4, "sup_h": 8, "unsup_h": 8, "motif": "airfoil", "text": "A printed wing section on a flexible mount is tuned to flutter inside the wind-tunnel speed range; groups compare the onset speed with their aeroelastic model.", "course_name": "Aeroelasticity", "modules": ["LAB1", "PRO1"], "level": "master"}, {"id": "SD2229", "code": "SD2229", "takers": [{"cohort": "TFORM-2", "share": 1.0}], "activity": "Instrumented scale vehicle", "period": "P1", "weeks": [2, 7], "group_size": 4, "sup_h": 8, "unsup_h": 8, "motif": "car", "text": "Groups add an IMU and wheel-speed sensors to a 1:10 vehicle and identify its handling from manoeuvres, compared with a bicycle model.", "course_name": "Vehicle Dynamics Project Course Part 1", "modules": ["PRO1"], "level": "master"}, {"id": "SD2111", "code": "SD2111", "takers": [{"cohort": "TJVTM-2", "share": 1.0}], "activity": "Track vibration sensor", "period": "P1", "weeks": [3, 6], "group_size": 3, "sup_h": 4, "unsup_h": 4, "motif": "sensor", "text": "Build a low-cost accelerometer node, deploy it next to a commuter line and estimate track condition from the vibration spectra.", "pick_note": "Conditionally elective with a LAB measurement module; railway is a TFORM track from HT26.", "course_name": "Engineering Acoustics", "modules": ["LAB1"], "level": "master"}, {"id": "SD2165", "code": "SD2165", "takers": [{"cohort": "TTEMM-1", "share": 1.0}], "activity": "Loudspeaker shaker and plate modes", "period": "P1", "weeks": [2, 6], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "beam", "text": "Build a shaker from a loudspeaker and find mode shapes of cut plates with Chladni patterns and an accelerometer, compared with FE eigenmodes.", "course_name": "Acoustical Measurements", "modules": ["LAB1"], "level": "master"}, {"id": "SF2529", "code": "SF2529", "takers": [{"cohort": "TTMAM-2", "share": 1.0}], "activity": "Weather stations and an inverse problem", "period": "P1", "weeks": [3, 7], "group_size": 3, "sup_h": 4, "unsup_h": 4, "motif": "weather", "text": "Build a few cheap sensor nodes, deploy them around campus and reconstruct a temperature field from sparse, noisy data.", "course_name": "Inverse Problems", "modules": ["LAB1"], "level": "master"}, {"id": "SH2603", "code": "SH2603", "takers": [{"cohort": "TNEEM-1", "share": 1.0}], "activity": "Printed shielding geometries", "period": "P1", "weeks": [3, 6], "group_size": 3, "sup_h": 4, "unsup_h": 4, "motif": "detector", "text": "Print shield geometries filled with different materials and measure attenuation with a detector, compared with Monte Carlo transport results.", "course_name": "Radiation, Protection, Dosimetry and Detectors", "modules": ["LAB1", "PRO1"], "level": "master"}, {"id": "SK1115", "code": "SK1115", "takers": [{"cohort": "COPEN-1", "share": 1.0}], "activity": "Build and measure a wind-turbine generator", "period": "P2", "weeks": [2, 7], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "turbine", "text": "Teams wind a coil, mount magnets on a printed rotor with their own blades and measure induced voltage and power against wind speed.", "course_name": "Electromagnetism and Waves", "modules": ["LAB1"], "level": "bachelor"}, {"id": "SD1002", "code": "SD1002", "takers": [{"cohort": "CFATE-1", "share": 1.0}], "activity": "Design and fly a glider", "period": "P2", "weeks": [1, 7], "group_size": 4, "sup_h": 12, "unsup_h": 8, "motif": "glider", "text": "First-year teams design, build and fly a small glider, iterating wing area and centre of gravity. The makerspace plan already uses SD1002 as its model for material budgets.", "course_name": "Vehicle Engineering", "modules": ["PRO1"], "level": "bachelor"}, {"id": "SE1010", "code": "SE1010", "takers": [{"cohort": "CFATE-2", "share": 1.0}], "activity": "Lightweight bracket, designed and tested", "period": "P2", "weeks": [3, 7], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "gear", "text": "Groups design a bracket for minimum mass at a given load, print or mill it, and test it to failure against their hand calculations.", "course_name": "Solid Mechanics, Basic Course with Project", "modules": ["LAB1", "PRO1"], "level": "bachelor"}, {"id": "SD2125", "code": "SD2125", "takers": [{"cohort": "CFATE-3", "share": 1.0}], "activity": "Instrumented vibration measurement", "period": "P2", "weeks": [2, 6], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "spring", "text": "Build a small mass-spring-damper rig with an accelerometer and identify its transfer function from step and sweep responses.", "pick_note": "SD2125 is also mandatory for TTEMM year 1 (shared course; one taker modelled for now).", "course_name": "Signals and Mechanical Systems", "modules": ["LAB1", "LAB2"], "level": "bachelor"}, {"id": "SH2103", "code": "SH2103", "takers": [{"cohort": "TTFYM-1", "share": 1.0}], "activity": "Cosmic-ray muon counter", "period": "P2", "weeks": [2, 7], "group_size": 3, "sup_h": 8, "unsup_h": 4, "motif": "interferometer", "text": "Groups build a scintillator and SiPM counter in a printed light-tight housing and measure the muon rate against zenith angle.", "course_name": "Subatomic Physics", "modules": ["LAB1"], "level": "master"}, {"id": "EJ2410", "code": "EJ2410", "takers": [{"cohort": "TFORM-1", "share": 1.0}], "activity": "Hybrid drivetrain test bench", "period": "P2", "weeks": [3, 7], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "car", "text": "A bench with a small motor, flywheel and printed gearbox shows energy flows between drive modes; groups measure losses and compare with their model.", "course_name": "Hybrid Vehicle Drives", "modules": ["PRO1"], "level": "master"}, {"id": "SD2307", "code": "SD2307", "takers": [{"cohort": "TJVTM-1", "share": 1.0}], "activity": "Scale bogie on a track rig", "period": "P2", "weeks": [3, 7], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "train", "text": "A 1:10 bogie runs on a short curved track section; students measure wheel-rail forces with strain gauges and relate them to curving theory.", "course_name": "Rail Vehicle Technology", "modules": ["PRO1"], "level": "master"}, {"id": "SD2705", "code": "SD2705", "takers": [{"cohort": "TMRSM-2", "share": 1.0}], "activity": "Model hull in the towing tank", "period": "P2", "weeks": [2, 7], "group_size": 4, "sup_h": 8, "unsup_h": 8, "motif": "boat", "text": "Groups print a 1 m planing hull from their design, measure resistance in a towing tank and scale the result to full size.", "course_name": "High-Speed Craft", "modules": ["PRO2"], "level": "master"}, {"id": "SM2501", "code": "SM2501", "takers": [{"cohort": "TTEMM-2", "share": 1.0}], "activity": "Instrumented insole", "period": "P2", "weeks": [2, 7], "group_size": 3, "sup_h": 8, "unsup_h": 4, "motif": "wearable", "text": "Build a pressure-sensing insole and an IMU logger, record gait and compare joint loads with a musculoskeletal model.", "pick_note": "Elective, with a PRO module; listed in the makerspace plan as ready from 2027.", "course_name": "Biomechanics of Human Movement", "modules": ["PRO1"], "level": "master"}, {"id": "SH2007", "code": "SH2007", "takers": [{"cohort": "TNEEM-2", "share": 1.0}], "activity": "Natural-circulation loop experiment", "period": "P2", "weeks": [2, 7], "group_size": 3, "sup_h": 4, "unsup_h": 4, "motif": "loop", "text": "Plan, build and run a small experiment: a printed loop with a heater that shows natural circulation, measured and compared with a 1D model.", "pick_note": "No TNEEM year-2 course has a LAB/PRO module; SH2007 is listed in the makerspace plan as ready from 2027.", "course_name": "Research Methodology in Physics", "modules": [], "level": "master"}, {"id": "SF2957", "code": "SF2957", "takers": [{"cohort": "TBDVM-2", "share": 1.0}], "activity": "Experimental design with home-made sensors", "period": "P2", "weeks": [3, 6], "group_size": 3, "sup_h": 4, "unsup_h": 2, "motif": "sensor", "text": "Plan and run a randomised experiment with cheap sensors and use it as data for a statistical learning project, including power and bias.", "pick_note": "SF2957 is also conditionally elective for TTMAM year 2 (shared course).", "course_name": "Statistical Machine Learning", "modules": ["PRO1"], "level": "master"}, {"id": "SE1055", "code": "SE1055", "takers": [{"cohort": "CTFYS-2", "share": 1.0}], "activity": "Lightweight truss bridge", "period": "P3", "weeks": [3, 7], "group_size": 4, "sup_h": 8, "unsup_h": 4, "own": ["Mon pm", "Tue am", "Wed am", "Fri pm"], "motif": "bridge", "text": "Groups design a laser-cut truss bridge, predict its failure load with energy methods and test it to failure, in place of some exercise sessions.", "pick_note": "Suggested by the CTFYS programme director (SG1113 in P1 is an alternative).", "course_name": "Strength of Materials and Solid Mechanics, Basic Course with Energy Methods", "modules": ["LAB1"], "level": "bachelor"}, {"id": "SK2005", "code": "SK2005", "takers": [{"cohort": "TTFYM-2", "share": 1.0}], "activity": "3D-printed interferometer", "period": "P3", "weeks": [1, 7], "group_size": 3, "sup_h": 12, "unsup_h": 8, "motif": "interferometer", "text": "Students print kinematic mounts, build a Michelson interferometer and use it to measure the thermal expansion of printed parts.", "course_name": "Project course in Optics and Photonics", "modules": ["PRO1"], "level": "master"}, {"id": "SD2414", "code": "SD2414", "takers": [{"cohort": "TMRSM-1", "share": 1.0}], "activity": "Composite sandwich panels", "period": "P3", "weeks": [2, 7], "group_size": 4, "sup_h": 8, "unsup_h": 8, "motif": "panel", "text": "Lay up sandwich panels in the basement composites room, cure them and test them in four-point bending against laminate theory.", "course_name": "Fibre Composites - Materials and Manufacturing", "modules": ["LAB1", "\u00d6VN1"], "level": "master"}, {"id": "SF2812", "code": "SF2812", "takers": [{"cohort": "MATH-1", "share": 1.0}], "activity": "Optimal nesting for the laser cutter", "period": "P3", "weeks": [3, 6], "group_size": 3, "sup_h": 4, "unsup_h": 2, "motif": "lattice", "text": "Formulate a cutting-stock problem for real parts, solve it and cut the optimised layout, comparing material waste with the default layout.", "pick_note": "The Mathematics master has no LAB course; SF2812 is elective with PRO modules.", "course_name": "Applied Linear Optimization", "modules": ["PRO1", "PRO2"], "level": "master"}, {"id": "SF2565", "code": "SF2565", "takers": [{"cohort": "CSSE-2", "share": 1.0}], "activity": "Digital twin of a balancing robot", "period": "P3", "weeks": [2, 7], "group_size": 3, "sup_h": 8, "unsup_h": 4, "motif": "robot", "text": "Write the simulation and the embedded controller of a two-wheeled balancing robot in C++, then build the robot and tune it.", "pick_note": "Period assumed (not published on kth.se).", "course_name": "Program Construction in C++ for Scientific Computing", "modules": ["PRO1"], "level": "master"}, {"id": "SF2705", "code": "SF2705", "takers": [{"cohort": "MATH-2", "share": 1.0}], "activity": "Fourier analysis of a home-made instrument", "period": "P3", "weeks": [3, 6], "group_size": 3, "sup_h": 4, "unsup_h": 2, "motif": "speaker", "text": "Build a simple string or wind instrument, record it and analyse its spectrum; tune the design so that the overtones match a target.", "pick_note": "No LAB/PRO course in Mathematics year 2; elective; period assumed.", "course_name": "Fourier Analysis", "modules": [], "level": "master"}, {"id": "SK1105", "code": "SK1105", "takers": [{"cohort": "CTFYS-1", "share": 1.0}], "activity": "A home-built spectrometer", "period": "P4", "weeks": [2, 7], "group_size": 3, "sup_h": 8, "unsup_h": 4, "own": ["Tue am", "Tue pm", "Wed am", "Wed pm"], "motif": "spectrometer", "text": "Two of the four labs become a project: a grating spectrometer in a 3D-printed housing with a phone camera, calibrated against known lamps. The labs already run in ~24-student sessions on Tue/Wed (TimeEdit).", "pick_note": "Suggested by the CTFYS programme director; examined through RED modules, not LAB/PRO.", "course_name": "Experimental Physics", "modules": [], "level": "bachelor"}, {"id": "SG1115", "code": "SG1115", "takers": [{"cohort": "CTMAT-1", "share": 1.0}], "activity": "Modelling a double pendulum", "period": "P4", "weeks": [3, 7], "group_size": 4, "sup_h": 8, "unsup_h": 4, "motif": "pendulum", "text": "The course project becomes a build: a double pendulum with angle sensors, compared with numerical solutions, including where they diverge.", "course_name": "Particle Dynamics with project", "modules": ["PRO1"], "level": "bachelor"}, {"id": "SH1017", "code": "SH1017", "takers": [{"cohort": "CTMAT-2", "share": 1.0}], "activity": "Optics and waves bench", "period": "P4", "weeks": [2, 6], "group_size": 3, "sup_h": 8, "unsup_h": 4, "motif": "spectrometer", "text": "Lab sessions on a printed optical bench students assemble themselves: diffraction, interference and a simple spectrometer.", "course_name": "Physics for Engineering Mathematics", "modules": ["LAB1"], "level": "bachelor"}, {"id": "SF2822", "code": "SF2822", "takers": [{"cohort": "TTMAM-1", "share": 1.0}], "activity": "Optimised and printed structure", "period": "P4", "weeks": [3, 7], "group_size": 3, "sup_h": 8, "unsup_h": 4, "motif": "lattice", "text": "Students write a small topology optimiser, print the resulting beam and test whether its stiffness matches the computation.", "course_name": "Applied Nonlinear Optimization", "modules": ["PRO1", "PRO2"], "level": "master"}, {"id": "DD2365", "code": "DD2365", "takers": [{"cohort": "CSSE-1", "share": 1.0}], "activity": "Validate a flow simulation by experiment", "period": "P4", "weeks": [3, 7], "group_size": 3, "sup_h": 4, "unsup_h": 4, "motif": "drop", "text": "Print a bluff body, film its wake in a small water channel and compare the shedding frequency with the group's own simulation.", "course_name": "Advanced Computation in Fluid Mechanics", "modules": ["PRO1"], "level": "master"}, {"id": "DD2424", "code": "DD2424", "takers": [{"cohort": "TBDVM-1", "share": 1.0}], "activity": "Wearable sensor dataset", "period": "P4", "weeks": [2, 5], "group_size": 3, "sup_h": 4, "unsup_h": 4, "motif": "wearable", "text": "Assemble a wearable motion logger, collect a labelled activity dataset from the class and train a model on it.", "course_name": "Deep Learning in Data Science", "modules": ["LAB2"], "level": "master"}, {"id": "BSC-THESIS", "kind": "thesis", "code": "SA114X, SA115X, SA120X, MF131X", "activity": "Bachelor thesis projects (kandidatexjobb)", "takers": [{"cohort": "CTFYS-3", "share": 0.3}, {"cohort": "CTMAT-3", "share": 0.2}, {"cohort": "CFATE-3", "share": 0.5}], "periods": ["P3", "P4"], "weeks": [1, 7], "group_size": 2, "bench_h": 16, "color": "#1C434C", "motif": "thesis", "text": "Thesis pairs that build an experiment, a rig or a prototype. Assumed: 30% of CTFYS, 20% of CTMAT and 50% of CFATE year-3 students, 16 h of bench time per pair over P3-P4.", "course_name": "", "modules": [], "level": "bachelor"}, {"id": "MSC-THESIS", "kind": "thesis", "code": "Degree projects, second cycle", "activity": "Master thesis projects (exjobb)", "takers": [{"cohort": "TTFYM-2", "share": 0.15}, {"cohort": "TAEEM-2", "share": 0.15}, {"cohort": "TFORM-2", "share": 0.15}, {"cohort": "TJVTM-2", "share": 0.15}, {"cohort": "TMRSM-2", "share": 0.15}, {"cohort": "TTEMM-2", "share": 0.15}, {"cohort": "TTMAM-2", "share": 0.15}, {"cohort": "CSSE-2", "share": 0.15}, {"cohort": "TNEEM-2", "share": 0.15}, {"cohort": "TBDVM-2", "share": 0.15}, {"cohort": "MATH-2", "share": 0.15}], "periods": ["P3", "P4"], "weeks": [1, 7], "group_size": 1, "bench_h": 24, "color": "#323232", "motif": "thesis", "text": "Mostly individual degree projects in spring that need to build something at KTH (many are done in companies or research labs). Assumed: 15% of each SCI master year-2 cohort, 24 h of bench time each over P3-P4.", "course_name": "", "modules": [], "level": "master"}], "cohort_sizes": {"COPEN-1": 99, "CTFYS-1": 142, "CTFYS-2": 131, "CTFYS-3": 124, "CTMAT-1": 75, "CTMAT-2": 68, "CTMAT-3": 65, "CFATE-1": 114, "CFATE-2": 103, "CFATE-3": 98, "TTFYM-1": 75, "TTFYM-2": 71, "TAEEM-1": 87, "TAEEM-2": 83, "TFORM-1": 51, "TFORM-2": 48, "TJVTM-1": 22, "TJVTM-2": 21, "TMRSM-1": 22, "TMRSM-2": 21, "TTEMM-1": 47, "TTEMM-2": 45, "TTMAM-1": 41, "TTMAM-2": 39, "CSSE-1": 37, "CSSE-2": 35, "TNEEM-1": 37, "TNEEM-2": 35, "TBDVM-1": 42, "TBDVM-2": 39, "MATH-1": 27, "MATH-2": 26}}};
 const $ = id => document.getElementById(id);
 const DRAWS = 60, SEED = 3;
 
@@ -1210,6 +1317,23 @@ function update() {
   drawCurve(fh.curve, p.sim.success_threshold, fh.Y);
   drawBars(cohorts, sim.perCohortHours, plannedReal);
   drawMachines(mach);
+
+  // Shared physical and operational assumptions drive the course simulation too
+  SimUI.setShared({
+    section_students: p.course.section_size,
+    teachers_per_section: p.course.teachers_per_section,
+    day_cap_persons: fac.rooms.r3203.max_persons + (p.room.side_rooms_in_sessions ? fac.rooms.r3202.max_persons + fac.rooms.studio3d.max_persons : 0),
+    day_available: p.room.booking_efficiency * (1 - p.room.other_daytime_use),
+    teaching_weeks: p.calendar.teaching_weeks_per_period,
+    max_sessions_per_week: p.course.max_sessions_per_week,
+    open_slots_per_week: Math.max(0, Math.min(6, Math.floor(oa.hours / 4 + 1e-9))),
+    open_cap_persons: oa.simultaneous,
+    visit_members: p.open_access.persons_present_per_group,
+    own_n: { bachelor: p.timetable.by_level.bachelor.min_free_blocks, master: p.timetable.min_free_blocks },
+    cohort_scale: +$("scale").value,
+    staffed_hours: oa.hours,
+    session_hours_model: p.course.session_hours,
+  });
 }
 
 function drawCurve(curve, thr, Yg) {
@@ -1282,6 +1406,71 @@ const order = Object.keys(D.scenarios);
 $("presets").innerHTML = order.map(k => `<button type="button" data-s="${k}" aria-pressed="false">${D.scenarios[k].label}</button>`).join("");
 $("presets").addEventListener("click", e => { const b = e.target.closest("button"); if (b) loadPreset(b.dataset.s); });
 
+SimUI.init($("tab-sim"), D.sim);
+$("tab-sim").addEventListener("click", e => { if (e.target.closest("#sim-goto-model")) showTab("model"); });
+
+// Help texts: a "?" after each control's label, shown on hover, focus or tap
+const HELP = {
+  courses: "How many separate makerspace courses each programme-year takes per year. With 2, each course gets the hours shown, so demand doubles.",
+  scale: "Multiplies every cohort size. 1.0 = UHR admissions for HT25/HT26 with assumed retention, and for masters an assumed show-up rate plus students moving on from CTFYS, CTMAT and CFATE.",
+  group: "Students per project group. Sets how many groups there are, which drives open-access demand. Supervised sessions are counted per section, not per group.",
+  planned: "Supervised makerspace hours each course asks for per group. Used for the 'if all plan' figure and the per-programme bars.",
+  S: "Students taught together in one supervised session (a section). A cohort is split into sections, and each section needs its own session. Smaller sections fit more in parallel, but there are more of them.",
+  teach: "Teachers or teaching assistants present per section. They count towards the room's person limit.",
+  side: "Let a session also use 3202 (heavy fabrication, 8 people) and the 3D-printing studio (4 people) next to 3203 (50 people): 62 people at once.",
+  eff: "Share of daytime half-days that can actually be booked, after holidays, set-up and clean-up, and maintenance days.",
+  other: "Share of the bookable daytime used by others: outreach, inductions, theses, student teams. In the course simulation these appear as hatched cells.",
+  weeks: "Teaching weeks per period. A KTH period is about 7 weeks of teaching plus an exam week.",
+  L: "Length of one supervised session. 4 h is a half-day (08\u201312 or 13\u201317). 2 h blocks fit more easily into gaps in packed timetables. The course simulation always uses half-days.",
+  maxpw: "Most sessions one section may have in the makerspace per week.",
+  alloc: "Balanced: the school spreads the makerspace courses evenly over P1\u2013P4. Own period: each programme picks its period independently, so some periods get crowded.",
+  autumn: "When programmes pick their own period: the share of courses that end up in P1\u2013P2. The planning documents expect demand to peak in the autumn.",
+  bbusy: "Share of a bachelor cohort's daytime half-days already taken by other teaching, for a makerspace slot that has to recur every week. Measured from VT26/VT27 timetables: 0.93 (only 0.7 of 10 half-days are free in most weeks). 0.70 if bookings may move from week to week.",
+  bown: "Half-days per week that the makerspace course itself holds in the bachelor timetable (its own lecture, exercise or lab slots). A typical spring course has about 2. Also used for the course simulation's courses without known slots.",
+  busy: "Share of a master cohort's daytime taken by other teaching. No timetable data yet, so this is an assumption.",
+  corr: "How much programmes are busy at the same times. 0 = independent timetables, 1 = all busy in the same half-days, so more competition for the free ones. Measured 0.0\u20130.4 for the bachelor programmes.",
+  pw: "Weeks at the end of each period in which project sessions happen. Fewer weeks squeeze the same demand into a shorter time.",
+  minfree: "Half-days per week that a master course holds in its own timetable. Also used for the course simulation's master courses.",
+  hv: "Opening hours wanted for unsupervised work. Appendix E (safety): weekday evenings 17\u201321 and Saturdays. Education presentation: 17\u201323 and weekends.",
+  staff: "Makerspace staff, not course teachers. Every open hour needs one staff member and one student assistant (Appendix E). Budget: 0.3 operations manager + 1.0 technical manager.",
+  sa: "Student assistants in full-time equivalents. Budget: about 4 \u00d7 25%.",
+  supshare: "Share of staff time available for supervising open hours. The rest goes to maintenance, inductions, purchasing and administration.",
+  occ: "Average use of the open hours relative to full. Demand is peaky: busy before deadlines, quiet otherwise.",
+  noncourse: "Share of open-access capacity used for other things than course projects: student teams, theses, own projects.",
+  ppg: "How many members of a project group come to an open-access visit.",
+  ups: "How many users one supervisor (staff member or student assistant) can oversee during open hours.",
+  "sim-seed": "Random seed. It decides which half-days each course owns where they are not known, which half-days are booked for other use, and tie-breaks when placing groups. The same seed always gives the same result.",
+};
+function attachHelp(scope) {
+  for (const [id, txt] of Object.entries(HELP)) {
+    const lab = scope.querySelector(`label[for="${id}"]`);
+    if (lab && !lab.querySelector(".help")) lab.insertAdjacentHTML("beforeend", `<button type="button" class="help" data-help="${id}" aria-label="About this setting">?</button>`);
+  }
+}
+const helpBox = document.createElement("div");
+helpBox.id = "helpbox"; helpBox.setAttribute("role", "tooltip"); helpBox.hidden = true;
+document.body.appendChild(helpBox);
+function showHelp(btn) {
+  const txt = btn.dataset.helpText || HELP[btn.dataset.help];
+  if (!txt) return;
+  helpBox.textContent = txt; helpBox.hidden = false;
+  const r = btn.getBoundingClientRect(), b = helpBox.getBoundingClientRect();
+  let x = Math.min(Math.max(8, r.left + r.width / 2 - b.width / 2), innerWidth - b.width - 8);
+  let y = r.top - b.height - 8; if (y < 8) y = r.bottom + 8;
+  helpBox.style.left = x + "px"; helpBox.style.top = y + "px";
+  btn.setAttribute("aria-expanded", "true");
+}
+function hideHelp() { helpBox.hidden = true; document.querySelectorAll('.help[aria-expanded="true"]').forEach(b => b.setAttribute("aria-expanded", "false")); }
+document.addEventListener("pointerover", e => { const b = e.target.closest(".help"); if (b) showHelp(b); });
+document.addEventListener("pointerout", e => { if (e.target.closest(".help")) hideHelp(); });
+document.addEventListener("focusin", e => { const b = e.target.closest(".help"); if (b) showHelp(b); });
+document.addEventListener("focusout", e => { if (e.target.closest(".help")) hideHelp(); });
+document.addEventListener("click", e => { const b = e.target.closest(".help"); if (b) { e.preventDefault(); helpBox.hidden ? showHelp(b) : hideHelp(); } });
+document.addEventListener("keydown", e => { if (e.key === "Escape") hideHelp(); });
+document.addEventListener("scroll", hideHelp, true);
+attachHelp(document);
+document.querySelectorAll("#presets button").forEach(b => { b.title = D.scenarios[b.dataset.s].description; });
+
 let timer;
 document.querySelectorAll(".rail input, .rail select").forEach(el => el.addEventListener("input", () => {
   for (const b of $("presets").children) b.setAttribute("aria-pressed", "false");
@@ -1299,7 +1488,6 @@ function showTab(which) {
 }
 $("tabbtn-model").addEventListener("click", () => showTab("model"));
 $("tabbtn-sim").addEventListener("click", () => showTab("sim"));
-SimUI.init($("tab-sim"), D.sim);
 if (location.hash === "#simulation") showTab("sim");
 </script>
 

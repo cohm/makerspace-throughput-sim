@@ -1376,6 +1376,110 @@
      "LAB2"
     ],
     "level": "master"
+   },
+   {
+    "id": "BSC-THESIS",
+    "kind": "thesis",
+    "code": "SA114X, SA115X, SA120X, MF131X",
+    "activity": "Bachelor thesis projects (kandidatexjobb)",
+    "takers": [
+     {
+      "cohort": "CTFYS-3",
+      "share": 0.3
+     },
+     {
+      "cohort": "CTMAT-3",
+      "share": 0.2
+     },
+     {
+      "cohort": "CFATE-3",
+      "share": 0.5
+     }
+    ],
+    "periods": [
+     "P3",
+     "P4"
+    ],
+    "weeks": [
+     1,
+     7
+    ],
+    "group_size": 2,
+    "bench_h": 16,
+    "color": "#1C434C",
+    "motif": "thesis",
+    "text": "Thesis pairs that build an experiment, a rig or a prototype. Assumed: 30% of CTFYS, 20% of CTMAT and 50% of CFATE year-3 students, 16 h of bench time per pair over P3-P4.",
+    "course_name": "",
+    "modules": [],
+    "level": "bachelor"
+   },
+   {
+    "id": "MSC-THESIS",
+    "kind": "thesis",
+    "code": "Degree projects, second cycle",
+    "activity": "Master thesis projects (exjobb)",
+    "takers": [
+     {
+      "cohort": "TTFYM-2",
+      "share": 0.15
+     },
+     {
+      "cohort": "TAEEM-2",
+      "share": 0.15
+     },
+     {
+      "cohort": "TFORM-2",
+      "share": 0.15
+     },
+     {
+      "cohort": "TJVTM-2",
+      "share": 0.15
+     },
+     {
+      "cohort": "TMRSM-2",
+      "share": 0.15
+     },
+     {
+      "cohort": "TTEMM-2",
+      "share": 0.15
+     },
+     {
+      "cohort": "TTMAM-2",
+      "share": 0.15
+     },
+     {
+      "cohort": "CSSE-2",
+      "share": 0.15
+     },
+     {
+      "cohort": "TNEEM-2",
+      "share": 0.15
+     },
+     {
+      "cohort": "TBDVM-2",
+      "share": 0.15
+     },
+     {
+      "cohort": "MATH-2",
+      "share": 0.15
+     }
+    ],
+    "periods": [
+     "P3",
+     "P4"
+    ],
+    "weeks": [
+     1,
+     7
+    ],
+    "group_size": 1,
+    "bench_h": 24,
+    "color": "#323232",
+    "motif": "thesis",
+    "text": "Mostly individual degree projects in spring that need to build something at KTH (many are done in companies or research labs). Assumed: 15% of each SCI master year-2 cohort, 24 h of bench time each over P3-P4.",
+    "course_name": "",
+    "modules": [],
+    "level": "master"
    }
   ],
   "cohort_sizes": {

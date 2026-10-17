@@ -49,17 +49,27 @@ const SimCore = (() => {
     return { groups, sizes, sections, own, gs };
   }
 
+  const periodsOf = c => c.periods || [c.period];
+  const isThesis = c => c.kind === "thesis";
+
+  // Thesis bench visits are split over the entry's periods (earlier periods get the remainder).
+  function thesisVisits(c, per, rules) {
+    const ps = periodsOf(c), total = Math.ceil((c.bench_h || 0) / rules.visit_h), k = ps.indexOf(per);
+    return k < 0 ? 0 : Math.floor(total / ps.length) + (k < total % ps.length ? 1 : 0);
+  }
+
   function schedule(courses, rules, seed) {
     const W = rules.teaching_weeks;
     const out = { periods: {}, results: [] };
     let eid = 0;
     const prep = courses.map(c => prepare(c, rules, seed));
-    const sessionsNeeded = c => Math.ceil(c.sup_h / rules.session_h);
-    const visitsNeeded = c => Math.ceil(c.unsup_h / rules.visit_h);
+    const sessionsNeeded = c => isThesis(c) ? 0 : Math.ceil(c.sup_h / rules.session_h);
+    const visitsNeeded = c => isThesis(c) ? 0 : Math.ceil(c.unsup_h / rules.visit_h);
     const res = courses.map((c, i) => ({ id: c.id, students: c.n_students, groups: prep[i].groups, sizes: prep[i].sizes,
-      sections: prep[i].sections.length, own: prep[i].own,
+      sections: prep[i].sections.length, own: prep[i].own, thesis: isThesis(c),
       supReq: sessionsNeeded(c) * rules.session_h, unsupReq: visitsNeeded(c) * rules.visit_h,
-      supSessions: 0, groupSupSessions: 0, groupVisits: 0, supShort: 0, unsupShort: 0 }));
+      benchReq: isThesis(c) ? Math.ceil((c.bench_h || 0) / rules.visit_h) * rules.visit_h : 0,
+      supSessions: 0, groupSupSessions: 0, groupVisits: 0, benchVisits: 0, supShort: 0, unsupShort: 0, benchShort: 0 }));
 
     for (const per of ["P1", "P2", "P3", "P4"]) {
       const r = mulberry32(seed ^ hash(per));
@@ -69,21 +79,29 @@ const SimCore = (() => {
       const open = Array.from({ length: W }, () => OPEN_ROWS.map((_, j) => ({
         cap: rules.open_cap_persons, used: 0, open: openSet.has(j), events: [] })));
       const events = [];
-      const idx = courses.map((c, i) => i).filter(i => courses[i].period === per);
-      const win = i => [courses[i].weeks[0] - 1, Math.min(courses[i].weeks[1], W) - 1];
+      const idx = courses.map((c, i) => i).filter(i => periodsOf(courses[i]).includes(per));
+      const win = i => [Math.min(courses[i].weeks[0], W) - 1, Math.min(courses[i].weeks[1], W) - 1];
+      const cidx = idx.filter(i => !isThesis(courses[i])), tidx = idx.filter(i => isThesis(courses[i]));
 
       // Supervised: whole sections (groups + a teacher) in the course's own daytime half-days
       const secs = [];
-      for (const i of idx) prep[i].sections.forEach(g => {
+      for (const i of cidx) prep[i].sections.forEach(g => {
         const [w0, w1] = win(i);
         secs.push({ c: i, groups: g, persons: g.reduce((s, k) => s + prep[i].sizes[k], 0) + rules.teachers_per_section,
           need: sessionsNeeded(courses[i]), w0, w1 });
       });
       // Unsupervised: single groups (up to visit_members people) in staffed evening/Saturday slots
       const grs = [];
-      for (const i of idx) for (let g = 0; g < prep[i].groups; g++) {
+      for (const i of cidx) for (let g = 0; g < prep[i].groups; g++) {
         const [w0, w1] = win(i);
         grs.push({ c: i, g, persons: Math.min(rules.visit_members, prep[i].sizes[g]), need: visitsNeeded(courses[i]), w0, w1 });
+      }
+      // Theses: whole groups book any free daytime half-day after the courses; evenings as fallback
+      const ths = [];
+      for (const i of tidx) for (let g = 0; g < prep[i].groups; g++) {
+        const [w0, w1] = win(i);
+        ths.push({ c: i, g, persons: prep[i].sizes[g], evePersons: Math.min(rules.visit_members, prep[i].sizes[g]),
+          need: thesisVisits(courses[i], per, rules), w0, w1 });
       }
 
       for (let w = 0; w < W; w++) {
@@ -110,10 +128,34 @@ const SimCore = (() => {
             res[x.c].supSessions++; res[x.c].groupSupSessions += x.groups.length;
           }
         }
+        const ta = ths.filter(x => x.need > 0 && w >= x.w0 && w <= x.w1);
+        ta.forEach(x => { x.quota = Math.min(2, Math.ceil(x.need / (x.w1 - w + 1))); x.done = 0; x.used = new Set(); });
+        for (let round = 0; round < 2; round++) {
+          const order = shuffle(ta.slice(), r).sort((a, b) => b.need / (b.w1 - w + 1) - a.need / (a.w1 - w + 1));
+          for (const x of order) {
+            if (x.done >= x.quota || x.need === 0) continue;
+            let best = -1, bv = -1;
+            day[w].forEach((cell, s) => {
+              const free = cell.cap - cell.used;
+              if (cell.blocked || x.used.has(s) || free < x.persons) return;
+              const v = free + r() * 0.5;
+              if (v > bv) { bv = v; best = s; }
+            });
+            if (best < 0) continue;
+            const cell = day[w][best];
+            cell.used += x.persons;
+            const ev = { id: eid++, c: x.c, kind: "thesis", w, slot: best, groups: [x.g], persons: x.persons };
+            cell.events.push(ev); events.push(ev);
+            x.need--; x.done++; x.used.add(best);
+            res[x.c].benchVisits++;
+          }
+        }
         const ga = grs.filter(x => x.need > 0 && w >= x.w0 && w <= x.w1);
         ga.forEach(x => { x.quota = Math.ceil(x.need / (x.w1 - w + 1)); x.done = 0; x.used = new Set(); });
+        // thesis groups that missed their weekly quota in daytime try the evenings, after the courses
+        const te = ta.filter(x => x.done < x.quota && x.need > 0).map(x => ({ ...x, persons: x.evePersons, thesis: x, used: new Set() }));
         for (let round = 0; round < 2; round++) {
-          const order = shuffle(ga.slice(), r).sort((a, b) => b.need / (b.w1 - w + 1) - a.need / (a.w1 - w + 1));
+          const order = shuffle(ga.slice(), r).sort((a, b) => b.need / (b.w1 - w + 1) - a.need / (a.w1 - w + 1)).concat(round === 0 ? te : []);
           for (const x of order) {
             if (x.done >= x.quota || x.need === 0) continue;
             let best = -1, bv = -1;
@@ -125,15 +167,17 @@ const SimCore = (() => {
             if (best < 0) continue;
             const cell = open[w][best];
             cell.used += x.persons;
-            const ev = { id: eid++, c: x.c, kind: "unsup", w, slot: best, groups: [x.g], persons: x.persons };
+            const ev = { id: eid++, c: x.c, kind: x.thesis ? "thesis-eve" : "unsup", w, slot: best, groups: [x.g], persons: x.persons };
             cell.events.push(ev); events.push(ev);
             x.need--; x.done++; x.used.add(best);
-            res[x.c].groupVisits++;
+            if (x.thesis) { x.thesis.need--; x.thesis.done++; res[x.c].benchVisits++; }
+            else res[x.c].groupVisits++;
           }
         }
       }
       for (const x of secs) res[x.c].supShort += x.need * x.groups.length;
       for (const x of grs) res[x.c].unsupShort += x.need;
+      for (const x of ths) res[x.c].benchShort += x.need;
 
       const dayCap = day.flat().filter(c => !c.blocked).reduce((s, c) => s + c.cap, 0);
       const dayUsed = day.flat().reduce((s, c) => s + c.used, 0);
@@ -143,11 +187,12 @@ const SimCore = (() => {
     }
     out.results = res.map(x => ({ ...x,
       supGot: x.groupSupSessions / x.groups * rules.session_h,
-      unsupGot: x.groupVisits / x.groups * rules.visit_h }));
+      unsupGot: x.groupVisits / x.groups * rules.visit_h,
+      benchGot: x.benchVisits / x.groups * rules.visit_h }));
     return out;
   }
 
-  return { DAYS, HALF, OPEN_ROWS, mulberry32, hash, participants, prepare, schedule };
+  return { DAYS, HALF, OPEN_ROWS, mulberry32, hash, participants, prepare, schedule, periodsOf, isThesis, thesisVisits };
 })();
 
 const SimUI = (() => {
@@ -189,6 +234,7 @@ const SimUI = (() => {
     loop: c => `<rect x="34" y="18" width="82" height="66" rx="10" fill="none" stroke="${c}" stroke-width="7"/><rect x="34" y="18" width="82" height="66" rx="10" fill="none" ${S}/><rect x="26" y="58" width="16" height="22" fill="var(--critical)" ${S}/><path d="M78 12 L90 18 L78 24" fill="none" ${S}/>`,
     wearable: c => `<rect x="56" y="26" width="38" height="48" rx="10" fill="${c}" ${S}/><path d="M62 26 L66 6 L84 6 L88 26 M62 74 L66 94 L84 94 L88 74" fill="none" ${S}/><path d="M64 50 L70 50 L74 40 L78 60 L82 50 L86 50" fill="none" stroke="var(--sheet)" stroke-width="2.4"/>`,
     knot: c => `<path d="M75 16 C120 16 120 70 75 70 C40 70 30 40 60 30 C95 18 120 60 92 82 C70 98 30 84 38 56 C44 34 90 30 100 52" fill="none" stroke="${c}" stroke-width="6" stroke-linecap="round"/>`,
+    thesis: c => `<rect x="30" y="14" width="56" height="74" rx="3" fill="var(--sheet)" ${S}/><path d="M40 30 L76 30 M40 40 L76 40 M40 50 L66 50" stroke="var(--ink)" stroke-width="2"/><circle cx="102" cy="62" r="18" fill="${c}" ${S}/><circle cx="102" cy="62" r="6" fill="var(--sheet)" ${S}/><path d="M102 38 L102 44 M102 80 L102 86 M78 62 L84 62 M120 62 L126 62 M85 45 L89 49 M115 75 L119 79 M85 79 L89 75 M115 49 L119 45" ${S}/>`,
     origami: c => `<path d="M30 76 L75 18 L120 76 Z" fill="${c}" ${S}/><path d="M75 18 L75 76 M52 47 L98 47 M30 76 L98 47 M120 76 L52 47" stroke="var(--sheet)" stroke-width="1.6"/>`,
   };
 
@@ -231,7 +277,7 @@ const SimUI = (() => {
   }
 
   // ---- State
-  let D, rules, base, cohortSize = {}, over = {}, seed = 2027, mode = "course", period = "P1", revealed = new Set(), stepIdx = {}, sched, root;
+  let D, rules, base, cohortBase = {}, cohortSize = {}, shared = null, over = {}, seed = 2027, mode = "course", period = "P1", revealed = new Set(), stepIdx = {}, sched, root;
   const courses = () => base.map(c => {
     const o = over[c.id] || {};
     const merged = { ...c, ...o };
@@ -252,7 +298,8 @@ const SimUI = (() => {
 
   function courseOrder(p) {
     const cs = courses();
-    return sched.periods[p].courses.slice().sort((a, b) => cs[a].weeks[0] - cs[b].weeks[0] || a - b);
+    return sched.periods[p].courses.slice().sort((a, b) =>
+      (SimCore.isThesis(cs[a]) - SimCore.isThesis(cs[b])) || cs[a].weeks[0] - cs[b].weeks[0] || a - b);
   }
   function stepsOf(p) {
     const P = sched.periods[p];
@@ -270,14 +317,28 @@ const SimUI = (() => {
     }
   }
   function colorOf(ci) {
-    const P = sched.periods[courses()[ci].period];
-    return COLORS[P.courses.indexOf(ci) % COLORS.length];
+    const c = courses()[ci];
+    if (c.color) return c.color;
+    const P = sched.periods[SimCore.periodsOf(c)[0]];
+    return COLORS[P.courses.filter(i => !SimCore.isThesis(courses()[i])).indexOf(ci) % COLORS.length];
   }
   const fmt = v => (Math.round(v * 10) / 10).toString();
   function state(res) {
-    if (res.supShort === 0 && res.unsupShort === 0) return ["var(--good)", "fits"];
-    return res.supGot >= 0.75 * res.supReq ? ["var(--warning)", "squeezed"] : ["var(--critical)", "does not fit"];
+    if (res.supShort === 0 && res.unsupShort === 0 && res.benchShort === 0) return ["var(--good)", "fits"];
+    const got = res.thesis ? res.benchGot : res.supGot, req = res.thesis ? res.benchReq : res.supReq;
+    return got >= 0.75 * req ? ["var(--warning)", "squeezed"] : ["var(--critical)", "does not fit"];
   }
+  const CARD_HELP = {
+    students: "Participants. By default the sum over the programme-years that take the course (a share of each cohort). Type a number to override.",
+    group_size: "Students per project group (1\u201310). Groups are what the pieces on the board show.",
+    sup_h: "Hours per group in supervised daytime sessions. A whole section (about 24 students in whole groups, plus a teacher) comes at once, in the half-days the course owns in its timetable.",
+    unsup_h: "Hours per group of unsupervised work in the staffed evenings and on Saturdays, a few group members per visit.",
+    bench_h: "Makerspace hours each thesis group needs over the thesis, split over the periods. Groups book free daytime half-days after the courses, or evenings when the day is full.",
+    period: "Period of 2027/28 in which the makerspace activity takes place.",
+    w0: "First teaching week of the period in which the makerspace activity can take place.",
+    w1: "Last teaching week of the period in which the makerspace activity can take place.",
+  };
+  const helpBtn = key => `<button type="button" class="help" data-help-text="${CARD_HELP[key]}" aria-label="About this setting">?</button>`;
   const takersText = c => (c.takers || []).map(t => `${t.cohort} (${t.students != null ? t.students + " st" : Math.round((t.share ?? 1) * 100) + "%"})`).join(", ");
 
   // ---- Rendering
@@ -301,23 +362,35 @@ const SimUI = (() => {
       const anyPlaced = P.events.some(e => e.c === ci && revealed.has(period + ":" + e.id));
       const st = state(res);
       const w = c.weeks;
+      const th = SimCore.isThesis(c), W = rules.teaching_weeks;
       const mods = c.modules && c.modules.length ? c.modules.join(", ") : "no LAB/PRO module";
+      const inp = (key, label, attrs) => `<label>${label}${helpBtn(key)}<input type="number" ${attrs} data-f="${key}" id="sim-${c.id}-${key}"></label>`;
+      const weeksIn = inp("w0", "From week", `min="1" max="${W}" step="1" value="${Math.min(w[0], W)}"`) + inp("w1", "To week", `min="1" max="${W}" step="1" value="${Math.min(w[1], W)}"`);
+      const inputs = th
+        ? inp("students", "Students", `min="1" max="2000" step="1" value="${res.students}"`) +
+          inp("group_size", "Group size", `min="1" max="10" step="1" value="${c.group_size}"`) +
+          inp("bench_h", "Bench h", `min="0" max="200" step="4" value="${c.bench_h}"`) + weeksIn
+        : inp("students", "Students", `min="1" max="500" step="1" value="${res.students}"`) +
+          inp("group_size", "Group size", `min="1" max="10" step="1" value="${c.group_size}"`) +
+          inp("sup_h", "Supervised h", `min="0" max="40" step="4" value="${c.sup_h}"`) +
+          inp("unsup_h", "Unsuperv. h", `min="0" max="40" step="2" value="${c.unsup_h}"`) +
+          `<label>Period${helpBtn("period")}<select data-f="period" id="sim-${c.id}-period">${PERIODS.map(p => `<option${p === c.period ? " selected" : ""}>${p}</option>`).join("")}</select></label>` + weeksIn;
+      const meta = th
+        ? `${res.students} students \u00b7 ${res.groups} groups of up to ${c.group_size} \u00b7 ${SimCore.periodsOf(c).join("\u2013")}, weeks ${w[0]}\u2013${w[1]} of each \u00b7 any free daytime half-day, evenings as fallback`
+        : `${res.students} students \u00b7 ${res.groups} groups \u00b7 ${res.sections} section${res.sections === 1 ? "" : "s"} \u00b7 weeks ${w[0]}\u2013${w[1]} \u00b7 owns ${res.own.map(i => SimCore.HALF[i]).join(", ")}`;
+      const result = th
+        ? `bench time ${fmt(res.benchGot)} of ${res.benchReq} h per group`
+        : `supervised ${fmt(res.supGot)} of ${res.supReq} h \u00b7 unsupervised ${fmt(res.unsupGot)} of ${res.unsupReq} h`;
       return `<article class="sc${anyPlaced ? " broken" : ""}${ci === curC ? " current" : ""}" data-c="${ci}" style="--cc:${color}">
-        <div class="sc-head"><span class="sc-dot"></span><span class="sc-mock">Mock example</span><span class="sc-coh">${takersText(c)}</span></div>
+        <div class="sc-head"><span class="sc-dot"></span><span class="sc-mock">${th ? "Assumed numbers" : "Mock example"}</span><span class="sc-coh">${th ? (c.takers || []).length + " programme-years" : takersText(c)}</span></div>
         <div class="sc-course">${c.code} ${c.course_name || ""}</div>
         <h3>${c.activity}</h3>
         ${illustration(c, color, res.groups)}
         <p>${c.text}</p>
-        <div class="sc-meta">Syllabus: ${mods}${c.pick_note ? ` · ${c.pick_note}` : ""}</div>
-        <div class="sc-meta">${res.students} students · ${res.groups} groups · ${res.sections} section${res.sections === 1 ? "" : "s"} · weeks ${w[0]}–${w[1]} · owns ${res.own.map(i => SimCore.HALF[i]).join(", ")}</div>
-        <div class="sc-in">
-          <label>Students<input type="number" min="1" max="500" step="1" value="${res.students}" data-f="students" id="sim-${c.id}-students"></label>
-          <label>Group size<input type="number" min="1" max="10" step="1" value="${c.group_size}" data-f="group_size" id="sim-${c.id}-gs"></label>
-          <label>Supervised h<input type="number" min="0" max="40" step="4" value="${c.sup_h}" data-f="sup_h" id="sim-${c.id}-sup"></label>
-          <label>Unsuperv. h<input type="number" min="0" max="40" step="2" value="${c.unsup_h}" data-f="unsup_h" id="sim-${c.id}-unsup"></label>
-          <label>Period<select data-f="period" id="sim-${c.id}-period">${PERIODS.map(p => `<option${p === c.period ? " selected" : ""}>${p}</option>`).join("")}</select></label>
-        </div>
-        <div class="sc-res"><span class="pill"><i style="background:${st[0]}"></i>${st[1]}</span> supervised ${fmt(res.supGot)} of ${res.supReq} h · unsupervised ${fmt(res.unsupGot)} of ${res.unsupReq} h</div>
+        ${th ? "" : `<div class="sc-meta">Syllabus: ${mods}${c.pick_note ? ` \u00b7 ${c.pick_note}` : ""}</div>`}
+        <div class="sc-meta">${meta}</div>
+        <div class="sc-in">${inputs}</div>
+        <div class="sc-res"><span class="pill"><i style="background:${st[0]}"></i>${st[1]}</span> ${result}</div>
       </article>`;
     }).join("");
 
@@ -352,10 +425,11 @@ const SimUI = (() => {
     for (const e of cell.events) {
       const vis = revealed.has(period + ":" + e.id);
       const c = cs[e.c], color = colorOf(e.c), sizes = sched.results[e.c].sizes;
-      const what = e.kind === "sup" ? "supervised session" : "open-access visit";
+      const what = { sup: "supervised session", unsup: "open-access visit", thesis: "thesis bench time", "thesis-eve": "thesis bench time (evening)" }[e.kind];
+      const bg = e.kind.startsWith("thesis") ? `repeating-linear-gradient(135deg, ${color} 0 2px, color-mix(in srgb, ${color} 35%, var(--sheet)) 2px 4px)` : color;
       for (const g of e.groups) {
         const n = e.kind === "sup" ? sizes[g] : e.persons;
-        inner += `<span class="pc${vis ? "" : " hidden-pc"}" data-c="${e.c}" data-e="${e.id}" data-g="${g}" style="grid-column: span ${Math.min(n, UNITS)};background:${color}" title="${c.code} ${c.activity} · group ${g + 1} (${n} ${n === 1 ? "person" : "people"}) · ${what}"></span>`;
+        inner += `<span class="pc${vis ? "" : " hidden-pc"}" data-c="${e.c}" data-e="${e.id}" data-g="${g}" style="grid-column: span ${Math.min(n, UNITS)};background:${bg}" title="${c.code} ${c.activity} \u00b7 group ${g + 1} (${n} ${n === 1 ? "person" : "people"}) \u00b7 ${what}"></span>`;
       }
       if (e.kind === "sup") for (let t = 0; t < e.teachers; t++)
         inner += `<span class="pc teacher${vis ? "" : " hidden-pc"}" data-c="${e.c}" title="Teacher, ${c.code}"></span>`;
@@ -365,12 +439,13 @@ const SimUI = (() => {
 
   function renderSummary() {
     const cs = courses();
-    const rows = cs.map((c, i) => ({ c, r: sched.results[i] })).sort((a, b) => a.c.period.localeCompare(b.c.period) || a.c.id.localeCompare(b.c.id));
+    const rows = cs.map((c, i) => ({ c, r: sched.results[i] })).sort((a, b) =>
+      (SimCore.isThesis(a.c) - SimCore.isThesis(b.c)) || SimCore.periodsOf(a.c)[0].localeCompare(SimCore.periodsOf(b.c)[0]) || a.c.id.localeCompare(b.c.id));
     const pu = PERIODS.map(p => `${p}: daytime ${Math.round(sched.periods[p].dayUtil * 100)}%, open ${Math.round(sched.periods[p].openUtil * 100)}%`).join(" · ");
-    root.querySelector("#sim-summary").innerHTML = `<p class="sim-pu">Every activity below is a <b>mock example</b> attached to a real course. Place use per period: ${pu}</p><div class="tablewrap"><table><thead><tr><th>Period</th><th>Course</th><th>Mock activity</th><th>Taken by</th><th class="num">Students</th><th class="num">Group size</th><th class="num">Supervised h</th><th class="num">Unsupervised h</th><th>State</th></tr></thead><tbody>` +
+    root.querySelector("#sim-summary").innerHTML = `<p class="sim-pu">Every activity below is a <b>mock example</b> attached to a real course; thesis numbers are assumptions. Place use per period: ${pu}</p><div class="tablewrap"><table><thead><tr><th>Period</th><th>Course</th><th>Mock activity</th><th>Taken by</th><th class="num">Students</th><th class="num">Group size</th><th class="num">Supervised h</th><th class="num">Unsupervised h</th><th class="num">Thesis bench h</th><th>State</th></tr></thead><tbody>` +
       rows.map(({ c, r }) => {
-        const st = state(r);
-        return `<tr><td>${c.period}</td><td>${c.code} ${c.course_name || ""}</td><td>${c.activity}</td><td>${takersText(c)}</td><td class="num">${r.students}</td><td class="num">${c.group_size}</td><td class="num">${fmt(r.supGot)} / ${r.supReq}</td><td class="num">${fmt(r.unsupGot)} / ${r.unsupReq}</td><td><span class="pill"><i style="background:${st[0]}"></i>${st[1]}</span></td></tr>`;
+        const st = state(r), th = SimCore.isThesis(c);
+        return `<tr><td>${SimCore.periodsOf(c).join("\u2013")}</td><td>${c.code} ${c.course_name || ""}</td><td>${c.activity}</td><td>${th ? (c.takers || []).length + " programme-years" : takersText(c)}</td><td class="num">${r.students}</td><td class="num">${c.group_size}</td><td class="num">${th ? "\u2013" : fmt(r.supGot) + " / " + r.supReq}</td><td class="num">${th ? "\u2013" : fmt(r.unsupGot) + " / " + r.unsupReq}</td><td class="num">${th ? fmt(r.benchGot) + " / " + r.benchReq : "\u2013"}</td><td><span class="pill"><i style="background:${st[0]}"></i>${st[1]}</span></td></tr>`;
       }).join("") + `</tbody></table></div>`;
   }
 
@@ -418,9 +493,8 @@ const SimUI = (() => {
   function init(el, data) {
     root = el; D = data; rules = { ...data.rules, teaching_weeks: data.calendar.teaching_weeks };
     base = data.courses;
-    cohortSize = data.cohort_sizes;
+    cohortBase = data.cohort_sizes; cohortSize = { ...cohortBase };
     root.querySelector("#sim-seed").value = seed;
-    root.querySelector("#sim-open").value = rules.open_slots_per_week;
     recompute(true);
     render();
     root.addEventListener("click", e => {
@@ -442,13 +516,18 @@ const SimUI = (() => {
     root.addEventListener("change", e => {
       const t = e.target;
       if (t.id === "sim-seed") { seed = Math.max(0, Math.floor(+t.value || 0)); recompute(false); render(); return; }
-      if (t.id === "sim-open") { rules.open_slots_per_week = Math.max(0, Math.min(6, +t.value || 0)); recompute(false); render(); return; }
       const card = t.closest(".sc");
       if (card && t.dataset.f) {
         const c = courses()[+card.dataset.c];
-        let v = t.dataset.f === "period" ? t.value : Math.max(0, +t.value || 0);
-        if (t.dataset.f === "group_size") v = Math.max(1, Math.min(10, Math.round(v)));
-        over[c.id] = { ...(over[c.id] || {}), [t.dataset.f]: v };
+        const f = t.dataset.f;
+        let v = f === "period" ? t.value : Math.max(0, +t.value || 0);
+        if (f === "group_size") v = Math.max(1, Math.min(10, Math.round(v)));
+        if (f === "w0" || f === "w1") {
+          const W = rules.teaching_weeks, wk = [...c.weeks];
+          wk[f === "w0" ? 0 : 1] = Math.max(1, Math.min(W, Math.round(v) || 1));
+          if (wk[0] > wk[1]) wk[f === "w0" ? 1 : 0] = wk[f === "w0" ? 0 : 1];
+          over[c.id] = { ...(over[c.id] || {}), weeks: wk };
+        } else over[c.id] = { ...(over[c.id] || {}), [f]: v };
         recompute(false); render();
       }
     });
@@ -463,7 +542,29 @@ const SimUI = (() => {
     root.addEventListener("pointerleave", () => setFocus(""));
   }
 
-  return { init };
+  // Shared physical/operational assumptions from the Capacity model tab
+  function setShared(sh) {
+    if (!root) return;
+    const key = JSON.stringify(sh);
+    if (shared && JSON.stringify(shared) === key) return;
+    shared = sh;
+    for (const k of ["section_students", "teachers_per_section", "day_cap_persons", "day_available", "teaching_weeks",
+      "max_sessions_per_week", "open_slots_per_week", "open_cap_persons", "visit_members"]) rules[k] = sh[k];
+    rules.own_n = { ...sh.own_n };
+    cohortSize = Object.fromEntries(Object.entries(cohortBase).map(([k, v]) => [k, Math.max(1, Math.round(v * sh.cohort_scale))]));
+    root.querySelector("#sim-shared").innerHTML =
+      `<b>Shared with the Capacity model tab:</b> sections of ${sh.section_students} + ${sh.teachers_per_section} teacher${sh.teachers_per_section === 1 ? "" : "s"} \u00b7 ` +
+      `${sh.day_cap_persons} people per half-day \u00b7 ${Math.round(sh.day_available * 100)}% of half-days bookable \u00b7 ` +
+      `at most ${sh.max_sessions_per_week} sessions per section and week \u00b7 ${sh.teaching_weeks} weeks per period \u00b7 ` +
+      `courses own ${sh.own_n.bachelor} (bachelor) / ${sh.own_n.master} (master) half-days where not known \u00b7 cohort sizes \u00d7${sh.cohort_scale.toFixed(2)} \u00b7 ` +
+      `${(Math.round(sh.staffed_hours * 10) / 10)} staffed open hours a week \u2192 ${sh.open_slots_per_week} evening${sh.open_slots_per_week === 1 ? "" : "s"} of ${sh.open_cap_persons} people, ${sh.visit_members} member${sh.visit_members === 1 ? "" : "s"} per visit` +
+      `${sh.session_hours_model !== 4 ? " \u00b7 (the simulation always uses half-day sessions)" : ""}. ` +
+      `<button type="button" id="sim-goto-model">Change them there</button>`;
+    recompute(false);
+    render();
+  }
+
+  return { init, setShared };
 })();
 
 if (typeof module !== "undefined") module.exports = { SimCore };

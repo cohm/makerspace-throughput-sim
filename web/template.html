@@ -43,11 +43,11 @@
 body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--body); }
 .wrap { max-width: 1240px; margin: 0 auto; padding-block: 28px 56px;
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-header { display: grid; gap: 6px; margin-bottom: 22px; max-width: 100ch; }
+header { display: grid; gap: 6px; margin-bottom: 22px; }
 .eyebrow { font: 600 12px/1 var(--ui); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 h1 { font: 600 clamp(26px, 4vw, 36px)/1.15 var(--display); margin: 0; color: var(--accent); }
 h2 { font: 600 18px/1.25 var(--display); margin: 0; color: var(--accent); }
-.lede { color: var(--ink-2); margin: 4px 0 0; }
+.lede { color: var(--ink-2); margin: 4px 0 0; max-width: 120ch; }
 .grid { display: grid; grid-template-columns: 330px minmax(0, 1fr); gap: 22px; align-items: start; }
 @media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } }
 
@@ -122,6 +122,11 @@ code { font: 12.5px var(--mono); }
 /* Course simulation */
 .sim-intro { display: grid; gap: 6px; max-width: 100ch; margin-bottom: 14px; }
 .sim-intro p { margin: 0; color: var(--ink-2); }
+.help { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-left: 4px; padding: 0; border-radius: 50%; border: 1px solid var(--base); background: var(--sheet); color: var(--muted); font: 600 10.5px/1 var(--ui); cursor: help; vertical-align: 1px; }
+.help:hover, .help:focus-visible, .help[aria-expanded="true"] { border-color: var(--accent); color: var(--accent); outline: none; }
+#helpbox { position: fixed; z-index: 60; max-width: 300px; padding: 9px 11px; border-radius: 6px; background: var(--ink); color: var(--sheet); font: 12.5px/1.45 var(--ui); box-shadow: 0 4px 16px rgba(0,0,0,.18); pointer-events: none; }
+.sim-shared { font: 12.5px/1.45 var(--ui); color: var(--ink-2); padding: 8px 12px; border: 1px solid var(--rule); border-radius: 6px; background: var(--sheet); margin-bottom: 14px; }
+.sim-shared button { font: 600 12.5px var(--ui); color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
 .sim-disclaimer { padding: 10px 12px; border: 1.5px dashed var(--serious); border-radius: 6px; background: var(--sheet); color: var(--ink) !important; }
 .sim-bar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-bottom: 14px; font: 13px var(--ui); color: var(--ink-2); }
 .seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; background: var(--sheet); }
@@ -297,7 +302,7 @@ code { font: 12.5px var(--mono); }
     <div class="sim-intro">
       <h2>One makerspace course per programme-year, academic year 2027/28</h2>
       <p class="sim-disclaimer"><b>The activities on this tab were made up for throughput simulation.</b> The course coordinators have not been involved in this step, and nothing here is a proposal for their courses. Attaching plausible activities to real courses that already have lab or project modules still gives a useful first-order estimate of how much use the makerspace could support.</p>
-      <p> Each course's picture is split into its project groups. Step through a period, course by course or week by week. Each group then lands as a puzzle piece in the makerspace's slots. Supervised sessions take whole sections of 24 into the course's own daytime half-days. Unsupervised work goes into the staffed evenings, two group members per visit. Change students, group size, hours or period on any card. A new seed gives a slightly different year.</p>
+      <p> Each course's picture is split into its project groups. Step through a period, course by course or week by week. Each group then lands as a puzzle piece in the makerspace's slots. Supervised sessions take whole sections of 24 into the course's own daytime half-days. Unsupervised work goes into the staffed evenings, two group members per visit. Change students, group size, hours, period or weeks on any card. Rooms, staffing and section rules are shared with the Capacity model tab and set there. A new seed gives a slightly different year. Bachelor and master thesis groups also use free daytime capacity in P3 and P4.</p>
     </div>
     <div class="sim-bar">
       <div class="seg" id="sim-periods" role="group" aria-label="Period"></div>
@@ -308,8 +313,8 @@ code { font: 12.5px var(--mono); }
       <span id="sim-progress"></span>
       <label for="sim-seed">Seed<input id="sim-seed" type="number" min="0" step="1"></label>
       <button type="button" class="btn ghost" id="sim-shuffle">New seed</button>
-      <label for="sim-open">Staffed evenings/week<input id="sim-open" type="number" min="0" max="6" step="1"></label>
     </div>
+    <p class="sim-shared" id="sim-shared"></p>
     <div class="sim-grid">
       <div id="sim-cards" aria-label="Courses in this period"></div>
       <div class="panel">
@@ -325,7 +330,8 @@ code { font: 12.5px var(--mono); }
       <h2>How the simulation works</h2>
       <p><b>Courses:</b> one real course per programme-year from the 2026 programme syllabi on kth.se, mandatory or conditionally elective where possible and with LAB or PRO-type examination modules. The makerspace activities are invented. Participants are summed over the programme-years that take a course; for now each course has one taker with the whole cohort. Many courses are shared between programmes, and Ladok numbers can replace this later.</p>
       <p><b>Daytime:</b> each half-day holds 62 people (3203 plus the 3202 and 3D-studio side rooms). A section of about 24 students in whole groups, plus a teacher, meets only in the half-days its course owns in the timetable. These are taken from TimeEdit for SK1105 and SE1055, and drawn at random per seed for the others (2 for bachelor, 3 for master courses). Hatched cells are booked for other use (23% of half-days, as in the capacity model). Sessions are spread over the course's project weeks, at most 2 per section per week.</p>
-      <p><b>Evenings:</b> only staffed evenings are open, 4 by default (about 20 staffed hours a week with the budgeted staff). Each takes 40 people (two supervisors), and a group sends up to two members per visit. Courses marked "example" are invented but plausible projects. Period dates are approximate.</p>
+      <p><b>Evenings:</b> only staffed evenings are open. Their number follows from the staffing set on the Capacity model tab (staffed hours per week divided by 4 h, at most 6). Each takes as many people as the supervisors on duty can oversee, and a group sends the number of members per visit set there.</p>
+      <p><b>Theses:</b> bachelor theses (groups of two) and master theses (individual) in P3 and P4 book free daytime half-days after the courses have been placed, and use evenings when the day is full. Their numbers are assumptions: a share of each year-3 or master year-2 cohort uses the makerspace, with the bench hours shown on their cards. The capacity model has no thesis demand of its own; its "other daytime use" covers part of it. Courses marked "example" are invented but plausible projects. Period dates are approximate.</p>
     </section>
   </section>
 </div>
@@ -470,6 +476,23 @@ function update() {
   drawCurve(fh.curve, p.sim.success_threshold, fh.Y);
   drawBars(cohorts, sim.perCohortHours, plannedReal);
   drawMachines(mach);
+
+  // Shared physical and operational assumptions drive the course simulation too
+  SimUI.setShared({
+    section_students: p.course.section_size,
+    teachers_per_section: p.course.teachers_per_section,
+    day_cap_persons: fac.rooms.r3203.max_persons + (p.room.side_rooms_in_sessions ? fac.rooms.r3202.max_persons + fac.rooms.studio3d.max_persons : 0),
+    day_available: p.room.booking_efficiency * (1 - p.room.other_daytime_use),
+    teaching_weeks: p.calendar.teaching_weeks_per_period,
+    max_sessions_per_week: p.course.max_sessions_per_week,
+    open_slots_per_week: Math.max(0, Math.min(6, Math.floor(oa.hours / 4 + 1e-9))),
+    open_cap_persons: oa.simultaneous,
+    visit_members: p.open_access.persons_present_per_group,
+    own_n: { bachelor: p.timetable.by_level.bachelor.min_free_blocks, master: p.timetable.min_free_blocks },
+    cohort_scale: +$("scale").value,
+    staffed_hours: oa.hours,
+    session_hours_model: p.course.session_hours,
+  });
 }
 
 function drawCurve(curve, thr, Yg) {
@@ -542,6 +565,71 @@ const order = Object.keys(D.scenarios);
 $("presets").innerHTML = order.map(k => `<button type="button" data-s="${k}" aria-pressed="false">${D.scenarios[k].label}</button>`).join("");
 $("presets").addEventListener("click", e => { const b = e.target.closest("button"); if (b) loadPreset(b.dataset.s); });
 
+SimUI.init($("tab-sim"), D.sim);
+$("tab-sim").addEventListener("click", e => { if (e.target.closest("#sim-goto-model")) showTab("model"); });
+
+// Help texts: a "?" after each control's label, shown on hover, focus or tap
+const HELP = {
+  courses: "How many separate makerspace courses each programme-year takes per year. With 2, each course gets the hours shown, so demand doubles.",
+  scale: "Multiplies every cohort size. 1.0 = UHR admissions for HT25/HT26 with assumed retention, and for masters an assumed show-up rate plus students moving on from CTFYS, CTMAT and CFATE.",
+  group: "Students per project group. Sets how many groups there are, which drives open-access demand. Supervised sessions are counted per section, not per group.",
+  planned: "Supervised makerspace hours each course asks for per group. Used for the 'if all plan' figure and the per-programme bars.",
+  S: "Students taught together in one supervised session (a section). A cohort is split into sections, and each section needs its own session. Smaller sections fit more in parallel, but there are more of them.",
+  teach: "Teachers or teaching assistants present per section. They count towards the room's person limit.",
+  side: "Let a session also use 3202 (heavy fabrication, 8 people) and the 3D-printing studio (4 people) next to 3203 (50 people): 62 people at once.",
+  eff: "Share of daytime half-days that can actually be booked, after holidays, set-up and clean-up, and maintenance days.",
+  other: "Share of the bookable daytime used by others: outreach, inductions, theses, student teams. In the course simulation these appear as hatched cells.",
+  weeks: "Teaching weeks per period. A KTH period is about 7 weeks of teaching plus an exam week.",
+  L: "Length of one supervised session. 4 h is a half-day (08\u201312 or 13\u201317). 2 h blocks fit more easily into gaps in packed timetables. The course simulation always uses half-days.",
+  maxpw: "Most sessions one section may have in the makerspace per week.",
+  alloc: "Balanced: the school spreads the makerspace courses evenly over P1\u2013P4. Own period: each programme picks its period independently, so some periods get crowded.",
+  autumn: "When programmes pick their own period: the share of courses that end up in P1\u2013P2. The planning documents expect demand to peak in the autumn.",
+  bbusy: "Share of a bachelor cohort's daytime half-days already taken by other teaching, for a makerspace slot that has to recur every week. Measured from VT26/VT27 timetables: 0.93 (only 0.7 of 10 half-days are free in most weeks). 0.70 if bookings may move from week to week.",
+  bown: "Half-days per week that the makerspace course itself holds in the bachelor timetable (its own lecture, exercise or lab slots). A typical spring course has about 2. Also used for the course simulation's courses without known slots.",
+  busy: "Share of a master cohort's daytime taken by other teaching. No timetable data yet, so this is an assumption.",
+  corr: "How much programmes are busy at the same times. 0 = independent timetables, 1 = all busy in the same half-days, so more competition for the free ones. Measured 0.0\u20130.4 for the bachelor programmes.",
+  pw: "Weeks at the end of each period in which project sessions happen. Fewer weeks squeeze the same demand into a shorter time.",
+  minfree: "Half-days per week that a master course holds in its own timetable. Also used for the course simulation's master courses.",
+  hv: "Opening hours wanted for unsupervised work. Appendix E (safety): weekday evenings 17\u201321 and Saturdays. Education presentation: 17\u201323 and weekends.",
+  staff: "Makerspace staff, not course teachers. Every open hour needs one staff member and one student assistant (Appendix E). Budget: 0.3 operations manager + 1.0 technical manager.",
+  sa: "Student assistants in full-time equivalents. Budget: about 4 \u00d7 25%.",
+  supshare: "Share of staff time available for supervising open hours. The rest goes to maintenance, inductions, purchasing and administration.",
+  occ: "Average use of the open hours relative to full. Demand is peaky: busy before deadlines, quiet otherwise.",
+  noncourse: "Share of open-access capacity used for other things than course projects: student teams, theses, own projects.",
+  ppg: "How many members of a project group come to an open-access visit.",
+  ups: "How many users one supervisor (staff member or student assistant) can oversee during open hours.",
+  "sim-seed": "Random seed. It decides which half-days each course owns where they are not known, which half-days are booked for other use, and tie-breaks when placing groups. The same seed always gives the same result.",
+};
+function attachHelp(scope) {
+  for (const [id, txt] of Object.entries(HELP)) {
+    const lab = scope.querySelector(`label[for="${id}"]`);
+    if (lab && !lab.querySelector(".help")) lab.insertAdjacentHTML("beforeend", `<button type="button" class="help" data-help="${id}" aria-label="About this setting">?</button>`);
+  }
+}
+const helpBox = document.createElement("div");
+helpBox.id = "helpbox"; helpBox.setAttribute("role", "tooltip"); helpBox.hidden = true;
+document.body.appendChild(helpBox);
+function showHelp(btn) {
+  const txt = btn.dataset.helpText || HELP[btn.dataset.help];
+  if (!txt) return;
+  helpBox.textContent = txt; helpBox.hidden = false;
+  const r = btn.getBoundingClientRect(), b = helpBox.getBoundingClientRect();
+  let x = Math.min(Math.max(8, r.left + r.width / 2 - b.width / 2), innerWidth - b.width - 8);
+  let y = r.top - b.height - 8; if (y < 8) y = r.bottom + 8;
+  helpBox.style.left = x + "px"; helpBox.style.top = y + "px";
+  btn.setAttribute("aria-expanded", "true");
+}
+function hideHelp() { helpBox.hidden = true; document.querySelectorAll('.help[aria-expanded="true"]').forEach(b => b.setAttribute("aria-expanded", "false")); }
+document.addEventListener("pointerover", e => { const b = e.target.closest(".help"); if (b) showHelp(b); });
+document.addEventListener("pointerout", e => { if (e.target.closest(".help")) hideHelp(); });
+document.addEventListener("focusin", e => { const b = e.target.closest(".help"); if (b) showHelp(b); });
+document.addEventListener("focusout", e => { if (e.target.closest(".help")) hideHelp(); });
+document.addEventListener("click", e => { const b = e.target.closest(".help"); if (b) { e.preventDefault(); helpBox.hidden ? showHelp(b) : hideHelp(); } });
+document.addEventListener("keydown", e => { if (e.key === "Escape") hideHelp(); });
+document.addEventListener("scroll", hideHelp, true);
+attachHelp(document);
+document.querySelectorAll("#presets button").forEach(b => { b.title = D.scenarios[b.dataset.s].description; });
+
 let timer;
 document.querySelectorAll(".rail input, .rail select").forEach(el => el.addEventListener("input", () => {
   for (const b of $("presets").children) b.setAttribute("aria-pressed", "false");
@@ -559,6 +647,5 @@ function showTab(which) {
 }
 $("tabbtn-model").addEventListener("click", () => showTab("model"));
 $("tabbtn-sim").addEventListener("click", () => showTab("sim"));
-SimUI.init($("tab-sim"), D.sim);
 if (location.hash === "#simulation") showTab("sim");
 </script>
